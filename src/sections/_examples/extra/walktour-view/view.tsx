@@ -207,7 +207,7 @@ export function WalktourView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Walktour"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Walktour' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Walktour' }]}
           moreLink={['https://docs.react-joyride.com/']}
         />
       </ComponentHero>

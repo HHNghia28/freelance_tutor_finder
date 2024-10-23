@@ -87,7 +87,7 @@ export function ShadowsView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Shadows"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Shadows' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Shadows' }]}
         />
       </ComponentHero>
 

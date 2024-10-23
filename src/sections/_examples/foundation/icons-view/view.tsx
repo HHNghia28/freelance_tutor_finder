@@ -21,7 +21,7 @@ export function IconsView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Icons"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Icons' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Icons' }]}
           moreLink={[
             'https://mui.com/components/material-icons',
             'https://iconify.design/icon-sets',

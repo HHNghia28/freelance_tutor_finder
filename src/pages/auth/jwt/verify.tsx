@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 
 import { CONFIG } from 'src/config-global';
 
-import { CenteredVerifyView } from 'src/sections/auth-demo/centered';
+import { JwtVerifyView } from 'src/sections/auth/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <CenteredVerifyView />
+      <JwtVerifyView />
     </>
   );
 }

@@ -82,7 +82,7 @@ export function ColorsView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Color"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Color' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Color' }]}
           moreLink={['https://mui.com/customization/color', 'https://colors.eva.design']}
         />
       </ComponentHero>

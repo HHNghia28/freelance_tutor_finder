@@ -136,7 +136,7 @@ export function MapView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Map"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Map' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Map' }]}
           moreLink={[
             'http://visgl.github.io/react-map-gl',
             'http://visgl.github.io/react-map-gl/examples',

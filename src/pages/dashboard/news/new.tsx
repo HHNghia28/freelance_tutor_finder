@@ -1,12 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 
-import { CONFIG } from 'src/config-global';
-
-import { SplitVerifyView } from 'src/sections/auth-demo/split';
+import { UserCreateView } from 'src/sections/user/view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Verify | Layout split - ${CONFIG.site.name}` };
+const metadata = { title: `Đăng tin mới` };
 
 export default function Page() {
   return (
@@ -15,7 +13,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <SplitVerifyView />
+      <UserCreateView />
     </>
   );
 }

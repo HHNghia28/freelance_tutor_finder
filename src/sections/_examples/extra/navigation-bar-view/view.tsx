@@ -28,7 +28,7 @@ export function NavigationBarView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Navigation bar"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Navigation bar' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Navigation bar' }]}
         />
       </ComponentHero>
 

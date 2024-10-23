@@ -12,8 +12,6 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import { paths } from 'src/routes/paths';
-
 import { Iconify } from 'src/components/iconify';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
@@ -51,7 +49,7 @@ export function PopoverView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Popover"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Popover' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Popover' }]}
           moreLink={['https://mui.com/components/popover']}
         />
       </ComponentHero>

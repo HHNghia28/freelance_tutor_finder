@@ -35,7 +35,7 @@ export function ScrollProgressView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Scroll progress"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Scroll progress' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Scroll progress' }]}
         />
       </ComponentHero>
 

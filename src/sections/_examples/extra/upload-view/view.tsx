@@ -137,7 +137,7 @@ export function UploadView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Upload"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Upload' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Upload' }]}
           moreLink={['https://react-dropzone.js.org/#section-basic-example']}
         />
       </ComponentHero>

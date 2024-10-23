@@ -3,8 +3,6 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import { paths } from 'src/routes/paths';
-
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import { ComponentHero } from '../../component-hero';
@@ -95,7 +93,7 @@ export function SwitchView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Switch"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Switch' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Switch' }]}
           moreLink={['https://mui.com/components/switches']}
         />
       </ComponentHero>

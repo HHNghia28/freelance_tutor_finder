@@ -4,8 +4,6 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Paper from '@mui/material/Paper';
 
-import { paths } from 'src/routes/paths';
-
 import { useTabs } from 'src/hooks/use-tabs';
 
 import { Iconify } from 'src/components/iconify';
@@ -203,7 +201,7 @@ export function TabsView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Tabs"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Tabs' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Tabs' }]}
           moreLink={['https://mui.com/components/tabs']}
         />
       </ComponentHero>

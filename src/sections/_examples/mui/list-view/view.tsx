@@ -16,8 +16,6 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 
-import { paths } from 'src/routes/paths';
-
 import { Iconify } from 'src/components/iconify';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
@@ -336,7 +334,7 @@ export function ListView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="List"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Lists' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Lists' }]}
           moreLink={['https://mui.com/components/lists']}
         />
       </ComponentHero>

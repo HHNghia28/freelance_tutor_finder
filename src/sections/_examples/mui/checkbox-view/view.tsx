@@ -5,8 +5,6 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import { paths } from 'src/routes/paths';
-
 import { Iconify } from 'src/components/iconify';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
@@ -185,7 +183,7 @@ export function CheckboxView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Checkboxes"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Checkboxes' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Checkboxes' }]}
           moreLink={['https://mui.com/components/checkboxes']}
         />
       </ComponentHero>

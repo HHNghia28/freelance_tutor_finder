@@ -89,7 +89,7 @@ export function TypographyView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Typography"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Typography' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Typography' }]}
           moreLink={['https://mui.com/components/typography']}
         />
       </ComponentHero>

@@ -41,7 +41,7 @@ export function GridView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Grid"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Grid' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Grid' }]}
         />
       </ComponentHero>
 

@@ -443,7 +443,7 @@ export function ChartView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Chart"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Chart' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Chart' }]}
           moreLink={['https://apexcharts.com']}
         />
       </ComponentHero>

@@ -3,7 +3,6 @@ import type { ICheckoutItem, ICheckoutState, CheckoutContextValue } from 'src/ty
 
 import { useMemo, Suspense, useEffect, useCallback, createContext } from 'react';
 
-import { paths } from 'src/routes/paths';
 import { useRouter, useSearchParams } from 'src/routes/hooks';
 
 import { getStorage, useLocalStorage } from 'src/hooks/use-local-storage';
@@ -194,7 +193,7 @@ function Container({ children }: Props) {
   const onReset = useCallback(() => {
     if (completed) {
       resetState();
-      router.push(paths.product.root);
+      router.push('');
     }
   }, [completed, resetState, router]);
 
@@ -256,5 +255,5 @@ function createUrl(type: 'back' | 'next' | 'go', activeStep: number) {
 
   const stepParams = new URLSearchParams({ step: `${step}` }).toString();
 
-  return `${paths.product.checkout}?${stepParams}`;
+  return `${''}?${stepParams}`;
 }

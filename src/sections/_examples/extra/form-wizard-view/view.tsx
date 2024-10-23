@@ -14,7 +14,7 @@ export function FormWizardView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Form wizard"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Form wizard' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Form wizard' }]}
           moreLink={['https://react-hook-form.com', 'https://zod.dev']}
         />
       </ComponentHero>

@@ -184,7 +184,7 @@ export function AvatarView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Avatar"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Avatar' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Avatar' }]}
           moreLink={['https://mui.com/components/avatars']}
         />
       </ComponentHero>

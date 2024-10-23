@@ -1,5 +1,3 @@
-import { paths } from 'src/routes/paths';
-
 import { _mock } from 'src/_mock';
 
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
@@ -65,7 +63,7 @@ export function CarouselView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Carousel"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Carousel' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Carousel' }]}
           moreLink={['https://www.embla-carousel.com/']}
         />
       </ComponentHero>

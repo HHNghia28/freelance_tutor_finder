@@ -127,7 +127,7 @@ export function MarkdownView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Markdown"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Markdown' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Markdown' }]}
           moreLink={['https://www.npmjs.com/package/react-markdown']}
         />
       </ComponentHero>

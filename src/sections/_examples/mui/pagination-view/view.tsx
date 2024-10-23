@@ -147,7 +147,7 @@ export function PaginationView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Pagination"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Pagination' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Pagination' }]}
           moreLink={['https://mui.com/components/pagination']}
         />
       </ComponentHero>

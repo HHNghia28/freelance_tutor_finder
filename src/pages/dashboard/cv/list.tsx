@@ -1,12 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 
-import { CONFIG } from 'src/config-global';
-
-import { CenteredResetPasswordView } from 'src/sections/auth-demo/centered';
+import { UserListView } from 'src/sections/user/view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Reset password | Layout centered - ${CONFIG.site.name}` };
+const metadata = { title: `Quản lí CV` };
 
 export default function Page() {
   return (
@@ -15,7 +13,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <CenteredResetPasswordView />
+      <UserListView />
     </>
   );
 }

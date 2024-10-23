@@ -24,7 +24,7 @@ export function PickerView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Date Time Pickers"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Date Time Pickers' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Date Time Pickers' }]}
           moreLink={[
             'https://mui.com/components/pickers',
             'https://mui.com/x/react-date-pickers/getting-started/',

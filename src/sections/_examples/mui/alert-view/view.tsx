@@ -2,8 +2,6 @@ import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import AlertTitle from '@mui/material/AlertTitle';
 
-import { paths } from 'src/routes/paths';
-
 import { varAlpha } from 'src/theme/styles';
 
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
@@ -136,7 +134,7 @@ export function AlertView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Alert"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Alert' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Alert' }]}
           moreLink={['https://mui.com/components/alert']}
         />
       </ComponentHero>

@@ -1,12 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 
-import { CONFIG } from 'src/config-global';
-
-import { CenteredSignInView } from 'src/sections/auth-demo/centered';
+import { OrderListView } from 'src/sections/order/view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Sign in | Layout centered - ${CONFIG.site.name}` };
+const metadata = { title: `Quản lí thanh toán` };
 
 export default function Page() {
   return (
@@ -15,7 +13,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <CenteredSignInView />
+      <OrderListView />
     </>
   );
 }

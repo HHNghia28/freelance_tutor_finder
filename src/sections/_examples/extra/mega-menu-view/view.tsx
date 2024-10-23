@@ -16,7 +16,7 @@ export function MegaMenuView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Mega Menu"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Mega Menu' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Mega Menu' }]}
         />
       </ComponentHero>
 

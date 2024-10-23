@@ -45,7 +45,7 @@ export function DataGridView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="DataGrid"
-          links={[{ name: 'Components', href: paths.components }, { name: 'DataGrid' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'DataGrid' }]}
           moreLink={['https://mui.com/x/react-data-grid/']}
           sx={{ mb: 0 }}
         />

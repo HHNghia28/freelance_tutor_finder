@@ -8,8 +8,6 @@ import TimelineSeparator from '@mui/lab/TimelineSeparator';
 import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 
-import { paths } from 'src/routes/paths';
-
 import { varAlpha } from 'src/theme/styles';
 
 import { Iconify } from 'src/components/iconify';
@@ -251,7 +249,7 @@ export function TimelineView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Timeline"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Timeline' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Timeline' }]}
           moreLink={['https://mui.com/components/timeline']}
         />
       </ComponentHero>

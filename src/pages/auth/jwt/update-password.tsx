@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 
 import { CONFIG } from 'src/config-global';
 
-import { CenteredUpdatePasswordView } from 'src/sections/auth-demo/centered';
+import { JwtUpdatePasswordView } from 'src/sections/auth/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <CenteredUpdatePasswordView />
+      <JwtUpdatePasswordView />
     </>
   );
 }

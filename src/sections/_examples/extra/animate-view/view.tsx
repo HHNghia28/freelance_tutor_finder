@@ -2,8 +2,6 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 
-import { paths } from 'src/routes/paths';
-
 import { useTabs } from 'src/hooks/use-tabs';
 
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
@@ -36,7 +34,7 @@ export function AnimateView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Animate"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Animate' }]}
+          links={[{ name: 'Components' }, { name: 'Animate' }]}
           moreLink={['https://www.framer.com/api/motion']}
         />
       </ComponentHero>

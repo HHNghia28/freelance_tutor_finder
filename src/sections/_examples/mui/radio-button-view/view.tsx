@@ -5,8 +5,6 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import { paths } from 'src/routes/paths';
-
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import { ComponentHero } from '../../component-hero';
@@ -109,7 +107,7 @@ export function RadioButtonView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Radio Buttons"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Radio Buttons' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Radio Buttons' }]}
           moreLink={['https://mui.com/components/radio-buttons']}
         />
       </ComponentHero>
