@@ -6,8 +6,6 @@ import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { paths } from 'src/routes/paths';
-
 import { useDebounce } from 'src/hooks/use-debounce';
 
 import { orderBy } from 'src/utils/helper';
@@ -63,7 +61,7 @@ export function PostListHomeView({ posts, loading }: Props) {
           results={searchResults}
           onSearch={handleSearch}
           loading={searchLoading}
-          hrefItem={(title: string) => paths.post.details(title)}
+          hrefItem={(title: string) => ''}
         />
 
         <PostSort sort={sortBy} onSort={handleSortBy} sortOptions={POST_SORT_OPTIONS} />

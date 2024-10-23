@@ -152,7 +152,7 @@ export function JwtUpdatePasswordView() {
 
       <Link
         component={RouterLink}
-        href={paths.authDemo.centered.signIn}
+        href={paths.auth.jwt.signIn}
         color="inherit"
         variant="subtitle2"
         sx={{ mx: 'auto', alignItems: 'center', display: 'inline-flex' }}

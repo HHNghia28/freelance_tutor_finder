@@ -225,7 +225,7 @@ export function MultiLanguageView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Multi language"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Multi language' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Multi language' }]}
           moreLink={[
             'https://react.i18next.com',
             'https://mui.com/guides/localization/#main-content',

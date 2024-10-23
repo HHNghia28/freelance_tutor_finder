@@ -75,8 +75,16 @@ export const navData = [
       },
       {
         title: 'Thanh toán',
-        path: paths.dashboard.order.root,
+        path: paths.dashboard.payment,
         icon: ICONS.order,
+        // children: [
+        //   { title: 'List', path: paths.dashboard.order.root },
+        // ],
+      },
+      {
+        title: 'Duyệt CV',
+        path: paths.dashboard.cv,
+        icon: ICONS.job,
         // children: [
         //   { title: 'List', path: paths.dashboard.order.root },
         // ],

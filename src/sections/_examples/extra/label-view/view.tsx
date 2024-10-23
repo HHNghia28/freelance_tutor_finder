@@ -1,7 +1,5 @@
 import Tooltip from '@mui/material/Tooltip';
 
-import { paths } from 'src/routes/paths';
-
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
@@ -121,7 +119,7 @@ export function LabelView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Label"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Label' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Label' }]}
         />
       </ComponentHero>
 

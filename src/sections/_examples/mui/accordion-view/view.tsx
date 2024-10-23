@@ -5,8 +5,6 @@ import Typography from '@mui/material/Typography';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 
-import { paths } from 'src/routes/paths';
-
 import { _mock } from 'src/_mock';
 
 import { Iconify } from 'src/components/iconify';
@@ -90,7 +88,7 @@ export function AccordionView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Accordion"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Accordion' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Accordion' }]}
           moreLink={['https://mui.com/components/accordion']}
         />
       </ComponentHero>

@@ -10,8 +10,6 @@ import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 
-import { paths } from 'src/routes/paths';
-
 import { Iconify } from 'src/components/iconify';
 import { varHover } from 'src/components/animate';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
@@ -193,7 +191,7 @@ export function TooltipView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Tooltip"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Tooltip' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Tooltip' }]}
           moreLink={['https://mui.com/components/tooltips']}
         />
       </ComponentHero>

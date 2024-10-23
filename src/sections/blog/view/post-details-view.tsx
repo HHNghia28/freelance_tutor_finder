@@ -88,7 +88,7 @@ export function PostDetailsView({ post, loading, error }: Props) {
         <PostDetailsToolbar
           backLink={paths.dashboard.post.root}
           editLink={paths.dashboard.post.edit(`${post?.title}`)}
-          liveLink={paths.post.details(`${post?.title}`)}
+          liveLink=""
           publish={`${publish}`}
           onChangePublish={handleChangePublish}
           publishOptions={POST_PUBLISH_OPTIONS}

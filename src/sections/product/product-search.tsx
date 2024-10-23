@@ -10,7 +10,6 @@ import Typography from '@mui/material/Typography';
 import InputAdornment from '@mui/material/InputAdornment';
 import Autocomplete, { autocompleteClasses } from '@mui/material/Autocomplete';
 
-import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
 import { Iconify } from 'src/components/iconify';
@@ -29,7 +28,7 @@ export function ProductSearch({ query, results, onSearch, loading }: Props) {
   const router = useRouter();
 
   const handleClick = (id: string) => {
-    router.push(paths.product.details(id));
+    router.push('');
   };
 
   const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {

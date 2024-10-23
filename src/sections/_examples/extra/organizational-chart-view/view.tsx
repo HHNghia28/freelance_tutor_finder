@@ -25,7 +25,7 @@ export function OrganizationalChartView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Organizational chart"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Organizational chart' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Organizational chart' }]}
           moreLink={[
             'https://www.npmjs.com/package/react-organizational-chart',
             'https://daniel-hauser.github.io/react-organizational-chart/?path=/story/example-tree--basic',

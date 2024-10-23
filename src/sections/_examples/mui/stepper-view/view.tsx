@@ -1,5 +1,3 @@
-import { paths } from 'src/routes/paths';
-
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import { ComponentHero } from '../../component-hero';
@@ -53,7 +51,7 @@ export function StepperView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Stepper"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Stepper' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Stepper' }]}
           moreLink={['https://mui.com/components/steppers']}
         />
       </ComponentHero>

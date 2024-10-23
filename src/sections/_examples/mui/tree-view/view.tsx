@@ -1,5 +1,3 @@
-import { paths } from 'src/routes/paths';
-
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import { CustomIcons } from './custom-icon';
@@ -52,7 +50,7 @@ export function TreeView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Tree View"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Tree View' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Tree View' }]}
           moreLink={['https://mui.com/x/react-tree-view/']}
         />
       </ComponentHero>

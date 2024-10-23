@@ -1,5 +1,3 @@
-import { paths } from 'src/routes/paths';
-
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import { BasicTable } from './basic';
@@ -61,7 +59,7 @@ export function TableView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Table"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Table' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Table' }]}
           moreLink={['https://mui.com/components/tables']}
         />
       </ComponentHero>

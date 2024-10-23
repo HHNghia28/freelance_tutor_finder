@@ -20,7 +20,7 @@ export function DndView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Dnd"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Dnd' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Dnd' }]}
           moreLink={['https://docs.dndkit.com/']}
         />
       </ComponentHero>

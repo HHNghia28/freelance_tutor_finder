@@ -20,7 +20,7 @@ export function ScrollbarView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Scrollbar"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Scrollbar' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Scrollbar' }]}
         />
       </ComponentHero>
 

@@ -1,12 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 
-import { CONFIG } from 'src/config-global';
-
-import { JwtVerifyView } from 'src/sections/auth/jwt';
+import { OrderListView } from 'src/sections/order/view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Verify | Layout centered - ${CONFIG.site.name}` };
+const metadata = { title: `Quản lí thanh toán` };
 
 export default function Page() {
   return (
@@ -15,7 +13,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <JwtVerifyView />
+      <OrderListView />
     </>
   );
 }

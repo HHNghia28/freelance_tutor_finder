@@ -2,8 +2,6 @@ import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
 import Typography from '@mui/material/Typography';
 
-import { paths } from 'src/routes/paths';
-
 import { Iconify } from 'src/components/iconify';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
@@ -132,7 +130,7 @@ export function BadgeView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Badge"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Badge' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Badge' }]}
           moreLink={['https://mui.com/components/badges']}
         />
       </ComponentHero>

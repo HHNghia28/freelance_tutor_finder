@@ -69,7 +69,7 @@ export function ImageView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Image"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Image' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Image' }]}
         />
       </ComponentHero>
 

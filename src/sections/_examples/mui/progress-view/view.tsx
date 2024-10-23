@@ -1,7 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
 
-import { paths } from 'src/routes/paths';
-
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import { ProgressLinear } from './progress-linear';
@@ -68,7 +66,7 @@ export function ProgressView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Progress"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Progress' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Progress' }]}
           moreLink={['https://mui.com/components/progress']}
         />
       </ComponentHero>

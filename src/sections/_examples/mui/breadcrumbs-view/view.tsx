@@ -4,8 +4,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 
-import { paths } from 'src/routes/paths';
-
 import { Iconify } from 'src/components/iconify';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
@@ -105,7 +103,7 @@ export function BreadcrumbsView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Breadcrumbs"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Breadcrumbs' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Breadcrumbs' }]}
           moreLink={['https://mui.com/components/custom-breadcrumbs']}
         />
       </ComponentHero>

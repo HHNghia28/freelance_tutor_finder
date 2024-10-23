@@ -1,5 +1,3 @@
-import { paths } from 'src/routes/paths';
-
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import { FormDialog } from './form-dialog';
@@ -20,7 +18,7 @@ export function DialogView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Dialog"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Dialog' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Dialog' }]}
           moreLink={['https://mui.com/components/dialogs']}
         />
       </ComponentHero>

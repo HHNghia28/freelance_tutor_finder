@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
 
-import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
 import { Iconify } from 'src/components/iconify';
@@ -16,7 +15,7 @@ export function CartIcon({ totalItems }: Props) {
   return (
     <Box
       component={RouterLink}
-      href={paths.product.checkout}
+      href=""
       sx={{
         right: 0,
         top: 112,

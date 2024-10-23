@@ -12,7 +12,6 @@ import Typography from '@mui/material/Typography';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
 import { fShortenNumber } from 'src/utils/format-number';
@@ -51,7 +50,7 @@ export function PostDetailsHomeView({ post, latestPosts, loading, error }: Props
           action={
             <Button
               component={RouterLink}
-              href={paths.post.root}
+              href=""
               startIcon={<Iconify width={16} icon="eva:arrow-ios-back-fill" />}
               sx={{ mt: 3 }}
             >
@@ -78,11 +77,7 @@ export function PostDetailsHomeView({ post, latestPosts, loading, error }: Props
         sx={{ py: 3, mb: 5, borderBottom: (theme) => `solid 1px ${theme.vars.palette.divider}` }}
       >
         <CustomBreadcrumbs
-          links={[
-            { name: 'Home', href: '/' },
-            { name: 'Blog', href: paths.post.root },
-            { name: post?.title },
-          ]}
+          links={[{ name: 'Home', href: '/' }, { name: 'Blog', href: '' }, { name: post?.title }]}
           sx={{ maxWidth: 720, mx: 'auto' }}
         />
       </Container>

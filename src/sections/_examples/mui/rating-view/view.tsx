@@ -180,7 +180,7 @@ export function RatingView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Rating"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Rating' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Rating' }]}
           moreLink={['https://mui.com/components/rating']}
         />
       </ComponentHero>

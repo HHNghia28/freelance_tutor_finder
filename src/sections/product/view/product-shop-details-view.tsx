@@ -9,7 +9,6 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
 import { useTabs } from 'src/hooks/use-tabs';
@@ -78,7 +77,7 @@ export function ProductShopDetailsView({ product, error, loading }: Props) {
           action={
             <Button
               component={RouterLink}
-              href={paths.product.root}
+              href=""
               startIcon={<Iconify width={16} icon="eva:arrow-ios-back-fill" />}
               sx={{ mt: 3 }}
             >
@@ -96,11 +95,7 @@ export function ProductShopDetailsView({ product, error, loading }: Props) {
       <CartIcon totalItems={checkout.totalItems} />
 
       <CustomBreadcrumbs
-        links={[
-          { name: 'Home', href: '/' },
-          { name: 'Shop', href: paths.product.root },
-          { name: product?.name },
-        ]}
+        links={[{ name: 'Home', href: '/' }, { name: 'Shop', href: '' }, { name: product?.name }]}
         sx={{ mb: 5 }}
       />
 

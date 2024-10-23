@@ -10,7 +10,6 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
 
-import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
 import { fDate } from 'src/utils/format-time';
@@ -31,7 +30,7 @@ type PostItemProps = {
 export function PostItem({ post }: PostItemProps) {
   const theme = useTheme();
 
-  const linkTo = paths.post.details(post.title);
+  const linkTo = '';
 
   return (
     <Card>
@@ -96,7 +95,7 @@ type PostItemLatestProps = {
 export function PostItemLatest({ post, index }: PostItemLatestProps) {
   const theme = useTheme();
 
-  const linkTo = paths.post.details(post.title);
+  const linkTo = '';
 
   const postSmall = index === 1 || index === 2;
 

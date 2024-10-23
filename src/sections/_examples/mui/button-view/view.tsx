@@ -1,5 +1,3 @@
-import { paths } from 'src/routes/paths';
-
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import { IconButtons } from './icon-buttons';
@@ -29,7 +27,7 @@ export function ButtonView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Buttons"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Buttons' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Buttons' }]}
           moreLink={[
             'https://mui.com/components/buttons',
             'https://mui.com/components/button-group',

@@ -27,7 +27,7 @@ export function FormValidationView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Form validation"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Form validation' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Form validation' }]}
           moreLink={['https://react-hook-form.com', 'https://zod.dev']}
         />
       </ComponentHero>

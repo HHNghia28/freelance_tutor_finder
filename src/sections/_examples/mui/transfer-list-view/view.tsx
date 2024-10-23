@@ -1,5 +1,3 @@
-import { paths } from 'src/routes/paths';
-
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import { ComponentHero } from '../../component-hero';
@@ -35,7 +33,7 @@ export function TransferListView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Transfer List"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Transfer List' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Transfer List' }]}
           moreLink={['https://mui.com/components/transfer-list']}
         />
       </ComponentHero>

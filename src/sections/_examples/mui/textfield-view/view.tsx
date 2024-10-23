@@ -1,5 +1,3 @@
-import { paths } from 'src/routes/paths';
-
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import { Textfields } from './textfield';
@@ -20,7 +18,7 @@ export function TextfieldView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Textfield"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Textfield' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Textfield' }]}
           moreLink={['https://mui.com/components/text-fields']}
         />
       </ComponentHero>

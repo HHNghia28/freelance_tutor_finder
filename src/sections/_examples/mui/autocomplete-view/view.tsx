@@ -37,7 +37,7 @@ export function AutocompleteView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Autocomplete"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Autocomplete' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Autocomplete' }]}
           moreLink={['https://mui.com/components/autocomplete']}
         />
       </ComponentHero>

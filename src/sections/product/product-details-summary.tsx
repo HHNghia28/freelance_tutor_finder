@@ -14,7 +14,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { formHelperTextClasses } from '@mui/material/FormHelperText';
 
-import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
 import { fCurrency, fShortenNumber } from 'src/utils/format-number';
@@ -99,7 +98,7 @@ export function ProductDetailsSummary({
         onAddCart?.({ ...data, colors: [values.colors], subtotal: data.price * data.quantity });
       }
       onGotoStep?.(0);
-      router.push(paths.product.checkout);
+      router.push('');
     } catch (error) {
       console.error(error);
     }

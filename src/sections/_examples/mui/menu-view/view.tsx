@@ -7,8 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 
-import { paths } from 'src/routes/paths';
-
 import { Iconify } from 'src/components/iconify';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
@@ -82,7 +80,7 @@ export function MenuView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Menu"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Menu' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Menu' }]}
           moreLink={['https://mui.com/components/menus']}
         />
       </ComponentHero>

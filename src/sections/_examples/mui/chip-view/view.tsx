@@ -1,5 +1,3 @@
-import { paths } from 'src/routes/paths';
-
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import { Chips } from './chip';
@@ -20,7 +18,7 @@ export function ChipView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Chip"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Chip' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Chip' }]}
           moreLink={['https://mui.com/components/chips']}
         />
       </ComponentHero>

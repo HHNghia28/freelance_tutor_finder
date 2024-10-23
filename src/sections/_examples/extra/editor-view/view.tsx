@@ -48,7 +48,7 @@ export function EditorView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Editor"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Editor' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Editor' }]}
           moreLink={['https://tiptap.dev/docs/editor/introduction']}
         />
       </ComponentHero>

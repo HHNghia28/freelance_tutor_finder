@@ -24,7 +24,7 @@ export function UtilitiesView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Utilities"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Utilities' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Utilities' }]}
         />
       </ComponentHero>
 

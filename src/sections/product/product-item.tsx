@@ -7,7 +7,6 @@ import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 
-import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
 import { fCurrency } from 'src/utils/format-number';
@@ -31,7 +30,7 @@ export function ProductItem({ product }: Props) {
   const { id, name, coverUrl, price, colors, available, sizes, priceSale, newLabel, saleLabel } =
     product;
 
-  const linkTo = paths.product.details(id);
+  const linkTo = '';
 
   const handleAddCart = async () => {
     const newProduct = {

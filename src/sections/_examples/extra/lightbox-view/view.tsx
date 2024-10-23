@@ -10,8 +10,6 @@ import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import { paths } from 'src/routes/paths';
-
 import { _mock } from 'src/_mock';
 
 import { Image } from 'src/components/image';
@@ -70,7 +68,7 @@ export function LightboxView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Lightbox"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Lightbox' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Lightbox' }]}
           moreLink={['https://www.npmjs.com/package/yet-another-react-lightbox']}
         />
       </ComponentHero>

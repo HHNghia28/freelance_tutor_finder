@@ -35,7 +35,7 @@ export function SnackbarView() {
       <ComponentHero>
         <CustomBreadcrumbs
           heading="Snackbar"
-          links={[{ name: 'Components', href: paths.components }, { name: 'Snackbar' }]}
+          links={[{ name: 'Components', href: '' }, { name: 'Snackbar' }]}
           moreLink={['https://sonner.emilkowal.ski/']}
         />
       </ComponentHero>
