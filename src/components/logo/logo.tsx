@@ -16,10 +16,14 @@ import { logoClasses } from './classes';
 export type LogoProps = BoxProps & {
   href?: string;
   disableLink?: boolean;
+  animate?: boolean;
 };
 
 export const Logo = forwardRef<HTMLDivElement, LogoProps>(
-  ({ width = 40, height = 40, disableLink = false, className, href = '/', sx, ...other }, ref) => {
+  (
+    { animate, width = 40, height = 40, disableLink = false, className, href = '/', sx, ...other },
+    ref
+  ) => {
     const theme = useTheme();
 
     const gradientId = useId();
@@ -37,7 +41,13 @@ export const Logo = forwardRef<HTMLDivElement, LogoProps>(
 
     const logo = (
       <Typography variant="h5" sx={{ color: 'black' }}>
-        TutorFinder
+        {animate ? (
+          <>
+            Tutor <br /> Finder
+          </>
+        ) : (
+          'TutorFinder'
+        )}
       </Typography>
     );
 
