@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import { MenuItem } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -20,25 +21,50 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
 
-import { signUp } from 'src/auth/context/jwt';
 import { useAuthContext } from 'src/auth/hooks';
 
 // ----------------------------------------------------------------------
 
 export type SignUpSchemaType = zod.infer<typeof SignUpSchema>;
 
-export const SignUpSchema = zod.object({
-  firstName: zod.string().min(1, { message: 'First name is required!' }),
-  lastName: zod.string().min(1, { message: 'Last name is required!' }),
-  email: zod
-    .string()
-    .min(1, { message: 'Email is required!' })
-    .email({ message: 'Email must be a valid email address!' }),
-  password: zod
-    .string()
-    .min(1, { message: 'Password is required!' })
-    .min(6, { message: 'Password must be at least 6 characters!' }),
-});
+export const SignUpSchema = zod
+  .object({
+    username: zod.string().min(1, { message: 'Username là bắt buộc!' }),
+    email: zod
+      .string()
+      .min(1, { message: 'Email là bắt buộc!' })
+      .email({ message: 'Email không hợp lệ!' }),
+    password: zod
+      .string()
+      .min(1, { message: 'Mật khẩu là bắt buộc!' })
+      .min(6, { message: 'Mật khẩu ít nhất 6 kí tự!' }),
+    confirmPassword: zod
+      .string()
+      .min(1, { message: 'Nhập lại mật khẩu là bắt buộc!' })
+      .min(6, { message: 'Mật khẩu ít nhất 6 kí tự!' }),
+    gender: zod.string().min(1, { message: 'Giới tính là bắt buộc!' }),
+    location: zod.string().min(1, { message: 'Địa chỉ là bắt buộc!' }),
+    dateOfBirth: zod.string().min(1, { message: 'Ngày sinh là bắt buộc!' }),
+    placeOfWork: zod.string().min(1, { message: 'Nơi làm việc là bắt buộc!' }),
+    citizenId: zod.string().min(1, { message: 'Tỉnh/Thành phố là bắt buộc!' }),
+    role: zod.string().min(1, { message: 'Vai trò là bắt buộc!' }),
+    phoneNumber: zod
+      .string()
+      .min(1, { message: 'Số điện thoại là bắt buộc!' })
+      .refine(
+        (value) => {
+          const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/;
+          return phoneRegex.test(value);
+        },
+        {
+          message: 'Số điện thoại không hợp lệ',
+        }
+      ),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Mật khẩu không giống nhau!',
+    path: ['confirmPassword'], // path of error
+  });
 
 // ----------------------------------------------------------------------
 
@@ -48,12 +74,12 @@ export function JwtSignUpView() {
   const router = useRouter();
 
   const password = useBoolean();
+  const showConfirmPasswrod = useBoolean();
 
   const [errorMsg, setErrorMsg] = useState('');
 
   const defaultValues = {
-    firstName: 'Hello',
-    lastName: 'Friend',
+    fullName: 'Hello',
     email: 'hello@gmail.com',
     password: '@demo1',
   };
@@ -70,13 +96,15 @@ export function JwtSignUpView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await signUp({
-        email: data.email,
-        password: data.password,
-        firstName: data.firstName,
-        lastName: data.lastName,
-      });
-      await checkUserSession?.();
+      // await signUp({
+      //   email: data.email,
+      //   password: data.password,
+      //   firstName: data.firstName,
+      //   lastName: data.lastName,
+      // });
+      // await checkUserSession?.();
+
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
       router.refresh();
     } catch (error) {
@@ -85,17 +113,23 @@ export function JwtSignUpView() {
     }
   });
 
+  const renderLogo = (
+    <Typography variant="h3" sx={{ textAlign: 'center', mb: 4 }} gutterBottom>
+      Tutor Finder
+    </Typography>
+  );
+
   const renderHead = (
-    <Stack spacing={1.5} sx={{ mb: 5 }}>
-      <Typography variant="h5">Get started absolutely free</Typography>
+    <Stack alignItems="center" spacing={1.5} sx={{ mb: 5 }}>
+      <Typography variant="h5">Đăng kí tài khoản</Typography>
 
       <Stack direction="row" spacing={0.5}>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Already have an account?
+          Đã có tài khoản?
         </Typography>
 
         <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="subtitle2">
-          Sign in
+          Đăng nhập
         </Link>
       </Stack>
     </Stack>
@@ -103,17 +137,15 @@ export function JwtSignUpView() {
 
   const renderForm = (
     <Stack spacing={3}>
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-        <Field.Text name="firstName" label="First name" InputLabelProps={{ shrink: true }} />
-        <Field.Text name="lastName" label="Last name" InputLabelProps={{ shrink: true }} />
-      </Stack>
+      <Field.Text name="username" label="Username" InputLabelProps={{ shrink: true }} />
 
-      <Field.Text name="email" label="Email address" InputLabelProps={{ shrink: true }} />
+      <Field.Text name="email" label="Email" InputLabelProps={{ shrink: true }} />
+      <Field.Text name="phoneNumber" label="Số điện thoại" InputLabelProps={{ shrink: true }} />
 
       <Field.Text
         name="password"
-        label="Password"
-        placeholder="6+ characters"
+        label="Mật khẩu"
+        placeholder="6+ kí tự"
         type={password.value ? 'text' : 'password'}
         InputLabelProps={{ shrink: true }}
         InputProps={{
@@ -126,7 +158,47 @@ export function JwtSignUpView() {
           ),
         }}
       />
-
+      <Field.Text
+        name="confirmPassword"
+        label="Mật khẩu"
+        placeholder="6+ kí tự"
+        type={showConfirmPasswrod.value ? 'text' : 'password'}
+        InputLabelProps={{ shrink: true }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={showConfirmPasswrod.onToggle} edge="end">
+                <Iconify
+                  icon={showConfirmPasswrod.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
+                />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
+      <Field.RadioGroup
+        name="gender"
+        label="Giới tính"
+        row
+        options={[
+          {
+            value: 'male',
+            label: 'Nam',
+          },
+          {
+            value: 'female',
+            label: 'Nữ',
+          },
+        ]}
+      />
+      <Field.Text name="location" label="Địa chỉ" InputLabelProps={{ shrink: true }} />
+      <Field.Text name="placeOfWork" label="Nơi làm việc" InputLabelProps={{ shrink: true }} />
+      <Field.Select name="citizenId" label="Tỉnh/Thành phố" InputLabelProps={{ shrink: true }}>
+        <MenuItem>Cần Thơ</MenuItem>
+        <MenuItem>Hồ Chí Minh</MenuItem>
+        <MenuItem>Hồ Nội</MenuItem>
+      </Field.Select>
+      <Field.Text name="role" label="Vai trò" InputLabelProps={{ shrink: true }} />
       <LoadingButton
         fullWidth
         color="inherit"
@@ -134,50 +206,26 @@ export function JwtSignUpView() {
         type="submit"
         variant="contained"
         loading={isSubmitting}
-        loadingIndicator="Create account..."
+        loadingIndicator="Đăng kí..."
       >
-        Create account
+        Đăng kí
       </LoadingButton>
     </Stack>
   );
 
-  const renderTerms = (
-    <Typography
-      component="div"
-      sx={{
-        mt: 3,
-        textAlign: 'center',
-        typography: 'caption',
-        color: 'text.secondary',
-      }}
-    >
-      {'By signing up, I agree to '}
-      <Link underline="always" color="text.primary">
-        Terms of service
-      </Link>
-      {' and '}
-      <Link underline="always" color="text.primary">
-        Privacy policy
-      </Link>
-      .
-    </Typography>
-  );
-
   return (
     <>
-      {renderHead}
+      {renderLogo}
 
+      {renderHead}
       {!!errorMsg && (
         <Alert severity="error" sx={{ mb: 3 }}>
           {errorMsg}
         </Alert>
       )}
-
       <Form methods={methods} onSubmit={onSubmit}>
         {renderForm}
       </Form>
-
-      {renderTerms}
     </>
   );
 }

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Link from '@mui/material/Link';
-import Alert from '@mui/material/Alert';
+import { Alert } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -30,12 +30,12 @@ export type SignInSchemaType = zod.infer<typeof SignInSchema>;
 export const SignInSchema = zod.object({
   email: zod
     .string()
-    .min(1, { message: 'Email is required!' })
-    .email({ message: 'Email must be a valid email address!' }),
+    .min(1, { message: 'Email là bắt buộc!' })
+    .email({ message: 'Email không hợp lệ!' }),
   password: zod
     .string()
-    .min(1, { message: 'Password is required!' })
-    .min(6, { message: 'Password must be at least 6 characters!' }),
+    .min(1, { message: 'Mật khẩu là bắt buộc!' })
+    .min(6, { message: 'Mật khẩu ít nhất 6 kí tự!' }),
 });
 
 // ----------------------------------------------------------------------
@@ -50,8 +50,8 @@ export function JwtSignInView() {
   const password = useBoolean();
 
   const defaultValues = {
-    email: 'demo@minimals.cc',
-    password: '@demo1',
+    email: 'g1food.fpt@gmail.com',
+    password: 'aA@123',
   };
 
   const methods = useForm<SignInSchemaType>({
@@ -76,17 +76,23 @@ export function JwtSignInView() {
     }
   });
 
+  const renderLogo = (
+    <Typography variant="h3" sx={{ textAlign: 'center', mb: 4 }} gutterBottom>
+      Tutor Finder
+    </Typography>
+  );
+
   const renderHead = (
-    <Stack spacing={1.5} sx={{ mb: 5 }}>
-      <Typography variant="h5">Sign in to your account</Typography>
+    <Stack alignItems="center" spacing={1.5} sx={{ mb: 5 }}>
+      <Typography variant="h5">Đăng nhập</Typography>
 
       <Stack direction="row" spacing={0.5}>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {`Don't have an account?`}
+          Chưa có tài khoản?
         </Typography>
 
         <Link component={RouterLink} href={paths.auth.jwt.signUp} variant="subtitle2">
-          Get started
+          Đăng ký
         </Link>
       </Stack>
     </Stack>
@@ -94,23 +100,23 @@ export function JwtSignInView() {
 
   const renderForm = (
     <Stack spacing={3}>
-      <Field.Text name="email" label="Email address" InputLabelProps={{ shrink: true }} />
+      <Field.Text name="email" label="Email" InputLabelProps={{ shrink: true }} />
 
       <Stack spacing={1.5}>
         <Link
           component={RouterLink}
-          href="#"
+          href={paths.auth.jwt.resetPassword}
           variant="body2"
           color="inherit"
           sx={{ alignSelf: 'flex-end' }}
         >
-          Forgot password?
+          Quên mật khẩu?
         </Link>
 
         <Field.Text
           name="password"
-          label="Password"
-          placeholder="6+ characters"
+          label="Mật khẩu"
+          placeholder="6+ kí tự"
           type={password.value ? 'text' : 'password'}
           InputLabelProps={{ shrink: true }}
           InputProps={{
@@ -132,22 +138,18 @@ export function JwtSignInView() {
         type="submit"
         variant="contained"
         loading={isSubmitting}
-        loadingIndicator="Sign in..."
+        loadingIndicator="Đang đăng nhập..."
       >
-        Sign in
+        Đăng nhập
       </LoadingButton>
     </Stack>
   );
 
   return (
     <>
-      {renderHead}
+      {renderLogo}
 
-      <Alert severity="info" sx={{ mb: 3 }}>
-        Use <strong>{defaultValues.email}</strong>
-        {' with password '}
-        <strong>{defaultValues.password}</strong>
-      </Alert>
+      {renderHead}
 
       {!!errorMsg && (
         <Alert severity="error" sx={{ mb: 3 }}>
