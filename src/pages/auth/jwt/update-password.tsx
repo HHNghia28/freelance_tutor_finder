@@ -1,10 +1,12 @@
 import { Helmet } from 'react-helmet-async';
 
-import { JwtSignInView } from 'src/sections/auth/jwt';
+import { CONFIG } from 'src/config-global';
+
+import { CenteredUpdatePasswordView } from 'src/sections/auth-demo/centered';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Đăng nhập` };
+const metadata = { title: `Update password | Layout centered - ${CONFIG.site.name}` };
 
 export default function Page() {
   return (
@@ -13,7 +15,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <JwtSignInView />
+      <CenteredUpdatePasswordView />
     </>
   );
 }

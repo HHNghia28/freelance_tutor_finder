@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 
-import { JwtSignInView } from 'src/sections/auth/jwt';
+import { JwtResetPasswordView } from 'src/sections/auth/jwt';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Đăng nhập` };
+const metadata = { title: `Đặt lại mật khẩu` };
 
 export default function Page() {
   return (
@@ -13,7 +13,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <JwtSignInView />
+      <JwtResetPasswordView />
     </>
   );
 }
