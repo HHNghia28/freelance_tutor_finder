@@ -71,7 +71,30 @@ export const paths = {
   },
   // DASHBOARD
   dashboard: {
+    /* -------------------------------------------- */
+    /*                    MY APP                    */
+    /* -------------------------------------------- */
     root: ROOTS.DASHBOARD,
+    account: {
+      list: `${ROOTS.DASHBOARD}/account`,
+      new: `${ROOTS.DASHBOARD}/account/new`,
+      edit: (id: any) => `${ROOTS.DASHBOARD}/account/${id}/edit`,
+    },
+    news: {
+      list: `${ROOTS.DASHBOARD}/news`,
+      new: `${ROOTS.DASHBOARD}/news/new`,
+      edit: (id: any) => `${ROOTS.DASHBOARD}/news/${id}/edit`,
+    },
+    payment: {
+      list: `${ROOTS.DASHBOARD}/payment`,
+      new: `${ROOTS.DASHBOARD}/payment/new`,
+      edit: (id: any) => `${ROOTS.DASHBOARD}/payment/${id}/edit`,
+    },
+    cv: `${ROOTS.DASHBOARD}/cv`,
+
+    /* -------------------------------------------- */
+    /*                  END MY APP                  */
+    /* -------------------------------------------- */
     mail: `${ROOTS.DASHBOARD}/mail`,
     chat: `${ROOTS.DASHBOARD}/chat`,
     blank: `${ROOTS.DASHBOARD}/blank`,

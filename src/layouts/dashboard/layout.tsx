@@ -11,7 +11,6 @@ import { iconButtonClasses } from '@mui/material/IconButton';
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { allLangs } from 'src/locales';
-import { _contacts, _notifications } from 'src/_mock';
 import { varAlpha, stylesMode } from 'src/theme/styles';
 
 import { bulletColor } from 'src/components/nav-section';
@@ -24,7 +23,6 @@ import { NavVertical } from './nav-vertical';
 import { NavHorizontal } from './nav-horizontal';
 import { _account } from '../config-nav-account';
 import { HeaderBase } from '../core/header-base';
-import { _workspaces } from '../config-nav-workspace';
 import { LayoutSection } from '../core/layout-section';
 import { navData as dashboardNavData } from '../config-nav-dashboard';
 
@@ -79,14 +77,15 @@ export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
               nav: navData,
               langs: allLangs,
               account: _account,
-              contacts: _contacts,
-              workspaces: _workspaces,
-              notifications: _notifications,
             }}
             slotsDisplay={{
               signIn: false,
               purchase: false,
               helpLink: false,
+              contacts: false,
+              localization: false,
+              notifications: false,
+              workspaces: false,
             }}
             slots={{
               topArea: (

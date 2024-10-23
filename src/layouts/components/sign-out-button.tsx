@@ -40,7 +40,7 @@ export function SignOutButton({ onClose, ...other }: Props) {
       router.refresh();
     } catch (error) {
       console.error(error);
-      toast.error('Unable to logout!');
+      toast.error('Không thể đăng xuất!');
     }
   }, [checkUserSession, onClose, router]);
 
@@ -52,7 +52,7 @@ export function SignOutButton({ onClose, ...other }: Props) {
       router.refresh();
     } catch (error) {
       console.error(error);
-      toast.error('Unable to logout!');
+      toast.error('Không thể đăng xuất!');
     }
   }, [onClose, router, signOutAuth0]);
 
@@ -65,7 +65,7 @@ export function SignOutButton({ onClose, ...other }: Props) {
       onClick={CONFIG.auth.method === 'auth0' ? handleLogoutAuth0 : handleLogout}
       {...other}
     >
-      Logout
+      Đăng xuất
     </Button>
   );
 }
