@@ -1,8 +1,6 @@
 import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 
-import { paths } from 'src/routes/paths';
-
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 import { OrganizationalChart } from 'src/components/organizational-chart';
 

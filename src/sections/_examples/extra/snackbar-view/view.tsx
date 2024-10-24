@@ -2,8 +2,6 @@ import type { ToastT } from 'src/components/snackbar';
 
 import Button from '@mui/material/Button';
 
-import { paths } from 'src/routes/paths';
-
 import { toast } from 'src/components/snackbar';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 

@@ -1,5 +1,3 @@
-import { paths } from 'src/routes/paths';
-
 import { _mock } from 'src/_mock';
 
 import { Markdown } from 'src/components/markdown';
