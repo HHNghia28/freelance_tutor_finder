@@ -22,10 +22,12 @@ const NewsCreatePage = lazy(() => import('src/pages/dashboard/news/new'));
 const PaymentListPage = lazy(() => import('src/pages/dashboard/payment/list'));
 // Cv
 const CvListPage = lazy(() => import('src/pages/dashboard/cv/list'));
+// Tutor news
+const TutorNewsListPage = lazy(() => import('src/pages/guest/news/list'));
+const TutorNewsDetailsPage = lazy(() => import('src/pages/guest/news/details'));
 // Tutor
-const TutorListPage = lazy(() => import('src/pages/guest/news/list'));
-const TutorDetailsPage = lazy(() => import('src/pages/guest/news/details'));
-
+const TutorListPage = lazy(() => import('src/pages/guest/tutor/list'));
+const TutorDetailsPage = lazy(() => import('src/pages/guest/tutor/details'));
 // ----------------------------------------------------------------------
 
 const layoutContent = (
@@ -44,6 +46,14 @@ export const dashboardRoutes = [
       { element: <IndexPage />, index: true },
       {
         path: 'tin-tuc-gia-su',
+        children: [
+          { element: <TutorNewsListPage />, index: true },
+          { path: ':slug', element: <TutorNewsDetailsPage /> },
+          // { path: ':id/edit', element: <UserEditPage /> },
+        ],
+      },
+      {
+        path: 'tim-gia-su',
         children: [
           { element: <TutorListPage />, index: true },
           { path: ':slug', element: <TutorDetailsPage /> },

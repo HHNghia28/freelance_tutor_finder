@@ -47,7 +47,10 @@ export const navData = [
    */
   {
     subheader: 'Người dùng',
-    items: [{ title: 'Tin tức', path: paths.guest.news.list, icon: ICONS.dashboard }],
+    items: [
+      { title: 'Tin tức', path: paths.guest.news.list, icon: ICONS.dashboard },
+      { title: 'Gia sư', path: paths.guest.tutor.list, icon: ICONS.booking },
+    ],
   },
   /**
    * Overview
