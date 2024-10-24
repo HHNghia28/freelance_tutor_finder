@@ -15,8 +15,6 @@ import TablePagination from '@mui/material/TablePagination';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import { paths } from 'src/routes/paths';
-
 import { fDate } from 'src/utils/format-time';
 import { fData, fNumber, fPercent, fCurrency, fShortenNumber } from 'src/utils/format-number';
 

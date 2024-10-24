@@ -3,8 +3,6 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import CardContent from '@mui/material/CardContent';
 
-import { paths } from 'src/routes/paths';
-
 import { varAlpha } from 'src/theme/styles';
 
 import { Scrollbar } from 'src/components/scrollbar';
