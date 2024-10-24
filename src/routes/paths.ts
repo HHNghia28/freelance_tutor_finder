@@ -39,6 +39,10 @@ export const paths = {
       list: `${ROOTS.DASHBOARD}/tin-tuc-gia-su`,
       details: (slug: any) => `${ROOTS.DASHBOARD}/tin-tuc-gia-su/${slug}`,
     },
+    tutor: {
+      list: `${ROOTS.DASHBOARD}/tim-gia-su`,
+      details: (slug: any) => `${ROOTS.DASHBOARD}/tim-gia-su/${slug}`,
+    },
   },
 
   // DASHBOARD
