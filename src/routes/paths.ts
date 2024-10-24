@@ -34,6 +34,12 @@ export const paths = {
       resetPassword: `${ROOTS.AUTH}/jwt/reset-password`,
     },
   },
+  guest: {
+    news: {
+      list: `${ROOTS.DASHBOARD}/tin-tuc-gia-su`,
+      details: (slug: any) => `${ROOTS.DASHBOARD}/tin-tuc-gia-su/${slug}`,
+    },
+  },
 
   // DASHBOARD
   dashboard: {

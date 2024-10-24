@@ -22,6 +22,9 @@ const NewsCreatePage = lazy(() => import('src/pages/dashboard/news/new'));
 const PaymentListPage = lazy(() => import('src/pages/dashboard/payment/list'));
 // Cv
 const CvListPage = lazy(() => import('src/pages/dashboard/cv/list'));
+// Tutor
+const TutorListPage = lazy(() => import('src/pages/guest/news/list'));
+const TutorDetailsPage = lazy(() => import('src/pages/guest/news/details'));
 
 // ----------------------------------------------------------------------
 
@@ -39,6 +42,14 @@ export const dashboardRoutes = [
     element: CONFIG.auth.skip ? <>{layoutContent}</> : <AuthGuard>{layoutContent}</AuthGuard>,
     children: [
       { element: <IndexPage />, index: true },
+      {
+        path: 'tin-tuc-gia-su',
+        children: [
+          { element: <TutorListPage />, index: true },
+          { path: ':slug', element: <TutorDetailsPage /> },
+          // { path: ':id/edit', element: <UserEditPage /> },
+        ],
+      },
       {
         path: 'account',
         children: [
