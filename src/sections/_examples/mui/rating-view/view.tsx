@@ -5,8 +5,6 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 
-import { paths } from 'src/routes/paths';
-
 import { Iconify } from 'src/components/iconify';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 

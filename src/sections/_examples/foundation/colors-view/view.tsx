@@ -3,8 +3,6 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useTheme, hexToRgb } from '@mui/material/styles';
 
-import { paths } from 'src/routes/paths';
-
 import { useCopyToClipboard } from 'src/hooks/use-copy-to-clipboard';
 
 import { toast } from 'src/components/snackbar';

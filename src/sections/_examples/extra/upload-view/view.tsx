@@ -5,8 +5,6 @@ import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import { paths } from 'src/routes/paths';
-
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { fData } from 'src/utils/format-number';

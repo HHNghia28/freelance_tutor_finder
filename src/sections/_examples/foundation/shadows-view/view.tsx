@@ -4,8 +4,6 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { useTheme } from '@mui/material/styles';
 
-import { paths } from 'src/routes/paths';
-
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import { ComponentHero } from '../../component-hero';

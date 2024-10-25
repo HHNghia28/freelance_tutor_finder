@@ -1,7 +1,5 @@
 import { styled } from '@mui/material/styles';
 
-import { paths } from 'src/routes/paths';
-
 import { cities as CITIES } from 'src/_mock/_map/cities';
 import { countries as COUNTRIES } from 'src/_mock/_map/countries';
 

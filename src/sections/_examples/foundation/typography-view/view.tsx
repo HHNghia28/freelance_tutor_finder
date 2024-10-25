@@ -7,8 +7,6 @@ import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
-import { paths } from 'src/routes/paths';
-
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import { remToPx } from 'src/theme/styles';
