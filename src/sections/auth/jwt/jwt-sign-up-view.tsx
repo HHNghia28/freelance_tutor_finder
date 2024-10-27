@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { Box } from '@mui/material';
 import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-import { MenuItem } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -17,6 +17,8 @@ import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/use-boolean';
+
+import { register } from 'src/actions/auth';
 
 import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
@@ -29,7 +31,7 @@ export type SignUpSchemaType = zod.infer<typeof SignUpSchema>;
 
 export const SignUpSchema = zod
   .object({
-    username: zod.string().min(1, { message: 'Username là bắt buộc!' }),
+    // username: zod.string().min(1, { message: 'Username là bắt buộc!' }),
     email: zod
       .string()
       .min(1, { message: 'Email là bắt buộc!' })
@@ -42,12 +44,13 @@ export const SignUpSchema = zod
       .string()
       .min(1, { message: 'Nhập lại mật khẩu là bắt buộc!' })
       .min(6, { message: 'Mật khẩu ít nhất 6 kí tự!' }),
-    gender: zod.string().min(1, { message: 'Giới tính là bắt buộc!' }),
-    location: zod.string().min(1, { message: 'Địa chỉ là bắt buộc!' }),
-    dateOfBirth: zod.string().min(1, { message: 'Ngày sinh là bắt buộc!' }),
-    placeOfWork: zod.string().min(1, { message: 'Nơi làm việc là bắt buộc!' }),
-    citizenId: zod.string().min(1, { message: 'Tỉnh/Thành phố là bắt buộc!' }),
+    // gender: zod.string().min(1, { message: 'Giới tính là bắt buộc!' }),
+    // location: zod.string().min(1, { message: 'Địa chỉ là bắt buộc!' }),
+    // dateOfBirth: zod.string().min(1, { message: 'Ngày sinh là bắt buộc!' }),
+    // placeOfWork: zod.string().min(1, { message: 'Nơi làm việc là bắt buộc!' }),
+    // citizenId: zod.string().min(1, { message: 'Tỉnh/Thành phố là bắt buộc!' }),
     role: zod.string().min(1, { message: 'Vai trò là bắt buộc!' }),
+    citizenId: zod.string().min(1, { message: 'CCCD/CMND là bắt buộc!' }),
     phoneNumber: zod
       .string()
       .min(1, { message: 'Số điện thoại là bắt buộc!' })
@@ -79,9 +82,12 @@ export function JwtSignUpView() {
   const [errorMsg, setErrorMsg] = useState('');
 
   const defaultValues = {
-    fullName: 'Hello',
-    email: 'hello@gmail.com',
-    password: '@demo1',
+    email: '',
+    phoneNumber: '',
+    password: '',
+    confirmPassword: '',
+    role: 'Student',
+    citizenId: '',
   };
 
   const methods = useForm<SignUpSchemaType>({
@@ -96,15 +102,15 @@ export function JwtSignUpView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      // await signUp({
-      //   email: data.email,
-      //   password: data.password,
-      //   firstName: data.firstName,
-      //   lastName: data.lastName,
-      // });
-      // await checkUserSession?.();
-
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await register({
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+        role: data.role,
+        citizenId: data.citizenId,
+      });
+      await checkUserSession?.();
 
       router.refresh();
     } catch (error) {
@@ -137,7 +143,7 @@ export function JwtSignUpView() {
 
   const renderForm = (
     <Stack spacing={3}>
-      <Field.Text name="username" label="Username" InputLabelProps={{ shrink: true }} />
+      {/* <Field.Text name="username" label="Username" InputLabelProps={{ shrink: true }} /> */}
 
       <Field.Text name="email" label="Email" InputLabelProps={{ shrink: true }} />
       <Field.Text name="phoneNumber" label="Số điện thoại" InputLabelProps={{ shrink: true }} />
@@ -160,7 +166,7 @@ export function JwtSignUpView() {
       />
       <Field.Text
         name="confirmPassword"
-        label="Mật khẩu"
+        label="Nhập lại mật khẩu"
         placeholder="6+ kí tự"
         type={showConfirmPasswrod.value ? 'text' : 'password'}
         InputLabelProps={{ shrink: true }}
@@ -176,29 +182,32 @@ export function JwtSignUpView() {
           ),
         }}
       />
-      <Field.RadioGroup
-        name="gender"
-        label="Giới tính"
-        row
-        options={[
-          {
-            value: 'male',
-            label: 'Nam',
-          },
-          {
-            value: 'female',
-            label: 'Nữ',
-          },
-        ]}
+      <Field.Text
+        type="number"
+        name="citizenId"
+        label="CCCD/CMND"
+        InputLabelProps={{ shrink: true }}
       />
-      <Field.Text name="location" label="Địa chỉ" InputLabelProps={{ shrink: true }} />
-      <Field.Text name="placeOfWork" label="Nơi làm việc" InputLabelProps={{ shrink: true }} />
-      <Field.Select name="citizenId" label="Tỉnh/Thành phố" InputLabelProps={{ shrink: true }}>
-        <MenuItem>Cần Thơ</MenuItem>
-        <MenuItem>Hồ Chí Minh</MenuItem>
-        <MenuItem>Hồ Nội</MenuItem>
-      </Field.Select>
-      <Field.Text name="role" label="Vai trò" InputLabelProps={{ shrink: true }} />
+      <Box sx={{ pl: 1 }}>
+        <Field.RadioGroup
+          name="role"
+          label="Vai trò"
+          row
+          options={[
+            {
+              value: 'Student',
+              label: 'Học sinh',
+            },
+            {
+              value: 'Tutor',
+              label: 'Gia sư',
+            },
+          ]}
+        />
+      </Box>
+      {/* <Field.Text name="location" label="Địa chỉ" InputLabelProps={{ shrink: true }} /> */}
+      {/* <Field.Text name="placeOfWork" label="Nơi làm việc" InputLabelProps={{ shrink: true }} /> */}
+
       <LoadingButton
         fullWidth
         color="inherit"
