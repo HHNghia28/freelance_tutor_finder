@@ -20,8 +20,6 @@ import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 import { AnimateAvatar } from 'src/components/animate';
 
-import { useMockedUser } from 'src/auth/hooks';
-
 import { AccountButton } from './account-button';
 import { SignOutButton } from './sign-out-button';
 
@@ -43,7 +41,7 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
 
   const pathname = usePathname();
 
-  const { user } = useMockedUser();
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   const [open, setOpen] = useState(false);
 
@@ -67,7 +65,7 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
     <AnimateAvatar
       width={96}
       slotProps={{
-        avatar: { src: user?.photoURL, alt: user?.displayName },
+        avatar: { src: user?.photoURL, alt: user?.email },
         overlay: {
           border: 2,
           spacing: 3,
@@ -75,7 +73,7 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
         },
       }}
     >
-      {user?.displayName?.charAt(0).toUpperCase()}
+      {user?.email?.charAt(0).toUpperCase()}
     </AnimateAvatar>
   );
 
@@ -84,8 +82,8 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
       <AccountButton
         open={open}
         onClick={handleOpenDrawer}
-        photoURL={user?.photoURL}
-        displayName={user?.displayName}
+        photoURL=""
+        displayName={user?.email}
         sx={sx}
         {...other}
       />
@@ -109,11 +107,7 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
             {renderAvatar}
 
             <Typography variant="subtitle1" noWrap sx={{ mt: 2 }}>
-              {user?.displayName || 'Admin'}
-            </Typography>
-
-            <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }} noWrap>
-              {user?.email || 'admin@mail.com'}
+              {user?.email || 'Admin'}
             </Typography>
           </Stack>
 
