@@ -15,8 +15,8 @@ import { GuestGuard } from 'src/auth/guard';
 const Jwt = {
   SignInPage: lazy(() => import('src/pages/auth/jwt/sign-in')),
   SignUpPage: lazy(() => import('src/pages/auth/jwt/sign-up')),
-  ResetPasswordPage: lazy(() => import('src/pages/auth/jwt/reset-password')),
-  ForgotPasswordPage: lazy(() => import('src/pages/auth/jwt/update-password')),
+  ResetPasswordPage: lazy(() => import('src/pages/auth/jwt/update-password')),
+  ForgotPasswordPage: lazy(() => import('src/pages/auth/jwt/forgot-password')),
   VerifyPage: lazy(() => import('src/pages/auth/jwt/verify')),
 };
 

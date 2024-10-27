@@ -1,4 +1,5 @@
 import { z as zod } from 'zod';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -10,8 +11,12 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
-import { PasswordIcon } from 'src/assets/icons';
+import { useBoolean } from 'src/hooks/use-boolean';
 
+import { forgotPassword } from 'src/actions/auth';
+import { PasswordIcon, EmailInboxIcon } from 'src/assets/icons';
+
+import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
 
@@ -28,9 +33,9 @@ export const ResetPasswordSchema = zod.object({
 
 // ----------------------------------------------------------------------
 
-export function JwtResetPasswordView() {
+export function JwtForgotPasswordView() {
   const defaultValues = { email: '' };
-
+  const isSended = useBoolean();
   const methods = useForm<ResetPasswordSchemaType>({
     resolver: zodResolver(ResetPasswordSchema),
     defaultValues,
@@ -38,17 +43,31 @@ export function JwtResetPasswordView() {
 
   const {
     handleSubmit,
+    reset,
+    getValues,
+
     formState: { isSubmitting },
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      console.info('DATA', data);
+      await forgotPassword(data.email);
+      toast.success('Đã gửi yêu cầu thành công!');
+      isSended.onTrue();
     } catch (error) {
       console.error(error);
+      toast.success('Đã có lỗi xảy ra!');
+      isSended.onFalse();
     }
   });
+  useEffect(
+    () => () => {
+      reset(defaultValues);
+      isSended.onFalse();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   const renderHead = (
     <>
@@ -65,6 +84,18 @@ export function JwtResetPasswordView() {
     </>
   );
 
+  const returnBtn = (
+    <Link
+      component={RouterLink}
+      href={paths.auth.jwt.signIn}
+      color="inherit"
+      variant="subtitle2"
+      sx={{ mx: 'auto', alignItems: 'center', display: 'inline-flex' }}
+    >
+      <Iconify icon="eva:arrow-ios-back-fill" width={16} sx={{ mr: 0.5 }} />
+      Quay lại đăng nhập
+    </Link>
+  );
   const renderForm = (
     <Stack spacing={3}>
       <Field.Text
@@ -86,26 +117,37 @@ export function JwtResetPasswordView() {
         Gủi yêu cầu
       </LoadingButton>
 
-      <Link
-        component={RouterLink}
-        href={paths.auth.jwt.signIn}
-        color="inherit"
-        variant="subtitle2"
-        sx={{ mx: 'auto', alignItems: 'center', display: 'inline-flex' }}
-      >
-        <Iconify icon="eva:arrow-ios-back-fill" width={16} sx={{ mr: 0.5 }} />
-        Quay lại đăng nhập
-      </Link>
+      {returnBtn}
     </Stack>
+  );
+
+  const renderResult = (
+    <>
+      <EmailInboxIcon sx={{ mx: 'auto' }} />
+
+      <Stack spacing={3} sx={{ textAlign: 'center', whiteSpace: 'pre-line' }}>
+        <Typography variant="h5">Gửi yêu cầu thành công!</Typography>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          Một email xác thực đã được gửi tới email <strong>{getValues('email')}</strong>. Hãy kiểm
+          tra hộp thư của bạn
+        </Typography>
+        {returnBtn}
+      </Stack>
+    </>
   );
 
   return (
     <>
-      {renderHead}
+      {!isSended.value && (
+        <>
+          {renderHead}
+          <Form methods={methods} onSubmit={onSubmit}>
+            {renderForm}
+          </Form>
+        </>
+      )}
 
-      <Form methods={methods} onSubmit={onSubmit}>
-        {renderForm}
-      </Form>
+      {isSended.value && renderResult}
     </>
   );
 }

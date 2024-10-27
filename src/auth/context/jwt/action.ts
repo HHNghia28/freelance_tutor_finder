@@ -31,9 +31,9 @@ export const signInWithPassword = async ({ email, password }: SignInParams): Pro
     if (!token) {
       throw new Error('Access token not found in response');
     }
-
+    const userWithEmail = { ...user, email };
     setSession(token);
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(userWithEmail));
   } catch (error) {
     console.error('Error during sign in:', error);
     throw error;

@@ -6,7 +6,7 @@ import { JwtUpdatePasswordView } from 'src/sections/auth/jwt';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Update password | Layout centered - ${CONFIG.site.name}` };
+const metadata = { title: `Cập nhật mật khẩu mới` };
 
 export default function Page() {
   return (
