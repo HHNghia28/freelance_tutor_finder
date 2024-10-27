@@ -1,4 +1,7 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { z as zod } from 'zod';
+import { useMemo } from 'react';
+import { Navigate } from 'react-router';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -11,50 +14,54 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
+import { useRouter, useSearchParams } from 'src/routes/hooks';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { SentIcon } from 'src/assets/icons';
+import { resetPassword } from 'src/actions/auth';
 
+import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
-
 // ----------------------------------------------------------------------
 
 export type UpdatePasswordSchemaType = zod.infer<typeof UpdatePasswordSchema>;
 
-export const UpdatePasswordSchema = zod
-  .object({
-    code: zod
-      .string()
-      .min(1, { message: 'Code is required!' })
-      .min(6, { message: 'Code must be at least 6 characters!' }),
-    email: zod
-      .string()
-      .min(1, { message: 'Email is required!' })
-      .email({ message: 'Email must be a valid email address!' }),
-    password: zod
-      .string()
-      .min(1, { message: 'Password is required!' })
-      .min(6, { message: 'Password must be at least 6 characters!' }),
-    confirmPassword: zod.string().min(1, { message: 'Confirm password is required!' }),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match!',
-    path: ['confirmPassword'],
-  });
+export const UpdatePasswordSchema = zod.object({
+  token: zod.string().min(1, { message: 'Email là bắt buộc!' }),
+  email: zod
+    .string()
+    .min(1, { message: 'Email là bắt buộc!' })
+    .email({ message: 'Email không hợp lệ!' }),
+  newPassword: zod
+    .string()
+    .min(1, { message: 'Mật khẩu là bắt buộc!' })
+    .min(6, { message: 'Mật khẩu ít nhất 6 kí tự!' }),
+});
 
 // ----------------------------------------------------------------------
 
 export function JwtUpdatePasswordView() {
   const password = useBoolean();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const defaultValues = {
-    code: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  };
+  const email = searchParams.get('email');
+  const token = searchParams.get('token');
+
+  if (!email || !token) {
+    return <Navigate to={paths.auth.jwt.forgotPassword} replace />;
+  }
+
+  const defaultValues = useMemo(
+    () => ({
+      token: token as string,
+      email: email as string,
+      newPassword: '',
+    }),
+    [email, token]
+  );
 
   const methods = useForm<UpdatePasswordSchemaType>({
     resolver: zodResolver(UpdatePasswordSchema),
@@ -67,10 +74,16 @@ export function JwtUpdatePasswordView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      console.info('DATA', data);
+      await resetPassword({
+        email: data.email,
+        token: data.token,
+        newPassword: data.newPassword,
+      });
+      toast.success('Cập nhật mật khẩu thành công!');
+      router.replace(paths.auth.jwt.signIn);
     } catch (error) {
       console.error(error);
+      toast.success('Đã có lỗi xảy ra!');
     }
   });
 
@@ -79,11 +92,11 @@ export function JwtUpdatePasswordView() {
       <SentIcon sx={{ mx: 'auto' }} />
 
       <Stack spacing={1} sx={{ mt: 3, mb: 5, textAlign: 'center', whiteSpace: 'pre-line' }}>
-        <Typography variant="h5">Request sent successfully!</Typography>
+        <Typography variant="h5">Đặt lại mật khẩu mới</Typography>
 
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+        {/* <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           {`We've sent a 6-digit confirmation email to your email. \nPlease enter the code in below box to verify your email.`}
-        </Typography>
+        </Typography> */}
       </Stack>
     </>
   );
@@ -92,33 +105,20 @@ export function JwtUpdatePasswordView() {
     <Stack spacing={3}>
       <Field.Text
         name="email"
-        label="Email address"
+        label="Email"
         placeholder="example@gmail.com"
         InputLabelProps={{ shrink: true }}
-      />
-
-      <Field.Code name="code" />
-
-      <Field.Text
-        name="password"
-        label="Password"
-        placeholder="6+ characters"
-        type={password.value ? 'text' : 'password'}
-        InputLabelProps={{ shrink: true }}
+        disabled
         InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton onClick={password.onToggle} edge="end">
-                <Iconify icon={password.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-              </IconButton>
-            </InputAdornment>
-          ),
+          readOnly: true,
         }}
       />
 
       <Field.Text
-        name="confirmPassword"
-        label="Confirm new password"
+        autoFocus
+        name="newPassword"
+        label="Mật khẩu mới"
+        placeholder="6+ kí tự"
         type={password.value ? 'text' : 'password'}
         InputLabelProps={{ shrink: true }}
         InputProps={{
@@ -138,17 +138,9 @@ export function JwtUpdatePasswordView() {
         type="submit"
         variant="contained"
         loading={isSubmitting}
-        loadingIndicator="Update password..."
       >
-        Update password
+        Cập nhật mật khẩu
       </LoadingButton>
-
-      <Typography variant="body2" sx={{ mx: 'auto' }}>
-        {`Don’t have a code? `}
-        <Link variant="subtitle2" sx={{ cursor: 'pointer' }}>
-          Resend code
-        </Link>
-      </Typography>
 
       <Link
         component={RouterLink}
@@ -158,7 +150,7 @@ export function JwtUpdatePasswordView() {
         sx={{ mx: 'auto', alignItems: 'center', display: 'inline-flex' }}
       >
         <Iconify icon="eva:arrow-ios-back-fill" width={16} sx={{ mr: 0.5 }} />
-        Return to sign in
+        Quay lại đăng nhập
       </Link>
     </Stack>
   );

@@ -41,6 +41,8 @@ export const endpoints = {
     me: '/api/auth/me',
     signIn: '/api/Account/login',
     register: '/api/Account/register',
+    forgotPassword: '/api/Account/forgot-password',
+    resetPassword: '/api/Account/reset-password',
   },
   /* ---------------- END MY APP ---------------- */
   chat: '/api/chat',

@@ -6,7 +6,7 @@ import { JwtVerifyView } from 'src/sections/auth/jwt';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Verify | Layout centered - ${CONFIG.site.name}` };
+const metadata = { title: `Xác thực email` };
 
 export default function Page() {
   return (

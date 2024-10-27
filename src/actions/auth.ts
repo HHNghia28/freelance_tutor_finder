@@ -20,3 +20,48 @@ export async function register(data: {
   });
   return response.data;
 }
+/** **************************************
+ * forgot-password
+ *************************************** */
+export const forgotPassword = async (email: string) => {
+  const params = {
+    email,
+  };
+
+  try {
+    const res = await axios.post(endpoints.auth.forgotPassword, params);
+
+    return res;
+  } catch (error) {
+    console.error('Error during forgot password:', error);
+    throw error;
+  }
+};
+
+/** **************************************
+ * reset-password
+ *************************************** */
+export const resetPassword = async ({
+  email,
+  token,
+  newPassword,
+}: {
+  email: string;
+  token: string;
+  newPassword: string;
+}) => {
+  const params = {
+    email,
+    token,
+    newPassword,
+  };
+
+  try {
+    const res = await axios.post(endpoints.auth.resetPassword, params);
+
+    return res;
+  } catch (error) {
+    console.error('Error during reset password:', error);
+    throw error;
+  }
+};
