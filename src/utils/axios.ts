@@ -37,15 +37,15 @@ export const endpoints = {
   account: {
     list: '/api/admin/users',
   },
+  auth: {
+    me: '/api/auth/me',
+    signIn: '/api/Account/login',
+    register: '/api/Account/register',
+  },
   /* ---------------- END MY APP ---------------- */
   chat: '/api/chat',
   kanban: '/api/kanban',
   calendar: '/api/calendar',
-  auth: {
-    me: '/api/auth/me',
-    signIn: '/api/Account/login',
-    signUp: '/api/Account/register',
-  },
   mail: {
     list: '/api/mail/list',
     details: '/api/mail/details',
