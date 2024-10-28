@@ -16,6 +16,8 @@ import { varAlpha, stylesMode } from 'src/theme/styles';
 import { bulletColor } from 'src/components/nav-section';
 import { useSettingsContext } from 'src/components/settings';
 
+import { useAuthContext } from 'src/auth/hooks';
+
 import { Main } from './main';
 import { NavMobile } from './nav-mobile';
 import { layoutClasses } from '../classes';
@@ -37,6 +39,8 @@ export type DashboardLayoutProps = {
 };
 
 export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
+  const { unauthenticated, authenticated } = useAuthContext();
+
   const theme = useTheme();
 
   const mobileNavOpen = useBoolean();
@@ -79,7 +83,8 @@ export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
               account: _account,
             }}
             slotsDisplay={{
-              signIn: false,
+              signIn: unauthenticated,
+              account: authenticated,
               purchase: false,
               helpLink: false,
               contacts: false,
