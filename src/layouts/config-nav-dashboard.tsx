@@ -43,23 +43,6 @@ const ICONS = {
 
 export const navData = [
   /**
-   * Guest
-   */
-  {
-    subheader: 'Người dùng',
-    items: [
-      { title: 'Tin tức', path: paths.guest.news.list, icon: ICONS.dashboard },
-      { title: 'Gia sư', path: paths.guest.tutor.list, icon: ICONS.booking },
-    ],
-  },
-  /**
-   * Overview
-   */
-  {
-    subheader: 'Tổng quan',
-    items: [{ title: 'Thống kê', path: paths.dashboard.root, icon: ICONS.dashboard }],
-  },
-  /**
    * Management
    */
   {

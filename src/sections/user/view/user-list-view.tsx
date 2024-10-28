@@ -1,9 +1,11 @@
+import type { IAccount } from 'src/types/account';
 import type { IUserItem, IUserTableFilters } from 'src/types/user';
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Box } from '@mui/material';
 import Card from '@mui/material/Card';
+import { LoadingButton } from '@mui/lab';
 import {
   DataGrid,
   gridClasses,
@@ -15,11 +17,13 @@ import { paths } from 'src/routes/paths';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import { useGetAccounts } from 'src/actions/account';
 import { DashboardContent } from 'src/layouts/dashboard';
+import { blockAccount, useGetAccounts } from 'src/actions/account';
 
+import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
 import { EmptyContent } from 'src/components/empty-content';
+import { ConfirmDialog } from 'src/components/custom-dialog';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import { baseColumns } from '../table/columns';
@@ -29,9 +33,25 @@ import { baseColumns } from '../table/columns';
 // ----------------------------------------------------------------------
 
 export function UserListView() {
-  const { accounts, accountsLoading } = useGetAccounts();
+  const [userBlock, setUserBlock] = useState<IAccount | null>(null);
 
-  const confirm = useBoolean();
+  const { accounts, accountsLoading } = useGetAccounts();
+  const isBlocking = useBoolean();
+
+  const handleBlock = async () => {
+    try {
+      isBlocking.onTrue();
+      await blockAccount(userBlock?.userId);
+
+      toast.error('Chặn tài khoản thành công!');
+    } catch (error) {
+      console.error(error);
+      toast.error('Đã có lỗi xảy ra!');
+    } finally {
+      isBlocking.onFalse();
+      setUserBlock(null);
+    }
+  };
 
   const columns = useMemo(
     () => [
@@ -43,7 +63,7 @@ export function UserListView() {
         align: 'center',
         headerAlign: 'center',
         width: 100,
-        getActions: () => [
+        getActions: (params: any) => [
           <GridActionsCellItem icon={<Iconify icon="raphael:view" />} label="Xem" />,
           <GridActionsCellItem
             icon={<Iconify icon="solar:pen-bold" />}
@@ -56,9 +76,19 @@ export function UserListView() {
             sx={{ color: 'error.main' }}
             showInMenu
           />,
+          <GridActionsCellItem
+            icon={<Iconify icon="ic:baseline-block" />}
+            label="Chặn"
+            sx={{ color: 'warning.main' }}
+            onClick={() => {
+              setUserBlock(params.row);
+            }}
+            showInMenu
+          />,
         ],
       },
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
   return (
@@ -123,28 +153,26 @@ export function UserListView() {
         </Card>
       </DashboardContent>
 
-      {/* <ConfirmDialog
-        open={confirm.value}
-        onClose={confirm.onFalse}
-        title="Delete"
+      <ConfirmDialog
+        open={!!userBlock}
+        onClose={() => setUserBlock(null)}
+        title="Chặn tài khoản"
         content={
           <>
-            Are you sure want to delete <strong> {table.selected.length} </strong> items?
+            Bạn có chắc muốn chặn tài khoản <strong> {userBlock?.userName} </strong>?
           </>
         }
         action={
-          <Button
+          <LoadingButton
             variant="contained"
             color="error"
-            onClick={() => {
-              handleDeleteRows();
-              confirm.onFalse();
-            }}
+            onClick={handleBlock}
+            loading={isBlocking.value}
           >
-            Delete
-          </Button>
+            Chặn
+          </LoadingButton>
         }
-      /> */}
+      />
     </>
   );
 }

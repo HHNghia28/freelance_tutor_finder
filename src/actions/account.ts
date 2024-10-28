@@ -3,7 +3,7 @@ import type { IAccount } from 'src/types/account';
 import useSWR from 'swr';
 import { useMemo } from 'react';
 
-import { fetcher, endpoints } from 'src/utils/axios';
+import axios, { fetcher, endpoints } from 'src/utils/axios';
 
 // ----------------------------------------------------------------------
 
@@ -40,4 +40,12 @@ export function useGetAccounts(search?: string) {
   );
 
   return memoizedValue;
+}
+
+// ----------------------------------------------------------------------
+
+export async function blockAccount(userId: any) {
+  const url = ENDPOINT.block(userId);
+
+  await axios.put(url);
 }
