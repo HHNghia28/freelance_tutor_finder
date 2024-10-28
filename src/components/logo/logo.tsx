@@ -1,15 +1,15 @@
 import type { BoxProps } from '@mui/material/Box';
 
-import { useId, forwardRef } from 'react';
+import { forwardRef } from 'react';
 
 import Box from '@mui/material/Box';
 import NoSsr from '@mui/material/NoSsr';
 import { Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 
 import { RouterLink } from 'src/routes/components';
 
 import { logoClasses } from './classes';
+import { useSettingsContext } from '../settings';
 
 // ----------------------------------------------------------------------
 
@@ -24,24 +24,13 @@ export const Logo = forwardRef<HTMLDivElement, LogoProps>(
     { animate, width = 40, height = 40, disableLink = false, className, href = '/', sx, ...other },
     ref
   ) => {
-    const theme = useTheme();
+    const settings = useSettingsContext();
 
-    const gradientId = useId();
-
-    const PRIMARY_LIGHT = theme.vars.palette.primary.light;
-
-    const PRIMARY_MAIN = theme.vars.palette.primary.main;
-
-    const PRIMARY_DARK = theme.vars.palette.primary.dark;
-
-    /*
-     * OR using local (public folder)
-     * const logo = ( <Box alt="logo" component="img" src={`${CONFIG.site.basePath}/logo/logo-single.svg`} width={width} height={height} /> );
-     */
+    const isNavMini = settings.navLayout === 'mini';
 
     const logo = (
-      <Typography variant="h5" sx={{ color: 'black' }}>
-        {animate ? (
+      <Typography variant={isNavMini ? 'h6' : 'h5'} sx={{ color: 'black' }}>
+        {isNavMini || animate ? (
           <>
             Tutor <br /> Finder
           </>

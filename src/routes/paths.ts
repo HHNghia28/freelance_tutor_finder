@@ -11,7 +11,7 @@ const MOCK_TITLE = _postTitles[2];
 const ROOTS = {
   AUTH: '/auth',
   AUTH_DEMO: '/auth-demo',
-  DASHBOARD: '',
+  DASHBOARD: '/dashboard',
 };
 
 // ----------------------------------------------------------------------
@@ -37,12 +37,12 @@ export const paths = {
   },
   guest: {
     news: {
-      list: `${ROOTS.DASHBOARD}/tin-tuc-gia-su`,
-      details: (slug: any) => `${ROOTS.DASHBOARD}/tin-tuc-gia-su/${slug}`,
+      list: `/tin-tuc-gia-su`,
+      details: (slug: any) => `/tin-tuc-gia-su/${slug}`,
     },
     tutor: {
-      list: `${ROOTS.DASHBOARD}/tim-gia-su`,
-      details: (slug: any) => `${ROOTS.DASHBOARD}/tim-gia-su/${slug}`,
+      list: `/tim-gia-su`,
+      details: (slug: any) => `/tim-gia-su/${slug}`,
     },
   },
 
