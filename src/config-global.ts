@@ -15,7 +15,8 @@ export type ConfigValue = {
   auth: {
     method: 'jwt' | 'amplify' | 'firebase' | 'supabase' | 'auth0';
     skip: boolean;
-    redirectPath: string;
+    redirectAdminPath: string;
+    redirectUserPath: string;
   };
 };
 
@@ -36,6 +37,9 @@ export const CONFIG: ConfigValue = {
   auth: {
     method: 'jwt',
     skip: false,
-    redirectPath: paths.dashboard.root,
+    redirectAdminPath: paths.dashboard.root,
+    redirectUserPath: paths.user.root,
   },
 };
+
+export const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB

@@ -7,6 +7,8 @@ import { guestNavData } from 'src/layouts/config-nav-guest';
 
 import { SplashScreen } from 'src/components/loading-screen';
 
+import { AuthGuard } from 'src/auth/guard';
+
 // ----------------------------------------------------------------------
 
 const MaintenancePage = lazy(() => import('src/pages/maintenance'));
@@ -20,6 +22,8 @@ const TutorNewsDetailsPage = lazy(() => import('src/pages/guest/news/details'));
 // Tutor
 const TutorListPage = lazy(() => import('src/pages/guest/tutor/list'));
 const TutorDetailsPage = lazy(() => import('src/pages/guest/tutor/details'));
+// USER
+const TutorRegisterPage = lazy(() => import('src/pages/user/tutor/tutor-register'));
 // ----------------------------------------------------------------------
 
 export const mainRoutes = [
@@ -54,6 +58,14 @@ export const mainRoutes = [
               { path: ':slug', element: <TutorDetailsPage /> },
               // { path: ':id/edit', element: <UserEditPage /> },
             ],
+          },
+          {
+            path: 'dang-ky-lam-gia-su',
+            element: (
+              <AuthGuard>
+                <TutorRegisterPage />
+              </AuthGuard>
+            ),
           },
         ],
       },

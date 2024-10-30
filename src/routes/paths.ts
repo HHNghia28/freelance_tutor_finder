@@ -12,6 +12,7 @@ const ROOTS = {
   AUTH: '/auth',
   AUTH_DEMO: '/auth-demo',
   DASHBOARD: '/dashboard',
+  USER: '/',
 };
 
 // ----------------------------------------------------------------------
@@ -45,7 +46,11 @@ export const paths = {
       details: (slug: any) => `/tim-gia-su/${slug}`,
     },
   },
-
+  // USER
+  user: {
+    root: ROOTS.USER,
+    tutor_register: `${ROOTS.USER}dang-ky-lam-gia-su`,
+  },
   // DASHBOARD
   dashboard: {
     root: ROOTS.DASHBOARD,

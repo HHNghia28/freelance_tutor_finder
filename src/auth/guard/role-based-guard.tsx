@@ -9,35 +9,34 @@ import { ForbiddenIllustration } from 'src/assets/illustrations';
 
 import { varBounce, MotionContainer } from 'src/components/animate';
 
+import { useAuthContext } from '../hooks';
+
 // ----------------------------------------------------------------------
 
 export type RoleBasedGuardProp = {
   sx?: SxProps<Theme>;
-  currentRole: string;
+  currentRole: 'admin' | 'user';
   hasContent?: boolean;
-  acceptRoles: string[];
   children: React.ReactNode;
 };
 
-export function RoleBasedGuard({
-  sx,
-  children,
-  hasContent,
-  currentRole,
-  acceptRoles,
-}: RoleBasedGuardProp) {
-  if (typeof acceptRoles !== 'undefined' && !acceptRoles.includes(currentRole)) {
+export function RoleBasedGuard({ sx, children, hasContent, currentRole }: RoleBasedGuardProp) {
+  const { user } = useAuthContext();
+  const isAdmin = !!user?.isAdmin;
+  const isTutor = !user?.isAdmin;
+
+  if (user && ((currentRole === 'admin' && !isAdmin) || (currentRole === 'user' && !isTutor))) {
     return hasContent ? (
       <Container component={MotionContainer} sx={{ textAlign: 'center', ...sx }}>
         <m.div variants={varBounce().in}>
           <Typography variant="h3" sx={{ mb: 2 }}>
-            Permission denied
+            Quyền truy cập bị từ chối
           </Typography>
         </m.div>
 
         <m.div variants={varBounce().in}>
           <Typography sx={{ color: 'text.secondary' }}>
-            You do not have permission to access this page.
+            Bạn không có quyền truy cập trang này!
           </Typography>
         </m.div>
 
