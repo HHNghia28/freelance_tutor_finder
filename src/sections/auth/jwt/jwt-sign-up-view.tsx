@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
-
+import { acceptOnlyNumber } from 'src/utils/input-strict';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
@@ -183,10 +183,10 @@ export function JwtSignUpView() {
         }}
       />
       <Field.Text
-        type="number"
         name="citizenId"
         label="CCCD/CMND"
         InputLabelProps={{ shrink: true }}
+        onKeyDown={acceptOnlyNumber}
       />
       <Box sx={{ pl: 1 }}>
         <Field.RadioGroup
