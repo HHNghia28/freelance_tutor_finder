@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { Box } from '@mui/material';
 import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
@@ -11,12 +10,14 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
-import { acceptOnlyNumber } from 'src/utils/input-strict';
+
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/use-boolean';
+
+import { acceptOnlyNumber } from 'src/utils/input-strict';
 
 import { register } from 'src/actions/auth';
 
@@ -44,11 +45,6 @@ export const SignUpSchema = zod
       .string()
       .min(1, { message: 'Nhập lại mật khẩu là bắt buộc!' })
       .min(6, { message: 'Mật khẩu ít nhất 6 kí tự!' }),
-    // gender: zod.string().min(1, { message: 'Giới tính là bắt buộc!' }),
-    // location: zod.string().min(1, { message: 'Địa chỉ là bắt buộc!' }),
-    // dateOfBirth: zod.string().min(1, { message: 'Ngày sinh là bắt buộc!' }),
-    // placeOfWork: zod.string().min(1, { message: 'Nơi làm việc là bắt buộc!' }),
-    // citizenId: zod.string().min(1, { message: 'Tỉnh/Thành phố là bắt buộc!' }),
     role: zod.string().min(1, { message: 'Vai trò là bắt buộc!' }),
     citizenId: zod.string().min(1, { message: 'CCCD/CMND là bắt buộc!' }),
     phoneNumber: zod
@@ -112,7 +108,7 @@ export function JwtSignUpView() {
       });
       await checkUserSession?.();
 
-      router.refresh();
+      router.push(paths.auth.jwt.signIn);
     } catch (error) {
       console.error(error);
       setErrorMsg(error instanceof Error ? error.message : error);
@@ -182,31 +178,13 @@ export function JwtSignUpView() {
           ),
         }}
       />
+
       <Field.Text
         name="citizenId"
         label="CCCD/CMND"
         InputLabelProps={{ shrink: true }}
         onKeyDown={acceptOnlyNumber}
       />
-      <Box sx={{ pl: 1 }}>
-        <Field.RadioGroup
-          name="role"
-          label="Vai trò"
-          row
-          options={[
-            {
-              value: 'Student',
-              label: 'Học sinh',
-            },
-            {
-              value: 'Tutor',
-              label: 'Gia sư',
-            },
-          ]}
-        />
-      </Box>
-      {/* <Field.Text name="location" label="Địa chỉ" InputLabelProps={{ shrink: true }} /> */}
-      {/* <Field.Text name="placeOfWork" label="Nơi làm việc" InputLabelProps={{ shrink: true }} /> */}
 
       <LoadingButton
         fullWidth

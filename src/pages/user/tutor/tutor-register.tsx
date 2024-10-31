@@ -1,12 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 
-import { CONFIG } from 'src/config-global';
-
-import { PermissionDeniedView } from 'src/sections/permission/view';
+import TutorRegisterView from 'src/sections/_user/tutor-register/view/tutor-register-view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Permission | Dashboard - ${CONFIG.site.name}` };
+const metadata = { title: `Đăng kí trở thành gia sư` };
 
 export default function Page() {
   return (
@@ -14,8 +12,7 @@ export default function Page() {
       <Helmet>
         <title> {metadata.title}</title>
       </Helmet>
-
-      <PermissionDeniedView />
+      <TutorRegisterView />
     </>
   );
 }

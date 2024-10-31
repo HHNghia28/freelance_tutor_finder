@@ -109,6 +109,7 @@ export function JwtSignInView() {
           variant="body2"
           color="inherit"
           sx={{ alignSelf: 'flex-end' }}
+          tabIndex={-1}
         >
           Quên mật khẩu?
         </Link>

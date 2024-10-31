@@ -19,17 +19,19 @@ export function GuestGuard({ children }: Props) {
 
   const searchParams = useSearchParams();
 
-  const { loading, authenticated } = useAuthContext();
+  const { loading, authenticated, user } = useAuthContext();
 
   const [isChecking, setIsChecking] = useState<boolean>(true);
 
-  const returnTo = searchParams.get('returnTo') || CONFIG.auth.redirectPath;
+  const returnTo =
+    searchParams.get('returnTo') || user?.isAdmin
+      ? CONFIG.auth.redirectAdminPath
+      : CONFIG.auth.redirectUserPath;
 
   const checkPermissions = async (): Promise<void> => {
     if (loading) {
       return;
     }
-
     if (authenticated) {
       router.replace(returnTo);
       return;

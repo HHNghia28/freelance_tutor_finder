@@ -1,3 +1,5 @@
+import { paths } from 'src/routes/paths';
+
 import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
@@ -14,9 +16,9 @@ export const _account = [
     href: '#',
     icon: <Iconify icon="solar:shield-keyhole-bold-duotone" />,
   },
-  // {
-  //   label: 'Account settings',
-  //   href: '#',
-  //   icon: <Iconify icon="solar:settings-bold-duotone" />,
-  // },
+  {
+    label: 'Đăng ký làm gia sư',
+    href: paths.user.tutor_register,
+    icon: <Iconify icon="zondicons:education" />,
+  },
 ];

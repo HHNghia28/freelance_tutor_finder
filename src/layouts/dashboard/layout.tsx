@@ -8,6 +8,8 @@ import Alert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
 import { iconButtonClasses } from '@mui/material/IconButton';
 
+import { paths } from 'src/routes/paths';
+
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { allLangs } from 'src/locales';
@@ -39,7 +41,7 @@ export type DashboardLayoutProps = {
 };
 
 export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
-  const { unauthenticated, authenticated } = useAuthContext();
+  const { unauthenticated, authenticated, user } = useAuthContext();
 
   const theme = useTheme();
 
@@ -58,6 +60,12 @@ export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
   const isNavHorizontal = settings.navLayout === 'horizontal';
 
   const isNavVertical = isNavMini || settings.navLayout === 'vertical';
+
+  const accountData = useMemo(() => {
+    if (user && user?.isAdmin)
+      return _account.filter((acc) => acc.href !== paths.user.tutor_register);
+    return _account;
+  }, [user]);
 
   return (
     <>
@@ -80,7 +88,7 @@ export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
             data={{
               nav: navData,
               langs: allLangs,
-              account: _account,
+              account: accountData,
             }}
             slotsDisplay={{
               signIn: unauthenticated,

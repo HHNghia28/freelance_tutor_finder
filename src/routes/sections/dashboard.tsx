@@ -6,7 +6,7 @@ import { DashboardLayout } from 'src/layouts/dashboard';
 
 import { LoadingScreen } from 'src/components/loading-screen';
 
-import { AuthGuard } from 'src/auth/guard';
+import { AuthGuard, RoleBasedGuard } from 'src/auth/guard';
 
 // ----------------------------------------------------------------------
 
@@ -24,11 +24,13 @@ const CvListPage = lazy(() => import('src/pages/dashboard/cv/list'));
 // ----------------------------------------------------------------------
 
 const layoutContent = (
-  <DashboardLayout>
-    <Suspense fallback={<LoadingScreen />}>
-      <Outlet />
-    </Suspense>
-  </DashboardLayout>
+  <RoleBasedGuard hasContent currentRole="admin">
+    <DashboardLayout>
+      <Suspense fallback={<LoadingScreen />}>
+        <Outlet />
+      </Suspense>
+    </DashboardLayout>
+  </RoleBasedGuard>
 );
 
 export const dashboardRoutes = [
