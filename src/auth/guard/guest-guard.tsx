@@ -24,7 +24,7 @@ export function GuestGuard({ children }: Props) {
   const [isChecking, setIsChecking] = useState<boolean>(true);
 
   const returnTo =
-    searchParams.get('returnTo') || user?.isAdmin
+    searchParams.get('returnTo') || user?.role === 'Admin'
       ? CONFIG.auth.redirectAdminPath
       : CONFIG.auth.redirectUserPath;
 

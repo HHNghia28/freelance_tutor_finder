@@ -1,4 +1,10 @@
-export type UserType = Record<string, any> | null;
+import type { IUser } from '../types/user';
+
+export type UserType =
+  | (IUser & {
+      accessToken: string;
+    })
+  | null;
 
 export type AuthState = {
   user: UserType;

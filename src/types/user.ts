@@ -1,6 +1,27 @@
+import type { IRole } from './account';
 import type { IDateValue, ISocialLink } from './common';
 
-// ----------------------------------------------------------------------
+// USE
+export type IUser = {
+  role: IRole;
+  tutorId: null | string;
+  studentId: string;
+  user: {
+    id: string;
+    userName: string;
+    email: string;
+    phoneNumber: string;
+    gender: string;
+    dateOfBirth: string;
+    registrationDate: string;
+    isEmailConfirmed: boolean;
+    photo: string;
+    role: IRole;
+  };
+};
+// END USE
+
+// ---------------------------------------------------------------------
 
 export type IUserTableFilters = {
   name: string;

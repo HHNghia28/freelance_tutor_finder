@@ -3,6 +3,8 @@ import axios, { endpoints } from 'src/utils/axios';
 import { setSession } from './utils';
 import { STORAGE_KEY } from './constant';
 
+import type { IUser } from '../../../types/user';
+
 // ----------------------------------------------------------------------
 
 export type SignInParams = {
@@ -24,7 +26,11 @@ export const signInWithPassword = async ({ email, password }: SignInParams): Pro
   try {
     const params = { email, password };
 
-    const res = await axios.post(endpoints.auth.signIn, params);
+    const res = await axios.post<
+      {
+        token: string;
+      } & IUser
+    >(endpoints.auth.signIn, params);
 
     const { token, ...user } = res.data;
 

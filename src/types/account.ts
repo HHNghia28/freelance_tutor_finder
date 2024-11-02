@@ -1,3 +1,5 @@
+export type IRole = 'Student' | 'Tutor' | 'Admin';
+
 export type IAccount = {
   userId: string;
   userName: string;
@@ -15,7 +17,7 @@ export type IAccount = {
   isEmailConfirmed: boolean;
   _Student: any;
   _Tutor: any;
-  role: any;
+  role: IRole;
   roleId: string;
   locationId: any;
   location: any;

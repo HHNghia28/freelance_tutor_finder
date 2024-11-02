@@ -1,25 +1,28 @@
 import axios, { endpoints } from 'src/utils/axios';
 
+import type { IRole } from '../types/account';
+
 // ----------------------------------------------------------------------
 export async function register(data: {
+  userName: string;
+  fullname: string;
   email: string;
   phoneNumber: string;
   password: string;
   confirmPassword: string;
-  role: string;
-  citizenId: string;
+  gender: string;
+  photo: string;
+  location: string;
+  dateOfBirth: string;
+  placeOfWork: string;
+  role?: IRole;
+  grade: string;
 }) {
   const url = endpoints.auth.register;
-  const response = await axios.post(url, {
-    ...data,
-    username: 'string',
-    gender: 'string',
-    location: 'string',
-    dateOfBirth: '2024-10-27',
-    placeOfWork: 'string',
-  });
+  const response = await axios.post(url, data);
   return response.data;
 }
+
 /** **************************************
  * forgot-password
  *************************************** */

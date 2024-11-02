@@ -1,9 +1,10 @@
-const regex = /^[0-9]*$/;
+import { regexNumber } from './regex';
+
 export const replaceToNumber = (event: any) => {
   const input = event.target.value;
   // console.log('replaceToNumber ', input);
 
-  if (!regex.test(input)) {
+  if (!regexNumber.test(input)) {
     return input.replace(/[^0-9]/g, '');
   }
   return input;
