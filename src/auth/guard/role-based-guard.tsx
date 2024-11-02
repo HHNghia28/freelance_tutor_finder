@@ -25,7 +25,7 @@ export type RoleBasedGuardProp = {
 export function RoleBasedGuard({ sx, children, hasContent, currentRole }: RoleBasedGuardProp) {
   const { user } = useAuthContext();
 
-  if (user && currentRole === user?.role) {
+  if (user && currentRole !== user?.role) {
     return hasContent ? (
       <Container component={MotionContainer} sx={{ textAlign: 'center', ...sx }}>
         <m.div variants={varBounce().in}>

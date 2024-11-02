@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
+import Avatar from '@mui/material/Avatar';
 import { FormHelperText } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
@@ -18,6 +19,10 @@ import { MAX_FILE_SIZE } from 'src/config-global';
 import { toast } from 'src/components/snackbar';
 import { Form, Field } from 'src/components/hook-form';
 
+import { useAuthContext } from '../../../auth/hooks';
+import { uploadFile } from '../../../actions/upload';
+import { tutorRegister } from '../../../actions/tutor';
+import { acceptOnlyNumber } from '../../../utils/input-strict';
 import { TutorRegisterSchema } from './form/tutor-register-schema';
 
 import type { TutorRegisterSchemaType } from './form/tutor-register-schema';
@@ -27,20 +32,18 @@ import type { TutorRegisterSchemaType } from './form/tutor-register-schema';
 export function TutorRegisterForm() {
   const router = useRouter();
 
+  const { user } = useAuthContext();
+
   const defaultValues = useMemo(
     () => ({
-      userId: '',
-      title: '',
-      faculty: '',
-      transportation: '',
-      onlineTutor: true,
+      userId: user?.user?.id || '',
+      citizenId: '',
       selfIntroduction: '',
       teachingAchievement: '',
       academicSpecialty: '',
       cvUrl: null,
-      photo: null,
     }),
-    []
+    [user]
   );
 
   const methods = useForm<TutorRegisterSchemaType>({
@@ -61,7 +64,13 @@ export function TutorRegisterForm() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      const { cvUrl, ...rest } = data;
+
+      const uploadRes = await uploadFile(cvUrl as File);
+      await tutorRegister({
+        ...rest,
+        cvUrl: uploadRes.fileUrl,
+      });
       reset();
       toast.success('Đơn đăng kí đã được gửi!');
       router.push(paths.user.root);
@@ -84,42 +93,17 @@ export function TutorRegisterForm() {
     },
     [setValue]
   );
-  const handleDropPhoto = useCallback(
-    (acceptedFiles: File[]) => {
-      const file = acceptedFiles[0];
 
-      const newFile = Object.assign(file, {
-        preview: URL.createObjectURL(file),
-      });
-
-      if (file) {
-        setValue('photo', newFile, { shouldValidate: true, shouldDirty: true });
-      }
-    },
-    [setValue]
-  );
   return (
     <Form methods={methods} onSubmit={onSubmit}>
       <Grid container spacing={3}>
         <Grid xs={12} md={4}>
           <Card sx={{ pt: 2, pb: 5, px: 3 }}>
             <Box sx={{ mb: 3 }}>
-              <Field.UploadAvatar
-                name="photo"
-                maxSize={MAX_FILE_SIZE}
-                onRemove={() => setValue('photo', null)}
-                onDrop={handleDropPhoto}
-              />
-            </Box>
-            <Box sx={{ mb: 3 }}>
-              <Field.Text
-                multiline
-                maxRows={3}
-                minRows={2}
-                name="selfIntroduction"
-                label="Giới thiệu"
-                fullWidth
-                sx={{ rowSpan: 'all' }}
+              <Avatar
+                src={user?.user?.photo}
+                alt={user?.user?.userName}
+                sx={{ width: 120, height: 120, mx: 'auto' }}
               />
             </Box>
 
@@ -147,40 +131,25 @@ export function TutorRegisterForm() {
         <Grid xs={12} md={8}>
           <Card sx={{ p: 3 }}>
             <Grid spacing={2} container>
-              <Grid xs={12} md={6}>
-                <Field.Text name="title" label="Chức danh" placeholder="Giáo viện, sinh viên,..." />
+              <Grid xs={12}>
+                <Field.Text
+                  multiline
+                  maxRows={3}
+                  minRows={2}
+                  name="selfIntroduction"
+                  label="Giới thiệu"
+                  fullWidth
+                  sx={{ rowSpan: 'all' }}
+                />
               </Grid>
-              <Grid xs={12} md={6}>
-                <Field.Text name="faculty" label="Chuyên ngành" />
-              </Grid>
-              <Grid xs={12} md={6}>
-                <Field.Text name="transportation" label="Phương tiện di chuyển" />
-              </Grid>
-              <Grid xs={12} md={6}>
+              <Grid xs={12}>
                 <Field.Text name="academicSpecialty" label="Điểm nổi bật" />
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid xs={12}>
                 <Field.Text name="teachingAchievement" label="Thành tựu" />
               </Grid>
-              <Grid xs={12} md={6}>
-                <Box sx={{ mb: 2 }}>
-                  <Typography variant="subtitle2">Hình thức giảng dạy</Typography>
-                  <Field.RadioGroup
-                    name="onlineTutor"
-                    options={[
-                      {
-                        value: true as any,
-                        label: 'Online',
-                      },
-                      {
-                        value: false as any,
-                        label: 'Offline',
-                      },
-                    ]}
-                    sx={{ pl: 2 }}
-                    row
-                  />
-                </Box>
+              <Grid xs={12}>
+                <Field.Text name="citizenId" label="Số CCCD/CMND" onKeyDown={acceptOnlyNumber} />
               </Grid>
             </Grid>
 

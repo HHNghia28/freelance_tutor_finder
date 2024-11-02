@@ -47,6 +47,7 @@ export const endpoints = {
   },
   grade: { list: '/api/Grades' },
   file_upload: '/api/FileUpload/upload',
+  tutor: { register: '/api/Tutors' },
   /* ---------------- END MY APP ---------------- */
   chat: '/api/chat',
   kanban: '/api/kanban',

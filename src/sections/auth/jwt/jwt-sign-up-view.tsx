@@ -44,7 +44,7 @@ export function JwtSignUpView() {
 
   const password = useBoolean();
 
-  const showConfirmPasswrod = useBoolean();
+  const showConfirmPassword = useBoolean();
 
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -161,14 +161,14 @@ export function JwtSignUpView() {
         name="confirmPassword"
         label="Nhập lại mật khẩu"
         placeholder="6+ kí tự"
-        type={showConfirmPasswrod.value ? 'text' : 'password'}
+        type={showConfirmPassword.value ? 'text' : 'password'}
         InputLabelProps={{ shrink: true }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton onClick={showConfirmPasswrod.onToggle} edge="end">
+              <IconButton onClick={showConfirmPassword.onToggle} edge="end">
                 <Iconify
-                  icon={showConfirmPasswrod.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
+                  icon={showConfirmPassword.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
                 />
               </IconButton>
             </InputAdornment>
