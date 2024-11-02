@@ -47,7 +47,13 @@ export const endpoints = {
   },
   grade: { list: '/api/Grades' },
   file_upload: '/api/FileUpload/upload',
-  tutor: { register: '/api/Tutors' },
+  tutor: {
+    register: '/api/Tutors',
+    list: '/api/Tutors',
+    details: (id: string) => `/api/Tutors/${id}`,
+    approved: (id: string) => `/api/Tutors/${id}/approved`,
+    reject: (id: string) => `/api/Tutors/${id}/reject`,
+  },
   /* ---------------- END MY APP ---------------- */
   chat: '/api/chat',
   kanban: '/api/kanban',

@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 
-import { UserListView } from 'src/sections/user/view';
+import { CVListView } from 'src/sections/_admin/cv/view/cv-list-view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Quản lí CV` };
+const metadata = { title: `Duyệt CV` };
 
 export default function Page() {
   return (
@@ -13,7 +13,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <UserListView />
+      <CVListView />
     </>
   );
 }
