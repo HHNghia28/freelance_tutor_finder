@@ -36,7 +36,7 @@ export const mainRoutes = [
     children: [
       {
         element: (
-          <DashboardLayout data={{ nav: guestNavData }}>
+          <DashboardLayout>
             <Suspense fallback={<SplashScreen />}>
               <Outlet />
             </Suspense>

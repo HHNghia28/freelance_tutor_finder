@@ -50,6 +50,7 @@ export const paths = {
   user: {
     root: ROOTS.USER,
     tutor_register: `${ROOTS.USER}dang-ky-lam-gia-su`,
+    my_course: { list: `${ROOTS.USER}khoa-hoc-cua-toi` },
   },
   // DASHBOARD
   dashboard: {

@@ -40,15 +40,13 @@ const ICONS = {
 };
 
 // ----------------------------------------------------------------------
-export const guestNavData = [
+
+export const userNavData = [
   /**
-   * Guest
+   * Tutor
    */
   {
-    subheader: 'Người dùng',
-    items: [
-      { title: 'Tin tức', path: paths.guest.news.list, icon: ICONS.dashboard },
-      { title: 'Gia sư', path: paths.guest.tutor.list, icon: ICONS.booking },
-    ],
+    subheader: 'Tài khoản',
+    items: [{ title: 'Khóa học của tôi', path: paths.user.my_course.list, icon: ICONS.blog }],
   },
 ];
