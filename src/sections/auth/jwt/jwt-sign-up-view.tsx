@@ -1,11 +1,13 @@
-import { z as zod } from 'zod';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMemo, useState, useCallback } from 'react';
 
+import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
+import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -17,8 +19,6 @@ import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import { acceptOnlyNumber } from 'src/utils/input-strict';
-
 import { register } from 'src/actions/auth';
 
 import { Iconify } from 'src/components/iconify';
@@ -26,65 +26,51 @@ import { Form, Field } from 'src/components/hook-form';
 
 import { useAuthContext } from 'src/auth/hooks';
 
-// ----------------------------------------------------------------------
+import { SignUpSchema } from './form-schema';
+import { uploadFile } from '../../../actions/upload';
+import { useGetGrades } from '../../../actions/grade';
+import { sortStringByNumbers } from '../../../utils/helper';
 
-export type SignUpSchemaType = zod.infer<typeof SignUpSchema>;
-
-export const SignUpSchema = zod
-  .object({
-    // username: zod.string().min(1, { message: 'Username là bắt buộc!' }),
-    email: zod
-      .string()
-      .min(1, { message: 'Email là bắt buộc!' })
-      .email({ message: 'Email không hợp lệ!' }),
-    password: zod
-      .string()
-      .min(1, { message: 'Mật khẩu là bắt buộc!' })
-      .min(6, { message: 'Mật khẩu ít nhất 6 kí tự!' }),
-    confirmPassword: zod
-      .string()
-      .min(1, { message: 'Nhập lại mật khẩu là bắt buộc!' })
-      .min(6, { message: 'Mật khẩu ít nhất 6 kí tự!' }),
-    role: zod.string().min(1, { message: 'Vai trò là bắt buộc!' }),
-    citizenId: zod.string().min(1, { message: 'CCCD/CMND là bắt buộc!' }),
-    phoneNumber: zod
-      .string()
-      .min(1, { message: 'Số điện thoại là bắt buộc!' })
-      .refine(
-        (value) => {
-          const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/;
-          return phoneRegex.test(value);
-        },
-        {
-          message: 'Số điện thoại không hợp lệ',
-        }
-      ),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Mật khẩu không giống nhau!',
-    path: ['confirmPassword'], // path of error
-  });
+import type { SignUpSchemaType } from './form-schema';
 
 // ----------------------------------------------------------------------
 
 export function JwtSignUpView() {
   const { checkUserSession } = useAuthContext();
 
+  const { grades } = useGetGrades();
+
   const router = useRouter();
 
   const password = useBoolean();
-  const showConfirmPasswrod = useBoolean();
+
+  const showConfirmPassword = useBoolean();
 
   const [errorMsg, setErrorMsg] = useState('');
 
   const defaultValues = {
+    fullName: '',
+    userName: '',
     email: '',
     phoneNumber: '',
     password: '',
     confirmPassword: '',
-    role: 'Student',
-    citizenId: '',
+    // role: 'Student',
+    gender: '',
+    location: '',
+    dateOfBirth: '',
+    placeOfWork: '',
+    grade: '',
+    photo: null,
   };
+
+  const gradeOptions = useMemo(() => {
+    if (!grades.length) return [];
+    return sortStringByNumbers(grades, (a, b) => ({
+      a: a.name,
+      b: b.name,
+    }));
+  }, [grades]);
 
   const methods = useForm<SignUpSchemaType>({
     resolver: zodResolver(SignUpSchema),
@@ -93,19 +79,16 @@ export function JwtSignUpView() {
 
   const {
     handleSubmit,
+    setValue,
     formState: { isSubmitting },
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await register({
-        email: data.email,
-        phoneNumber: data.phoneNumber,
-        password: data.password,
-        confirmPassword: data.confirmPassword,
-        role: data.role,
-        citizenId: data.citizenId,
-      });
+      const { photo, ...rest } = data;
+      const uploadRes = await uploadFile(photo as File);
+
+      await register({ ...rest, photo: uploadRes.fileUrl, role: 'Student' });
       await checkUserSession?.();
 
       router.push(paths.auth.jwt.signIn);
@@ -114,7 +97,20 @@ export function JwtSignUpView() {
       setErrorMsg(error instanceof Error ? error.message : error);
     }
   });
+  const handleDropPhoto = useCallback(
+    (acceptedFiles: File[]) => {
+      const file = acceptedFiles[0];
 
+      const newFile = Object.assign(file, {
+        preview: URL.createObjectURL(file),
+      });
+
+      if (file) {
+        setValue('photo', newFile, { shouldValidate: true, shouldDirty: true });
+      }
+    },
+    [setValue]
+  );
   const renderLogo = (
     <Typography variant="h3" sx={{ textAlign: 'center', mb: 4 }} gutterBottom>
       Tutor Finder
@@ -139,10 +135,11 @@ export function JwtSignUpView() {
 
   const renderForm = (
     <Stack spacing={3}>
-      {/* <Field.Text name="username" label="Username" InputLabelProps={{ shrink: true }} /> */}
+      <Field.UploadAvatar name="photo" onDrop={handleDropPhoto} />
+
+      <Field.Text name="userName" label="Username" InputLabelProps={{ shrink: true }} />
 
       <Field.Text name="email" label="Email" InputLabelProps={{ shrink: true }} />
-      <Field.Text name="phoneNumber" label="Số điện thoại" InputLabelProps={{ shrink: true }} />
 
       <Field.Text
         name="password"
@@ -164,27 +161,56 @@ export function JwtSignUpView() {
         name="confirmPassword"
         label="Nhập lại mật khẩu"
         placeholder="6+ kí tự"
-        type={showConfirmPasswrod.value ? 'text' : 'password'}
+        type={showConfirmPassword.value ? 'text' : 'password'}
         InputLabelProps={{ shrink: true }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton onClick={showConfirmPasswrod.onToggle} edge="end">
+              <IconButton onClick={showConfirmPassword.onToggle} edge="end">
                 <Iconify
-                  icon={showConfirmPasswrod.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
+                  icon={showConfirmPassword.value ? 'solar:eye-bold' : 'solar:eye-closed-bold'}
                 />
               </IconButton>
             </InputAdornment>
           ),
         }}
       />
+      <Divider />
 
-      <Field.Text
-        name="citizenId"
-        label="CCCD/CMND"
-        InputLabelProps={{ shrink: true }}
-        onKeyDown={acceptOnlyNumber}
-      />
+      <Field.Text name="fullname" label="Họ và tên" InputLabelProps={{ shrink: true }} />
+
+      <Field.Text name="phoneNumber" label="Số điện thoại" InputLabelProps={{ shrink: true }} />
+
+      <Field.Text name="location" label="Địa chỉ" InputLabelProps={{ shrink: true }} />
+
+      <Field.Text name="placeOfWork" label="Nơi làm việc" InputLabelProps={{ shrink: true }} />
+
+      <Field.DatePicker name="dateOfBirth" label="Ngày sinh" disableFuture reduceAnimations />
+
+      <Field.Select name="grade" label="Khối lớp" InputLabelProps={{ shrink: true }}>
+        {gradeOptions.map((grade) => (
+          <MenuItem key={grade.id} value={grade.name}>
+            {grade.name}
+          </MenuItem>
+        ))}
+      </Field.Select>
+      <Box sx={{ pl: 2 }}>
+        <Field.RadioGroup
+          name="gender"
+          label="Giới tính"
+          row
+          options={[
+            {
+              value: 'male',
+              label: 'Nam',
+            },
+            {
+              value: 'female',
+              label: 'Nữ',
+            },
+          ]}
+        />
+      </Box>
 
       <LoadingButton
         fullWidth

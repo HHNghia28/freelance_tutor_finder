@@ -128,3 +128,17 @@ export const merge = (target: any, ...sources: any[]): any => {
 
   return merge(target, ...sources);
 };
+
+// ----------------------------------------------------------------------
+
+export function sortStringByNumbers(
+  array: any[],
+  getSortValue: (a: any, b: any) => { a: any; b: any }
+) {
+  return array.sort((value1, value2) => {
+    const { a, b } = getSortValue(value1, value2);
+    const numA = Number(a.replace(/\D/g, '')); // Extract number from name
+    const numB = Number(b.replace(/\D/g, '')); // Extract number from name
+    return numA - numB;
+  });
+}

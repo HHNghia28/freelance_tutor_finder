@@ -62,7 +62,7 @@ export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
   const isNavVertical = isNavMini || settings.navLayout === 'vertical';
 
   const accountData = useMemo(() => {
-    if (user && user?.isAdmin)
+    if (user && user?.role === 'Admin')
       return _account.filter((acc) => acc.href !== paths.user.tutor_register);
     return _account;
   }, [user]);

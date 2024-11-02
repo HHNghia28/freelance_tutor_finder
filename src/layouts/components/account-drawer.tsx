@@ -7,8 +7,8 @@ import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
 import MenuItem from '@mui/material/MenuItem';
 import { useTheme } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 
 import { paths } from 'src/routes/paths';
 import { useRouter, usePathname } from 'src/routes/hooks';
@@ -22,6 +22,7 @@ import { AnimateAvatar } from 'src/components/animate';
 
 import { AccountButton } from './account-button';
 import { SignOutButton } from './sign-out-button';
+import { useAuthContext } from '../../auth/hooks';
 
 // ----------------------------------------------------------------------
 
@@ -41,7 +42,9 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
 
   const pathname = usePathname();
 
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const { user } = useAuthContext();
+
+  const userInfo = user?.user;
 
   const [open, setOpen] = useState(false);
 
@@ -66,15 +69,16 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
     <AnimateAvatar
       width={96}
       slotProps={{
-        avatar: { src: user?.photoURL, alt: user?.email },
+        avatar: { src: userInfo?.photo, alt: userInfo?.userName },
         overlay: {
           border: 2,
           spacing: 3,
           color: `linear-gradient(135deg, ${varAlpha(theme.vars.palette.primary.mainChannel, 0)} 25%, ${theme.vars.palette.primary.main} 100%)`,
         },
       }}
+      sx={{ textTransform: 'uppercase' }}
     >
-      {user?.email?.charAt(0).toUpperCase()}
+      {userInfo?.userName?.charAt(0)}
     </AnimateAvatar>
   );
 
@@ -83,8 +87,8 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
       <AccountButton
         open={open}
         onClick={handleOpenDrawer}
-        photoURL=""
-        displayName={user?.email}
+        photoURL={userInfo?.photo || ''}
+        displayName={userInfo?.email || ''}
         sx={sx}
         {...other}
       />
@@ -106,9 +110,11 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
         <Scrollbar>
           <Stack alignItems="center" sx={{ pt: 8 }}>
             {renderAvatar}
-
             <Typography variant="subtitle1" noWrap sx={{ mt: 2 }}>
-              {user?.email || 'Admin'}
+              {userInfo?.userName}
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }} noWrap>
+              {userInfo?.email}
             </Typography>
           </Stack>
 
@@ -121,8 +127,6 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
             }}
           >
             {data.map((option) => {
-              const rootLabel = pathname.includes('/dashboard') ? 'Dashboard' : 'Home';
-
               const rootHref = pathname.includes('/dashboard') ? paths.dashboard.root : '/';
 
               return (

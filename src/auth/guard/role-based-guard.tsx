@@ -11,21 +11,21 @@ import { varBounce, MotionContainer } from 'src/components/animate';
 
 import { useAuthContext } from '../hooks';
 
+import type { IRole } from '../../types/account';
+
 // ----------------------------------------------------------------------
 
 export type RoleBasedGuardProp = {
   sx?: SxProps<Theme>;
-  currentRole: 'admin' | 'user';
+  currentRole: IRole;
   hasContent?: boolean;
   children: React.ReactNode;
 };
 
 export function RoleBasedGuard({ sx, children, hasContent, currentRole }: RoleBasedGuardProp) {
   const { user } = useAuthContext();
-  const isAdmin = !!user?.isAdmin;
-  const isTutor = !user?.isAdmin;
 
-  if (user && ((currentRole === 'admin' && !isAdmin) || (currentRole === 'user' && !isTutor))) {
+  if (user && currentRole !== user?.role) {
     return hasContent ? (
       <Container component={MotionContainer} sx={{ textAlign: 'center', ...sx }}>
         <m.div variants={varBounce().in}>

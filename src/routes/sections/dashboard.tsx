@@ -24,7 +24,7 @@ const CvListPage = lazy(() => import('src/pages/dashboard/cv/list'));
 // ----------------------------------------------------------------------
 
 const layoutContent = (
-  <RoleBasedGuard hasContent currentRole="admin">
+  <RoleBasedGuard hasContent currentRole="Admin">
     <DashboardLayout>
       <Suspense fallback={<LoadingScreen />}>
         <Outlet />
