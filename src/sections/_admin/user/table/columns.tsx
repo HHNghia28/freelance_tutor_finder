@@ -2,6 +2,7 @@ import type { IAccount } from 'src/types/account';
 import type { GridColDef } from '@mui/x-data-grid';
 
 import Box from '@mui/material/Box';
+import SimpleImage from 'src/sections/_components/simple-image';
 
 export const baseColumns: GridColDef<IAccount>[] = [
   {
@@ -10,19 +11,7 @@ export const baseColumns: GridColDef<IAccount>[] = [
     headerName: 'Hình đại diện',
     headerAlign: 'center',
     align: 'center',
-    renderCell: (params) => (
-      <Box>
-        <Box
-          component="img"
-          src={params.value}
-          alt={params.row.fullname}
-          sx={{
-            aspectRatio: '1/1',
-            width: 80,
-          }}
-        />
-      </Box>
-    ),
+    renderCell: (params) => <SimpleImage src={params.value} alt={params.row.fullname} />,
   },
   {
     field: 'fullname',
