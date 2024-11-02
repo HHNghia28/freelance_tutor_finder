@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-import { UserListView } from 'src/sections/user/view';
+import { AccountListView } from '../../../sections/_admin/user/view/account-list-view';
 
 // ----------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <UserListView />
+      <AccountListView />
     </>
   );
 }
