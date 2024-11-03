@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom';
 
 import { SimpleLayout } from 'src/layouts/simple';
 import { DashboardLayout } from 'src/layouts/dashboard';
-import { guestNavData } from 'src/layouts/config-nav-guest';
 
 import { SplashScreen } from 'src/components/loading-screen';
 
