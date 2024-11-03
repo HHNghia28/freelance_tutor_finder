@@ -83,6 +83,14 @@ export const Image = forwardRef<HTMLSpanElement, ImageProps>(
             ? `${CONFIG.site.basePath}/assets/transparent.png`
             : `${CONFIG.site.basePath}/assets/placeholder.svg`
         }
+        onError={(event) => {
+          // if (!disabledDefault) {
+          const evt = event as any;
+          evt.target.src = '/assets/images/default-img.jpg';
+          evt.target.classList.add('default-image');
+          evt.onerror = null;
+          // }
+        }}
         sx={{
           width: 1,
           height: 1,
