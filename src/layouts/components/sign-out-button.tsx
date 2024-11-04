@@ -2,13 +2,11 @@ import type { ButtonProps } from '@mui/material/Button';
 import type { Theme, SxProps } from '@mui/material/styles';
 
 import { useCallback } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
 
 import Button from '@mui/material/Button';
 
+import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
-
-import { CONFIG } from 'src/config-global';
 
 import { toast } from 'src/components/snackbar';
 
@@ -29,42 +27,21 @@ export function SignOutButton({ onClose, ...other }: Props) {
 
   const { checkUserSession } = useAuthContext();
 
-  const { logout: signOutAuth0 } = useAuth0();
-
   const handleLogout = useCallback(async () => {
     try {
       await signOut();
       await checkUserSession?.();
 
       onClose?.();
-      router.refresh();
+      router.push(paths.guest.news.list);
     } catch (error) {
       console.error(error);
       toast.error('Không thể đăng xuất!');
     }
   }, [checkUserSession, onClose, router]);
 
-  const handleLogoutAuth0 = useCallback(async () => {
-    try {
-      await signOutAuth0();
-
-      onClose?.();
-      router.refresh();
-    } catch (error) {
-      console.error(error);
-      toast.error('Không thể đăng xuất!');
-    }
-  }, [onClose, router, signOutAuth0]);
-
   return (
-    <Button
-      fullWidth
-      variant="soft"
-      size="large"
-      color="error"
-      onClick={CONFIG.auth.method === 'auth0' ? handleLogoutAuth0 : handleLogout}
-      {...other}
-    >
+    <Button fullWidth variant="soft" size="large" color="error" onClick={handleLogout} {...other}>
       Đăng xuất
     </Button>
   );

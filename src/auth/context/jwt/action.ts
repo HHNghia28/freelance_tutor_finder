@@ -84,6 +84,7 @@ export const signUp = async ({
 export const signOut = async (): Promise<void> => {
   try {
     await setSession(null);
+    localStorage.removeItem('user');
   } catch (error) {
     console.error('Error during sign out:', error);
     throw error;
