@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 
-import { AccountListView } from 'src/sections/_admin/user/view/account-list-view';
+import MyCourseListView from 'src/sections/_user/my-course/view/my-course-list-view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Quản lí tin tức` };
+const metadata = { title: `Khóa học của tôi` };
 
 export default function Page() {
   return (
@@ -12,8 +12,7 @@ export default function Page() {
       <Helmet>
         <title> {metadata.title}</title>
       </Helmet>
-
-      <AccountListView />
+      <MyCourseListView />
     </>
   );
 }

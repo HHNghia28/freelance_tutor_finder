@@ -2,7 +2,7 @@ import type { IAccount } from 'src/types/account';
 import type { GridColDef } from '@mui/x-data-grid';
 
 import Box from '@mui/material/Box';
-import SimpleImage from 'src/sections/_components/simple-image';
+import SimpleImage from 'src/sections/_partials/simple-image';
 
 export const baseColumns: GridColDef<IAccount>[] = [
   {

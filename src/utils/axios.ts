@@ -46,6 +46,7 @@ export const endpoints = {
     resetPassword: '/api/Account/reset-password',
   },
   grade: { list: '/api/Grades' },
+  subject: { list: '/api/Courses' },
   file_upload: '/api/FileUpload/upload',
   tutor: {
     register: '/api/Tutors',
@@ -53,6 +54,16 @@ export const endpoints = {
     details: (id: string) => `/api/Tutors/${id}`,
     approved: (id: string) => `/api/Tutors/${id}/approved`,
     reject: (id: string) => `/api/Tutors/${id}/reject`,
+  },
+  course: {
+    list: '/api/TutorAdvertisements',
+    details: (id: string) => `/api/TutorAdvertisements/${id}`,
+    update: (id: string) => `/api/TutorAdvertisements/${id}`,
+    delete: (id: string) => `/api/TutorAdvertisements/${id}`,
+    create: `/api/TutorAdvertisements`,
+    join: `/api/TutorAdvertisements/join`,
+    student_course: (id: string) => `/api/TutorAdvertisements/student/${id}`,
+    tutor_course: (id: string) => `/api/TutorAdvertisements/tutor/${id}`,
   },
   /* ---------------- END MY APP ---------------- */
   chat: '/api/chat',

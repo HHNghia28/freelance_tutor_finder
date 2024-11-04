@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom';
 
 import { SimpleLayout } from 'src/layouts/simple';
 import { DashboardLayout } from 'src/layouts/dashboard';
-import { guestNavData } from 'src/layouts/config-nav-guest';
 
 import { SplashScreen } from 'src/components/loading-screen';
 
@@ -24,6 +23,8 @@ const TutorListPage = lazy(() => import('src/pages/guest/tutor/list'));
 const TutorDetailsPage = lazy(() => import('src/pages/guest/tutor/details'));
 // USER
 const TutorRegisterPage = lazy(() => import('src/pages/user/tutor/tutor-register'));
+const MyCoursePage = lazy(() => import('src/pages/user/my-course/list'));
+const CreateCoursePage = lazy(() => import('src/pages/user/my-course/create'));
 // ----------------------------------------------------------------------
 
 export const mainRoutes = [
@@ -36,7 +37,7 @@ export const mainRoutes = [
     children: [
       {
         element: (
-          <DashboardLayout data={{ nav: guestNavData }}>
+          <DashboardLayout>
             <Suspense fallback={<SplashScreen />}>
               <Outlet />
             </Suspense>
@@ -66,6 +67,18 @@ export const mainRoutes = [
                 <TutorRegisterPage />
               </AuthGuard>
             ),
+          },
+          {
+            path: 'khoa-hoc-cua-toi',
+            element: (
+              <AuthGuard>
+                <Outlet />
+              </AuthGuard>
+            ),
+            children: [
+              { element: <MyCoursePage />, index: true },
+              { path: 'khoa-hoc-moi', element: <CreateCoursePage /> },
+            ],
           },
         ],
       },

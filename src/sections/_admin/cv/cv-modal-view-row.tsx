@@ -18,7 +18,7 @@ import { fDate } from 'src/utils/format-time';
 
 import { useGetTutor } from 'src/actions/tutor';
 
-import SimpleImage from 'src/sections/_components/simple-image';
+import SimpleImage from 'src/sections/_partials/simple-image';
 
 type Props = Omit<DialogProps, 'children'> & {
   tutorId: string;

@@ -2,8 +2,6 @@ import { Helmet } from 'react-helmet-async';
 
 import { CONFIG } from 'src/config-global';
 
-import { UserListView } from 'src/sections/user/view';
-
 // ----------------------------------------------------------------------
 
 const metadata = { title: `User list | Dashboard - ${CONFIG.site.name}` };
@@ -14,8 +12,7 @@ export default function Page() {
       <Helmet>
         <title> {metadata.title}</title>
       </Helmet>
-
-      <UserListView />
+      <h1>user list</h1>
     </>
   );
 }

@@ -1,14 +1,28 @@
-import { Container, Typography } from '@mui/material';
+import type { ICourse } from 'src/types/course';
+
+import Grid from '@mui/material/Unstable_Grid2';
+import { Box, Paper, Stack, Button, Divider, Container, Typography } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 
+import { fDate } from 'src/utils/format-time';
+import { fCurrency } from 'src/utils/format-number';
+
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
-import TutorDetails from '../tutor-detais';
+import SimpleImage from 'src/sections/_partials/simple-image';
 
-export default function TutorDetailsView() {
+type Props = {
+  course: ICourse;
+};
+export default function TutorDetailsView({ course }: Props) {
   return (
-    <Container>
+    <Container sx={{ pb: 10 }}>
+      <SimpleImage
+        src={course.thumbnail}
+        alt={course.title}
+        sx={{ width: 1, minHeight: 300, maxHeight: 400 }}
+      />
       <CustomBreadcrumbs
         separator="/"
         sx={{
@@ -18,22 +32,109 @@ export default function TutorDetailsView() {
         }}
         links={[
           {
-            name: 'Tin tức gia sư',
-            href: paths.guest.news.list,
+            name: 'Tìm gia sư',
+            href: paths.guest.tutor.list,
           },
           {
-            name: 'Lò luyện thi vào Harvard',
+            name: course.title,
           },
         ]}
       />
-      <Typography variant="h2" gutterBottom>
-        Lò luyện thi vào Harvard
-      </Typography>
-      <Typography>
-        Mỹ - Từ đầu kỳ nghỉ hè 2024, 7 đứa trẻ 11 tuổi từ Australia, Anh, Thụy Sĩ bay đến New York
-        để gặp Jamie Beaton - một cố vấn đại học mà chúng tin sẽ giúp vào được Harvard.
-      </Typography>
-      <TutorDetails />
+      <Grid container spacing={2}>
+        <Grid xs={12} md={8}>
+          <Typography variant="h2" gutterBottom>
+            {course.title}
+          </Typography>
+          <Typography variant="subtitle1" gutterBottom>
+            Giáo viên: {course.fullname}
+          </Typography>
+          <Typography>{course.description}</Typography>
+          <Typography variant="h3" gutterBottom>
+            Đánh giá của học viên
+          </Typography>
+          <Stack>
+            {course.feedbacks?.length ? (
+              course.feedbacks.map((feedback) => (
+                <Box sx={{ mb: 2 }}>
+                  <Typography
+                    variant="caption"
+                    sx={{ textTransform: 'uppercase', fontWeight: 600, color: 'text.secondary' }}
+                  >
+                    {feedback.studentName}
+                  </Typography>
+                  <Typography variant="subtitle1">{feedback.message}</Typography>
+                  <Typography
+                    variant="overline"
+                    sx={{ color: 'text.secondary', display: 'block', width: 1, textAlign: 'right' }}
+                  >
+                    {fDate(feedback.postDate)}
+                  </Typography>
+                  <Divider />
+                </Box>
+              ))
+            ) : (
+              <Typography sx={{ textAlign: 'center', textTransform: 'uppercase', my: 5 }}>
+                Chưa có đánh giá về khóa học này
+              </Typography>
+            )}
+          </Stack>
+        </Grid>
+        <Grid xs={12} md={4}>
+          <Paper elevation={3} sx={{ p: 2, maxWidth: 400 }}>
+            <Typography variant="h5" sx={{ textTransform: 'uppercase' }}>
+              Thông tin khóa học
+            </Typography>
+            <Divider sx={{ mb: 2 }} />
+            <Stack
+              spacing={1.5}
+              sx={{
+                position: 'relative',
+              }}
+            >
+              {[
+                {
+                  value: course.daysPerMonth,
+                  label: `Số ngày học:`,
+                },
+                {
+                  value: course.course,
+                  label: `Môn: `,
+                },
+                {
+                  value: course.grade,
+                  label: `Khối lớp:`,
+                },
+                {
+                  value: `${fDate(course.startDate)} - ${fDate(course.endDate)}`,
+                  label: `Kỳ học`,
+                },
+              ].map((item) => (
+                <Stack
+                  key={item.label}
+                  spacing={1}
+                  direction="row"
+                  alignItems="center"
+                  sx={{ typography: 'body1' }}
+                >
+                  <strong>{item.label}</strong>
+                  {item.value}
+                </Stack>
+              ))}
+            </Stack>
+            <Divider sx={{ mt: 2 }} />
+
+            <Typography variant="h3" gutterBottom>
+              <Box component="strong" sx={{ typography: 'h4', color: '#333' }}>
+                Học phí:
+              </Box>{' '}
+              {fCurrency(course.fee)}
+            </Typography>
+            <Button variant="contained" color="primary" fullWidth size="large">
+              Đăng ký ngay
+            </Button>
+          </Paper>
+        </Grid>
+      </Grid>
     </Container>
   );
 }
