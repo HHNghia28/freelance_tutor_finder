@@ -48,9 +48,9 @@ export function CVListView() {
       const isApproved = rowSelect?.action === 'approved';
       if (isApproved) {
         await tutorApproved(rowSelect?.tutor.id);
-        toast.error(
+        toast.info(
           <>
-            Đã từ chối gia sư <strong>{rowSelect.tutor.fullname}</strong>!
+            Đã chấp nhận gia sư <strong>{rowSelect.tutor.fullname}</strong>!
           </>
         );
       } else {
