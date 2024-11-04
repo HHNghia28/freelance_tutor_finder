@@ -83,7 +83,7 @@ export function JwtUpdatePasswordView() {
       router.replace(paths.auth.jwt.signIn);
     } catch (error) {
       console.error(error);
-      toast.success('Đã có lỗi xảy ra!');
+      toast.error('Đã có lỗi xảy ra!');
     }
   });
 

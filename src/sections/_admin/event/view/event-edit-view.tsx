@@ -1,19 +1,21 @@
 import type { IEvent } from 'src/types/event';
 
-import { Box, Container, Typography } from '@mui/material';
-
 import { paths } from 'src/routes/paths';
 
-import { Markdown } from 'src/components/markdown';
+import { DashboardContent } from 'src/layouts/dashboard';
+
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
+
+import EventCreateEditForm from '../event-create-edit-form';
 
 type Props = {
   event: IEvent;
 };
-export default function NewsDetailsView({ event }: Props) {
+export default function EventEditView({ event }: Props) {
   return (
-    <Container>
+    <DashboardContent>
       <CustomBreadcrumbs
+        heading="Cập nhật tin tức"
         separator="/"
         sx={{
           '& .MuiBreadcrumbs-ol': {
@@ -22,21 +24,15 @@ export default function NewsDetailsView({ event }: Props) {
         }}
         links={[
           {
-            name: 'Tin tức gia sư',
-            href: paths.guest.news.list,
+            name: 'Tin tức',
+            href: paths.dashboard.news.list,
           },
           {
             name: event.title,
           },
         ]}
       />
-      <Typography variant="h2" gutterBottom>
-        {event.title}
-      </Typography>
-
-      <Box>
-        <Markdown children={event.description} />
-      </Box>
-    </Container>
+      <EventCreateEditForm editRecord={event} />
+    </DashboardContent>
   );
 }

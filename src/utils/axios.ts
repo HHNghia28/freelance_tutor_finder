@@ -68,6 +68,13 @@ export const endpoints = {
     student_course: (id: string) => `/api/TutorAdvertisements/student/${id}`,
     tutor_course: (id: string) => `/api/TutorAdvertisements/tutor/${id}`,
   },
+  event: {
+    list: '/api/Events',
+    details: (id: string) => `/api/Events/${id}`,
+    update: (id: string) => `/api/Events/${id}`,
+    delete: (id: string) => `/api/Events/${id}`,
+    create: `/api/Events`,
+  },
   /* ---------------- END MY APP ---------------- */
   chat: '/api/chat',
   kanban: '/api/kanban',

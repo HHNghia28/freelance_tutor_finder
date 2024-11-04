@@ -6,7 +6,7 @@ import { DashboardLayout } from 'src/layouts/dashboard';
 
 import { SplashScreen } from 'src/components/loading-screen';
 
-import { AuthGuard } from 'src/auth/guard';
+import { AuthGuard, RoleBasedGuard } from 'src/auth/guard';
 
 // ----------------------------------------------------------------------
 
@@ -25,6 +25,9 @@ const TutorDetailsPage = lazy(() => import('src/pages/guest/tutor/details'));
 const TutorRegisterPage = lazy(() => import('src/pages/user/tutor/tutor-register'));
 const MyCoursePage = lazy(() => import('src/pages/user/my-course/list'));
 const CreateCoursePage = lazy(() => import('src/pages/user/my-course/create'));
+const MyEventPage = lazy(() => import('src/pages/user/my-event/list'));
+const CreateEventPage = lazy(() => import('src/pages/user/my-event/create'));
+
 // ----------------------------------------------------------------------
 
 export const mainRoutes = [
@@ -80,6 +83,20 @@ export const mainRoutes = [
               { path: 'khoa-hoc-moi', element: <CreateCoursePage /> },
             ],
           },
+          {
+            path: 'tin-tuc-cua-toi',
+            element: (
+              <AuthGuard>
+                <RoleBasedGuard hasContent currentRole="Tutor">
+                  <Outlet />
+                </RoleBasedGuard>
+              </AuthGuard>
+            ),
+            children: [
+              { element: <MyEventPage />, index: true },
+              { path: 'dang-tin-moi', element: <CreateEventPage /> },
+            ],
+          },
         ],
       },
 
@@ -91,9 +108,18 @@ export const mainRoutes = [
           </SimpleLayout>
         ),
       },
-      { path: '500', element: <Page500 /> },
-      { path: '404', element: <Page404 /> },
-      { path: '403', element: <Page403 /> },
+      {
+        path: '500',
+        element: <Page500 />,
+      },
+      {
+        path: '404',
+        element: <Page404 />,
+      },
+      {
+        path: '403',
+        element: <Page403 />,
+      },
     ],
   },
 ];

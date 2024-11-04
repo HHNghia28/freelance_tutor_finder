@@ -104,7 +104,7 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
       router.push(paths.user.my_course.list);
     } catch (error) {
       console.error(error);
-      toast.success('Đã có lỗi xảy ra!');
+      toast.error('Đã có lỗi xảy ra!');
     }
   });
 

@@ -1,10 +1,10 @@
-import type { ITutor } from 'src/types/tutor';
+import type { IEvent } from 'src/types/event';
 
 import { useMemo, useState } from 'react';
 
-import { Box } from '@mui/material';
 import Card from '@mui/material/Card';
 import { LoadingButton } from '@mui/lab';
+import { Box, Button } from '@mui/material';
 import {
   DataGrid,
   gridClasses,
@@ -13,11 +13,13 @@ import {
 } from '@mui/x-data-grid';
 
 import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
+import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { DashboardContent } from 'src/layouts/dashboard';
-import { tutorReject, useGetTutors, tutorApproved } from 'src/actions/tutor';
+import { deleteEvent, useGetEvents } from 'src/actions/event';
 
 import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
@@ -25,51 +27,18 @@ import { EmptyContent } from 'src/components/empty-content';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
-import { baseColumns } from '../table/cv-columns';
-import CVModalViewRow from '../cv-modal-view-row';
+import { baseColumns } from '../table/event-column';
 
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
 
-export function CVListView() {
-  const { tutors, tutorsLoading, tutorsMutate } = useGetTutors('waitting');
-  const [rowSelect, setRowSelect] = useState<{
-    tutor: ITutor;
-    action: 'view' | 'reject' | 'approved';
-  } | null>(null);
+export function EventListView() {
+  const router = useRouter();
+  const { events, eventsLoading, eventsMutate } = useGetEvents();
+  const [rowSelect, setRowSelect] = useState<IEvent | null>(null);
 
   const isProcessing = useBoolean();
-  const handleApprovedOrReject = async () => {
-    if (!rowSelect) return;
-    try {
-      isProcessing.onTrue();
-
-      const isApproved = rowSelect?.action === 'approved';
-      if (isApproved) {
-        await tutorApproved(rowSelect?.tutor.id);
-        toast.info(
-          <>
-            Đã chấp nhận gia sư <strong>{rowSelect.tutor.fullname}</strong>!
-          </>
-        );
-      } else {
-        await tutorReject(rowSelect?.tutor.id);
-        toast.error(
-          <>
-            Đã từ chối gia sư <strong>{rowSelect.tutor.fullname}</strong>!
-          </>
-        );
-      }
-      tutorsMutate();
-    } catch (error) {
-      console.error(error);
-      toast.error('Đã có lỗi xảy ra!');
-    } finally {
-      setRowSelect(null);
-      isProcessing.onFalse();
-    }
-  };
 
   const columns = useMemo(
     () => [
@@ -83,38 +52,17 @@ export function CVListView() {
         width: 100,
         getActions: (params: any) => [
           <GridActionsCellItem
-            icon={<Iconify icon="raphael:view" />}
-            label="Xem"
-            onClick={() =>
-              setRowSelect({
-                tutor: params.row,
-                action: 'view',
-              })
-            }
-          />,
-          <GridActionsCellItem
-            icon={<Iconify icon="material-symbols:order-approve" />}
-            label="Chấp nhận"
-            sx={{ color: 'info.main' }}
+            icon={<Iconify icon="solar:pen-bold" />}
+            label="Chỉnh sửa"
             showInMenu
-            onClick={() =>
-              setRowSelect({
-                tutor: params.row,
-                action: 'approved',
-              })
-            }
+            onClick={() => router.push(paths.dashboard.news.edit(params.id))}
           />,
           <GridActionsCellItem
-            icon={<Iconify icon="icon-park-outline:doc-fail" />}
-            label="Từ chối"
+            icon={<Iconify icon="solar:trash-bin-trash-bold" />}
+            label="Xóa"
             sx={{ color: 'error.main' }}
             showInMenu
-            onClick={() =>
-              setRowSelect({
-                tutor: params.row,
-                action: 'reject',
-              })
-            }
+            onClick={() => setRowSelect(params.row)}
           />,
         ],
       },
@@ -122,17 +70,36 @@ export function CVListView() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
+
+  const handleRemove = async () => {
+    try {
+      isProcessing.onTrue();
+      await deleteEvent(rowSelect!.id!);
+      toast.error('Xóa dữ liệu thành công!');
+      eventsMutate();
+    } catch (error) {
+      toast.error('Đã có lỗi xảy ra!');
+    } finally {
+      isProcessing.onFalse();
+      setRowSelect(null);
+    }
+  };
   return (
     <>
       <DashboardContent>
         <CustomBreadcrumbs
-          heading="Duyệt CV"
+          heading="Tin tức"
           links={[
             { name: 'Trang chủ', href: paths.dashboard.root },
-            { name: 'CV', href: paths.dashboard.cv },
+            { name: 'Tin tức', href: paths.dashboard.news.list },
             { name: 'Danh sách' },
           ]}
           sx={{ mb: { xs: 3, md: 5 } }}
+          action={
+            <Button variant="contained" LinkComponent={RouterLink} href={paths.dashboard.news.new}>
+              Thêm tin mới
+            </Button>
+          }
         />
         <Card
           sx={{
@@ -144,9 +111,9 @@ export function CVListView() {
             disableRowSelectionOnClick
             disableColumnFilter
             disableColumnMenu
-            rows={tutors.map((account) => ({ ...account, id: account.id as any }))}
+            rows={events as any}
             columns={columns as any}
-            loading={tutorsLoading}
+            loading={eventsLoading}
             getRowHeight={() => 'auto'}
             pageSizeOptions={[5, 10, 25]}
             initialState={{ pagination: { paginationModel: { pageSize: 10 } } }}
@@ -183,31 +150,21 @@ export function CVListView() {
           />
         </Card>
       </DashboardContent>
-      <CVModalViewRow
-        open={!!rowSelect && rowSelect.action === 'view'}
-        tutorId={rowSelect?.tutor.id || ''}
-        onClose={() => setRowSelect(null)}
-      />
+
       <ConfirmDialog
-        open={!!rowSelect && rowSelect.action !== 'view'}
+        open={!!rowSelect}
         onClose={() => setRowSelect(null)}
-        title={rowSelect?.action === 'approved' ? 'Chấp nhận gia sư' : 'Từ chối gia sư'}
+        title="Xác nhận xóa dòng này?"
         content={
-          rowSelect?.action === 'approved' ? (
-            <>
-              Bạn có chấp nhận gia sư <strong> {rowSelect?.tutor?.fullname} </strong>?
-            </>
-          ) : (
-            <>
-              Xác nhận từ chối gia sư <strong> {rowSelect?.tutor?.fullname} </strong>?
-            </>
-          )
+          <>
+            Bạn chắc chắn xóa <strong> {rowSelect?.title} </strong>?
+          </>
         }
         action={
           <LoadingButton
             variant="contained"
             color="error"
-            onClick={handleApprovedOrReject}
+            onClick={handleRemove}
             loading={isProcessing.value}
           >
             Xác nhận

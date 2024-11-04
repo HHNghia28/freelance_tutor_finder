@@ -56,7 +56,7 @@ export function JwtForgotPasswordView() {
       isSended.onTrue();
     } catch (error) {
       console.error(error);
-      toast.success('Đã có lỗi xảy ra!');
+      toast.error('Đã có lỗi xảy ra!');
       isSended.onFalse();
     }
   });
