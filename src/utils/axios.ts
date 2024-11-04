@@ -48,6 +48,9 @@ export const endpoints = {
   grade: { list: '/api/Grades' },
   subject: { list: '/api/Courses' },
   file_upload: '/api/FileUpload/upload',
+  feedback: {
+    create: '/api/Feedback',
+  },
   tutor: {
     register: '/api/Tutors',
     list: '/api/Tutors',
