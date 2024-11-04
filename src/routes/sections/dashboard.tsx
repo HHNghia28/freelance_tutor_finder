@@ -16,6 +16,7 @@ const AccountCreatePage = lazy(() => import('src/pages/dashboard/account/new'));
 // News
 const NewsListPage = lazy(() => import('src/pages/dashboard/news/list'));
 const NewsCreatePage = lazy(() => import('src/pages/dashboard/news/new'));
+const NewsEditPage = lazy(() => import('src/pages/dashboard/news/edit'));
 // Payment
 const PaymentListPage = lazy(() => import('src/pages/dashboard/payment/list'));
 // Cv
@@ -24,13 +25,13 @@ const CvListPage = lazy(() => import('src/pages/dashboard/cv/list'));
 // ----------------------------------------------------------------------
 
 const layoutContent = (
-  <RoleBasedGuard hasContent currentRole="Admin">
-    <DashboardLayout>
+  <DashboardLayout>
+    <RoleBasedGuard hasContent currentRole="Admin">
       <Suspense fallback={<LoadingScreen />}>
         <Outlet />
       </Suspense>
-    </DashboardLayout>
-  </RoleBasedGuard>
+    </RoleBasedGuard>
+  </DashboardLayout>
 );
 
 export const dashboardRoutes = [
@@ -55,7 +56,7 @@ export const dashboardRoutes = [
           { element: <NewsListPage />, index: true },
           { path: 'list', element: <NewsListPage /> },
           { path: 'new', element: <NewsCreatePage /> },
-          // { path: ':id/edit', element: <UserEditPage /> },
+          { path: ':id/edit', element: <NewsEditPage /> },
         ],
       },
 

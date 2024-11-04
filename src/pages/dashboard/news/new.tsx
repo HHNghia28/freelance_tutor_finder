@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-import { UserCreateView } from 'src/sections/user/view';
+import EventCreateView from 'src/sections/_admin/event/view/event-create-view';
 
 // ----------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <UserCreateView />
+      <EventCreateView />
     </>
   );
 }

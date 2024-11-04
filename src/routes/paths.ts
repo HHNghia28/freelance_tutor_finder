@@ -54,6 +54,10 @@ export const paths = {
       list: `${ROOTS.USER}khoa-hoc-cua-toi`,
       create: `${ROOTS.USER}khoa-hoc-cua-toi/khoa-hoc-moi`,
     },
+    my_event: {
+      list: `${ROOTS.USER}tin-tuc-cua-toi`,
+      create: `${ROOTS.USER}tin-tuc-cua-toi/dang-tin-moi`,
+    },
   },
   // DASHBOARD
   dashboard: {

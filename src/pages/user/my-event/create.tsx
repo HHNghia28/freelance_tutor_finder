@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 
-import { EventListView } from 'src/sections/_admin/event/view/event-list-view';
+import MyEventCreateView from 'src/sections/_user/event/view/my-event-create-view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Quản lí tin tức` };
+const metadata = { title: `Đăng tin mới` };
 
 export default function Page() {
   return (
@@ -12,8 +12,7 @@ export default function Page() {
       <Helmet>
         <title> {metadata.title}</title>
       </Helmet>
-
-      <EventListView />
+      <MyEventCreateView />
     </>
   );
 }

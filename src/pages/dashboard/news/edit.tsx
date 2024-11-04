@@ -2,9 +2,12 @@ import { Helmet } from 'react-helmet-async';
 
 import { useParams } from 'src/routes/hooks';
 
-import { _userList } from 'src/_mock/_user';
+import { useGetEvent } from 'src/actions/event';
 
-import { UserEditView } from 'src/sections/user/view';
+import { EmptyContent } from 'src/components/empty-content';
+
+import LoadingIndicate from 'src/sections/_partials/loading-indicate';
+import EventEditView from 'src/sections/_admin/event/view/event-edit-view';
 
 // ----------------------------------------------------------------------
 
@@ -13,7 +16,11 @@ const metadata = { title: `Cập nhật tin tức` };
 export default function Page() {
   const { id = '' } = useParams();
 
-  const currentUser = _userList.find((user) => user.id === id);
+  const { event, eventLoading, eventEmpty } = useGetEvent(id);
+
+  if (eventLoading) return <LoadingIndicate />;
+
+  if (eventEmpty) return <EmptyContent title="Không tìm thấy tin tức này!" />;
 
   return (
     <>
@@ -21,7 +28,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <UserEditView user={currentUser} />
+      <EventEditView event={event!} />
     </>
   );
 }

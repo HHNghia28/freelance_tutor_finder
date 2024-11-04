@@ -58,7 +58,7 @@ export default function FeedbackForm({ courseId }: Props) {
       }, 2000);
     } catch (error) {
       console.error(error);
-      toast.success('Đã có lỗi xảy ra!');
+      toast.error('Đã có lỗi xảy ra!');
     }
   });
 

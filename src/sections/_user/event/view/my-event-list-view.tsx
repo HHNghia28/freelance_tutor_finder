@@ -5,20 +5,20 @@ import { RouterLink } from 'src/routes/components';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import MyCourseList from '../my-course-list';
+import MyEventList from '../my-event-list';
 
-export default function MyCourseListView() {
+export default function MyEventListView() {
   return (
     <DashboardContent>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Typography variant="h3" sx={{ mb: 2 }}>
-          Khóa học của tôi
+          Tin tức của tôi
         </Typography>
-        <Button LinkComponent={RouterLink} href={paths.user.my_course.create} variant="contained">
-          Tạo khóa học
+        <Button LinkComponent={RouterLink} href={paths.user.my_event.create} variant="contained">
+          Đăng tin mới
         </Button>
       </Stack>
-      <MyCourseList />
+      <MyEventList />
     </DashboardContent>
   );
 }

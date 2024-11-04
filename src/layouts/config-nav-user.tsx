@@ -47,6 +47,9 @@ export const userNavData = [
    */
   {
     subheader: 'Tài khoản',
-    items: [{ title: 'Khóa học của tôi', path: paths.user.my_course.list, icon: ICONS.blog }],
+    items: [
+      { title: 'Khóa học của tôi', path: paths.user.my_course.list, icon: ICONS.file },
+      { title: 'Tin tức của tôi', path: paths.user.my_event.list, icon: ICONS.blog },
+    ],
   },
 ];
