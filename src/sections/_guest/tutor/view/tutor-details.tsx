@@ -11,6 +11,7 @@ import { fCurrency } from 'src/utils/format-number';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import SimpleImage from 'src/sections/_partials/simple-image';
+import FeedbackBox from 'src/sections/_user/feedback/view/feedback-box';
 
 type Props = {
   course: ICourse;
@@ -52,6 +53,9 @@ export default function TutorDetailsView({ course }: Props) {
           <Typography variant="h3" gutterBottom>
             Đánh giá của học viên
           </Typography>
+          <Box sx={{ mb: 2 }}>
+            <FeedbackBox courseId={course.id} />
+          </Box>
           <Stack>
             {course.feedbacks?.length ? (
               course.feedbacks.map((feedback) => (
