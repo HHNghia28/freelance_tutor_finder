@@ -4,12 +4,12 @@ import { forwardRef } from 'react';
 
 import Box from '@mui/material/Box';
 import NoSsr from '@mui/material/NoSsr';
-import { Typography } from '@mui/material';
 
 import { RouterLink } from 'src/routes/components';
 
+import { CONFIG } from 'src/config-global';
+
 import { logoClasses } from './classes';
-import { useSettingsContext } from '../settings';
 
 // ----------------------------------------------------------------------
 
@@ -21,25 +21,19 @@ export type LogoProps = BoxProps & {
 
 export const Logo = forwardRef<HTMLDivElement, LogoProps>(
   (
-    { animate, width = 40, height = 40, disableLink = false, className, href = '/', sx, ...other },
+    { animate, width = 80, height = 80, disableLink = false, className, href = '/', sx, ...other },
     ref
   ) => {
-    const settings = useSettingsContext();
-
-    const isNavMini = settings.navLayout === 'mini';
-
     const logo = (
-      <Typography variant={isNavMini ? 'h6' : 'h5'} sx={{ color: 'black' }}>
-        {isNavMini || animate ? (
-          <>
-            Tutor <br /> Finder
-          </>
-        ) : (
-          'TutorFinder'
-        )}
-      </Typography>
+      <Box
+        alt="logo"
+        component="img"
+        src={`${CONFIG.site.basePath}/logo/logo.png`}
+        sx={{ borderRadius: 999 }}
+        width={width}
+        height={height}
+      />
     );
-
     return (
       <NoSsr
         fallback={

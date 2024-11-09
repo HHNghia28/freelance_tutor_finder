@@ -1,6 +1,6 @@
 import type { ICourse } from 'src/types/course';
 
-import { Box, Link, Paper, Stack, Avatar, Divider, Typography } from '@mui/material';
+import { Box, Paper, Stack, Avatar, Divider, Typography } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
@@ -20,7 +20,11 @@ export default function CourseCard({ course }: Props) {
   return (
     <Paper
       elevation={1}
+      component={RouterLink}
+      href={paths.guest.tutor.details(course.id)}
       sx={{
+        display: 'block',
+        textDecoration: 'none',
         borderRadius: 2,
         overflow: 'hidden',
         border: (theme) => `1px solid ${varAlpha(theme.palette.grey['500Channel'], 0.12)}`,
@@ -40,14 +44,12 @@ export default function CourseCard({ course }: Props) {
               {fCurrency(course.fee)}
             </Typography>
           </Stack>
-          <Link
-            component={RouterLink}
-            href={paths.guest.tutor.details(course.id)}
+          <Typography
             variant="h5"
             sx={{ color: 'text.primary', display: 'block', ...maxLine({ line: 2 }) }}
           >
             {course.title}
-          </Link>
+          </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, color: 'text.secondary' }}>
             <Box sx={{ display: 'flex', flexDirection: 'row', gap: 0.5, alignItems: 'center' }}>
               <Iconify icon="mingcute:star-fill" sx={{ color: 'warning.main', mt: '-4px' }} />
