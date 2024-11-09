@@ -57,7 +57,7 @@ export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
 
   // const navData = data?.nav ?? dashboardNavData;
   const navData = useMemo(() => {
-    if (user?.role === 'Admin') return dashboardNavData;
+    if (user?.role === 'Admin') return [...guestNavData, ...dashboardNavData];
     if (user?.role === 'Tutor' || user?.role === 'Student')
       return [...guestNavData, ...userNavData];
     return guestNavData;

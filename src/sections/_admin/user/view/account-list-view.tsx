@@ -63,18 +63,17 @@ export function AccountListView() {
         headerAlign: 'center',
         width: 100,
         getActions: (params: any) => [
-          <GridActionsCellItem icon={<Iconify icon="raphael:view" />} label="Xem" />,
-          <GridActionsCellItem
-            icon={<Iconify icon="solar:pen-bold" />}
-            label="Chỉnh sửa"
-            showInMenu
-          />,
-          <GridActionsCellItem
-            icon={<Iconify icon="solar:trash-bin-trash-bold" />}
-            label="Xóa"
-            sx={{ color: 'error.main' }}
-            showInMenu
-          />,
+          // <GridActionsCellItem
+          //   icon={<Iconify icon="solar:pen-bold" />}
+          //   label="Chỉnh sửa"
+          //   showInMenu
+          // />,
+          // <GridActionsCellItem
+          //   icon={<Iconify icon="solar:trash-bin-trash-bold" />}
+          //   label="Xóa"
+          //   sx={{ color: 'error.main' }}
+          //   showInMenu
+          // />,
           <GridActionsCellItem
             icon={<Iconify icon="ic:baseline-block" />}
             label="Chặn"
