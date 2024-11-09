@@ -13,12 +13,16 @@ import Typography from '@mui/material/Typography';
 import { paths } from 'src/routes/paths';
 import { useRouter, usePathname } from 'src/routes/hooks';
 
+import { useBoolean } from 'src/hooks/use-boolean';
+
 import { varAlpha } from 'src/theme/styles';
 
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 import { AnimateAvatar } from 'src/components/animate';
+
+import ChangePassword from 'src/sections/change-password';
 
 import { AccountButton } from './account-button';
 import { SignOutButton } from './sign-out-button';
@@ -65,6 +69,8 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
     [handleCloseDrawer, router]
   );
 
+  const showFormChangePassword = useBoolean();
+
   const renderAvatar = (
     <AnimateAvatar
       width={96}
@@ -92,7 +98,6 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
         sx={sx}
         {...other}
       />
-
       <Drawer
         open={open}
         onClose={handleCloseDrawer}
@@ -132,9 +137,11 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
               return (
                 <MenuItem
                   key={option.label}
-                  onClick={() =>
-                    handleClickItem(option.label === 'Trang chủ' ? rootHref : option.href)
-                  }
+                  onClick={() => {
+                    if (option.label === 'Đổi mật khẩu') {
+                      showFormChangePassword.onTrue();
+                    } else handleClickItem(option.label === 'Trang chủ' ? rootHref : option.href);
+                  }}
                   sx={{
                     py: 1,
                     color: 'text.secondary',
@@ -163,6 +170,10 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
           <SignOutButton onClose={handleCloseDrawer} />
         </Box>
       </Drawer>
+      <ChangePassword
+        open={showFormChangePassword.value}
+        onClose={showFormChangePassword.onFalse}
+      />
     </>
   );
 }
