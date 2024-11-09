@@ -19,7 +19,7 @@ export default defineConfig({
         lintCommand: 'eslint "./src/**/*.{js,jsx,ts,tsx}"',
       },
       overlay: {
-        position: 'tl',
+        position: 'bl',
         initialIsOpen: false,
       },
     }),
