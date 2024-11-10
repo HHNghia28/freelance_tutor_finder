@@ -28,21 +28,41 @@ export default function CourseCard({ course }: Props) {
         borderRadius: 2,
         overflow: 'hidden',
         border: (theme) => `1px solid ${varAlpha(theme.palette.grey['500Channel'], 0.12)}`,
+        height: 1,
       }}
     >
-      <Stack direction="column">
+      <Stack direction="column" sx={{ height: 1 }}>
         <Box sx={{ position: 'relative', flex: 1 }}>
           <Image src={course.thumbnail} alt={course.title} ratio="1/1" sx={{ width: 1 }} />
         </Box>
         <Box sx={{ flex: 1, p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Stack direction="row" minWidth={0} alignItems="center" justifyContent="space-between">
+          <Stack
+            direction="row"
+            minWidth={0}
+            alignItems="center"
+            justifyContent="space-between"
+            sx={{ flex: 1 }}
+          >
             <Typography variant="overline" sx={{ color: 'secondary.main' }}>
               {course.course} - {course.grade}
             </Typography>
-            <Typography variant="h5" sx={{ flexShrink: 0 }}>
-              {' '}
-              {fCurrency(course.fee)}
-            </Typography>
+            {course.discount > 0 ? (
+              <Box sx={{ flexShrink: 0 }}>
+                <Typography
+                  variant="caption"
+                  sx={{ textDecoration: 'line-through', fontWeight: 600 }}
+                >
+                  {fCurrency(course.fee)}
+                </Typography>
+                <Typography variant="h5" sx={{ color: 'error.main' }}>
+                  {fCurrency(course.fee - course.fee * (course.discount / 100))}
+                </Typography>
+              </Box>
+            ) : (
+              <Typography variant="h5" sx={{ flexShrink: 0 }}>
+                {fCurrency(course.fee)}
+              </Typography>
+            )}
           </Stack>
           <Typography
             variant="h5"
@@ -74,14 +94,14 @@ export default function CourseCard({ course }: Props) {
                   display: 'inline',
                 }}
               >
-                50
+                {course.numberOfStudent}
               </Typography>{' '}
               học sinh
             </Typography>
           </Box>
 
           <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }}>
-            <Avatar src="avatar" alt={course.fullname} />
+            <Avatar src={course.photo} alt={course.fullname} />
 
             <Typography variant="body2">{course.fullname}</Typography>
           </Box>

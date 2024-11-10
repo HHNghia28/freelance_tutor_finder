@@ -40,7 +40,7 @@ export const mainRoutes = [
     children: [
       {
         element: (
-          <DashboardLayout>
+          <DashboardLayout isLanding>
             <Suspense fallback={<SplashScreen />}>
               <Outlet />
             </Suspense>

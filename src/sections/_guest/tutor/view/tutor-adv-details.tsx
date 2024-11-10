@@ -16,7 +16,7 @@ import FeedbackBox from 'src/sections/_user/feedback/view/feedback-box';
 type Props = {
   course: ICourse;
 };
-export default function TutorDetailsView({ course }: Props) {
+export default function TutorAdvDetailsView({ course }: Props) {
   return (
     <Container sx={{ pb: 10 }}>
       <SimpleImage
@@ -78,7 +78,7 @@ export default function TutorDetailsView({ course }: Props) {
               ))
             ) : (
               <Typography sx={{ textAlign: 'center', textTransform: 'uppercase', my: 5 }}>
-                Chưa có đánh giá về khóa học này
+                Chưa có đánh giá về bài đăng này
               </Typography>
             )}
           </Stack>
@@ -86,7 +86,7 @@ export default function TutorDetailsView({ course }: Props) {
         <Grid xs={12} md={4}>
           <Paper elevation={3} sx={{ p: 2, maxWidth: 400 }}>
             <Typography variant="h5" sx={{ textTransform: 'uppercase' }}>
-              Thông tin khóa học
+              Thông tin bài đăng
             </Typography>
             <Divider sx={{ mb: 2 }} />
             <Stack

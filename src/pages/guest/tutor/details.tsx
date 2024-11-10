@@ -7,7 +7,7 @@ import { useGetCourse } from 'src/actions/course';
 import { EmptyContent } from 'src/components/empty-content';
 
 import LoadingIndicate from 'src/sections/_partials/loading-indicate';
-import TutorDetailsView from 'src/sections/_guest/tutor/view/tutor-details';
+import TutorAdvDetailsView from 'src/sections/_guest/tutor/view/tutor-adv-details';
 
 // ----------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ export default function Page() {
       <Helmet>
         <title> {metadata.title}</title>
       </Helmet>
-      <TutorDetailsView course={course!} />
+      <TutorAdvDetailsView course={course!} />
     </>
   );
 }

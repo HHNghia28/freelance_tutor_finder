@@ -193,8 +193,13 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
                   </MenuItem>
                 ))}
               </Field.Select>
-              <Field.DatePicker name="startDate" label="Ngày bắt đầu" reduceAnimations />
-              <Field.DatePicker name="endDate" label="Ngày kết thúc" reduceAnimations />
+              <Field.DatePicker
+                name="startDate"
+                label="Ngày bắt đầu"
+                disablePast
+                reduceAnimations
+              />
+              <Field.DatePicker name="endDate" label="Ngày kết thúc" disablePast reduceAnimations />
             </Box>
           </Stack>
         </Card>

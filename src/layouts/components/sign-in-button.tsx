@@ -13,7 +13,10 @@ export function SignInButton({ sx, ...other }: ButtonProps) {
       component={RouterLink}
       href={paths.auth.jwt.signIn}
       variant="outlined"
-      sx={sx}
+      color="primary"
+      sx={{
+        ...sx,
+      }}
       {...other}
     >
       Đăng nhập

@@ -16,7 +16,19 @@ export const CourseSchema = zod
     daysPerMonth: zod.string().min(1, { message: 'Số ngày học là bắt buộc!' }),
     courseId: zod.string().min(1, { message: 'Môn học là bắt buộc!' }),
     gradeId: zod.string().min(1, { message: 'Khối lốp là bắt buộc!' }),
-    startDate: zod.string().min(1, { message: 'Ngày bắt đầu là bắt buộc!' }),
+    startDate: zod
+      .string()
+      .min(1, { message: 'Ngày bắt đầu là bắt buộc!' })
+      .refine(
+        (date) => {
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          return new Date(date) >= today;
+        },
+        {
+          message: 'Ngày bắt đầu không được nhỏ hơn hôm nay',
+        }
+      ),
     endDate: zod.string().min(1, { message: 'Ngày kết thúc là bắt buộc!' }),
     fee: zod
       .number({

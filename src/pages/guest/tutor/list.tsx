@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-import TutorListView from 'src/sections/_guest/tutor/view/tutor-list-view';
+import TutorAdvListView from 'src/sections/_guest/tutor/view/tutor-adv-list-view';
 
 // ----------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <TutorListView />
+      <TutorAdvListView />
     </>
   );
 }

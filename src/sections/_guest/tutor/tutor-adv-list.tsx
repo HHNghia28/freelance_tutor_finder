@@ -5,7 +5,7 @@ import { useGetCourses } from 'src/actions/course';
 import CourseCard from 'src/sections/_partials/course-card';
 import LoadingIndicate from 'src/sections/_partials/loading-indicate';
 
-export default function TutorList() {
+export default function TutorAdvList() {
   const { courses, coursesLoading } = useGetCourses();
   if (coursesLoading) return <LoadingIndicate />;
   return (
