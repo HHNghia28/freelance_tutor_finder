@@ -31,4 +31,10 @@ export const baseColumns: GridColDef<IAccount>[] = [
     flex: 1,
     minWidth: 150,
   },
+  {
+    field: 'role',
+    headerName: 'Vai trò',
+    flex: 1,
+    minWidth: 150,
+  },
 ];
