@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-import TutorAdvListView from 'src/sections/_guest/tutor/view/tutor-adv-list-view';
+import TutorAdvListView from 'src/sections/_guest/tutor-adv/view/tutor-adv-list-view';
 
 // ----------------------------------------------------------------------
 

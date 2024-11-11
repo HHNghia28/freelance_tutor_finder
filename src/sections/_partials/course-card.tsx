@@ -1,6 +1,6 @@
 import type { ICourse } from 'src/types/course';
 
-import { Box, Paper, Stack, Avatar, Divider, Typography } from '@mui/material';
+import { Box, Paper, Stack, Avatar, Typography } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
@@ -12,6 +12,8 @@ import { maxLine, varAlpha } from 'src/theme/styles';
 
 import { Image } from 'src/components/image';
 import { Iconify } from 'src/components/iconify';
+
+import BriefTutorAdv from './brief-tutor-adv';
 
 type Props = {
   course: ICourse;
@@ -70,42 +72,15 @@ export default function CourseCard({ course }: Props) {
           >
             {course.title}
           </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, color: 'text.secondary' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 0.5, alignItems: 'center' }}>
-              <Iconify icon="mingcute:star-fill" sx={{ color: 'warning.main', mt: '-4px' }} />
-              <Typography
-                variant="h6"
-                sx={{
-                  color: 'text.primary',
-                }}
-              >
-                {course.feedbacks?.length || 0}
-              </Typography>
-              <Typography variant="body2" sx={{ display: 'inline' }}>
-                đánh giá
-              </Typography>
-            </Box>
-            <Divider flexItem orientation="vertical" sx={{ mx: 2 }} />
-            <Typography variant="body2">
-              <Typography
-                variant="h6"
-                sx={{
-                  color: 'text.primary',
-                  display: 'inline',
-                }}
-              >
-                {course.numberOfStudent}
-              </Typography>{' '}
-              học sinh
-            </Typography>
-          </Box>
-
+          <BriefTutorAdv
+            studentCount={course.numberOfStudent}
+            feedbackCount={course.feedbacks?.length || 0}
+          />
           <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }}>
             <Avatar src={course.photo} alt={course.fullname} />
 
             <Typography variant="body2">{course.fullname}</Typography>
           </Box>
-
           <Stack
             spacing={4}
             direction="row"

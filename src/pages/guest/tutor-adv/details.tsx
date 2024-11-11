@@ -7,7 +7,7 @@ import { useGetCourse } from 'src/actions/course';
 import { EmptyContent } from 'src/components/empty-content';
 
 import LoadingIndicate from 'src/sections/_partials/loading-indicate';
-import TutorAdvDetailsView from 'src/sections/_guest/tutor/view/tutor-adv-details';
+import TutorAdvDetailsView from 'src/sections/_guest/tutor-adv/view/tutor-adv-details';
 
 // ----------------------------------------------------------------------
 

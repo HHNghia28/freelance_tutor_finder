@@ -19,8 +19,8 @@ const Page404 = lazy(() => import('src/pages/error/404'));
 const TutorNewsListPage = lazy(() => import('src/pages/guest/news/list'));
 const TutorNewsDetailsPage = lazy(() => import('src/pages/guest/news/details'));
 // Tutor
-const TutorListPage = lazy(() => import('src/pages/guest/tutor/list'));
-const TutorDetailsPage = lazy(() => import('src/pages/guest/tutor/details'));
+const TutorAdvListPage = lazy(() => import('src/pages/guest/tutor-adv/list'));
+const TutorAdvDetailsPage = lazy(() => import('src/pages/guest/tutor-adv/details'));
 // USER
 const TutorRegisterPage = lazy(() => import('src/pages/user/tutor/tutor-register'));
 const MyCoursePage = lazy(() => import('src/pages/user/my-course/list'));
@@ -58,8 +58,8 @@ export const mainRoutes = [
           {
             path: 'tim-gia-su',
             children: [
-              { element: <TutorListPage />, index: true },
-              { path: ':slug', element: <TutorDetailsPage /> },
+              { element: <TutorAdvListPage />, index: true },
+              { path: ':slug', element: <TutorAdvDetailsPage /> },
               // { path: ':id/edit', element: <UserEditPage /> },
             ],
           },

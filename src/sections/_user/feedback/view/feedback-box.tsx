@@ -46,7 +46,7 @@ export default function FeedbackBox({ courseId }: Props) {
       </Card>
     );
   return (
-    <Card sx={{ position: 'relative' }}>
+    <Card sx={{ position: 'relative', borderRadius: 1 }}>
       <CardHeader title="Ý kiến của bạn về khóa học này" />
       <CardContent>
         <FeedbackForm courseId={courseId} />
