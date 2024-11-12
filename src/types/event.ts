@@ -6,5 +6,9 @@ export type IEvent = {
   createDate: string;
   updateDate: string;
   createBy: string;
+  photo: string;
   tutorName: string;
+  selfIntroduction: string;
+  teachingAchievement: string;
+  academicSpecialty: string;
 };

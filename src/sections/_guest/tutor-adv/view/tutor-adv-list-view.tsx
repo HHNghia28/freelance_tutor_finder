@@ -1,4 +1,4 @@
-import { useGetCourses } from 'src/actions/course';
+import { useGetTutorAdvs } from 'src/actions/tutor-adv';
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import TutorAdvList from '../tutor-adv-list';
@@ -8,7 +8,7 @@ import TutorAdvSlides from '../tutor-adv-slides';
 import TutorAdvDisplay from '../tutor-adv-display';
 
 export default function TutorAdvListView() {
-  const { courses } = useGetCourses();
+  const { tutorAdvs } = useGetTutorAdvs();
 
   return (
     <>
@@ -20,7 +20,7 @@ export default function TutorAdvListView() {
         <TutorAdvList />
         <TutorAdvBanner />
         <TutorCarousel />
-        <TutorAdvDisplay data={courses} title="Bài đăng mới" />
+        <TutorAdvDisplay data={tutorAdvs} title="Bài đăng mới" />
       </DashboardContent>
     </>
   );

@@ -52,10 +52,9 @@ export const navData = [
         title: 'Tài khoản',
         path: paths.dashboard.account.list,
         icon: ICONS.user,
-        children: [
-          { title: 'Danh sách', path: paths.dashboard.account.list },
-          { title: 'Tạo mới', path: paths.dashboard.account.new },
-        ],
+        // children: [
+        //   { title: 'Danh sách', path: paths.dashboard.account.list },
+        // ],
       },
       {
         title: 'Tin tức',

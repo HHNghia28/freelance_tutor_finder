@@ -13,11 +13,13 @@ type Props = {
 };
 export default function EventEditView({ event }: Props) {
   return (
-    <DashboardContent>
+    <DashboardContent sx={{ maxWidth: 'md' }}>
       <CustomBreadcrumbs
         heading="Cập nhật tin tức"
         separator="/"
         sx={{
+          mb: 2,
+
           '& .MuiBreadcrumbs-ol': {
             columnGap: 0.5,
           },

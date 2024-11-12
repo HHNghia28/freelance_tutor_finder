@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import { CircularProgress } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 
@@ -17,15 +18,28 @@ export function CustomBreadcrumbs({
   moreLink,
   activeLast,
   slotProps,
+  loading,
   sx,
   ...other
 }: CustomBreadcrumbsProps) {
   const lastLink = links[links.length - 1].name;
 
   const renderHeading = (
-    <Typography variant="h4" sx={{ mb: 2, ...slotProps?.heading }}>
-      {heading}
-    </Typography>
+    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+      <Typography variant="h4" sx={{ flexShrink: 0, ...slotProps?.heading }}>
+        {heading}
+      </Typography>
+      {loading && (
+        <CircularProgress
+          sx={{
+            ml: 1,
+
+            color: 'secondary.dark',
+          }}
+          size={25}
+        />
+      )}
+    </Box>
   );
 
   const renderLinks = (

@@ -2,6 +2,7 @@ import { paths } from 'src/routes/paths';
 
 import { CONFIG } from 'src/config-global';
 
+import { Iconify } from 'src/components/iconify';
 import { SvgColor } from 'src/components/svg-color';
 
 // ----------------------------------------------------------------------
@@ -41,12 +42,27 @@ const ICONS = {
 
 // ----------------------------------------------------------------------
 
-export const userNavData = [
+export const studentNavData = [
+  /**
+   * User
+   */
+  {
+    subheader: 'Tài khoản',
+    items: [
+      {
+        title: 'Yêu thích',
+        path: paths.user.favorite,
+        icon: <Iconify icon="solar:heart-bold" />,
+      },
+    ],
+  },
+];
+export const tutorNavData = [
   /**
    * Tutor
    */
   {
-    subheader: 'Tài khoản',
-    items: [{ title: 'Khóa học của tôi', path: paths.user.my_course.list, icon: ICONS.file }],
+    subheader: 'Gia sư',
+    items: [{ title: 'Bài viết của tôi', path: paths.user.my_course.list, icon: ICONS.file }],
   },
 ];

@@ -10,9 +10,9 @@ import { useAuthContext } from 'src/auth/hooks';
 import FeedbackForm from '../feedback-form';
 
 type Props = {
-  courseId: string;
+  tutorAdvId: string;
 };
-export default function FeedbackBox({ courseId }: Props) {
+export default function FeedbackBox({ tutorAdvId }: Props) {
   const { user, unauthenticated } = useAuthContext();
 
   const isTutor = user?.role === 'Tutor';
@@ -49,7 +49,7 @@ export default function FeedbackBox({ courseId }: Props) {
     <Card sx={{ position: 'relative', borderRadius: 1 }}>
       <CardHeader title="Ý kiến của bạn về khóa học này" />
       <CardContent>
-        <FeedbackForm courseId={courseId} />
+        <FeedbackForm tutorAdvId={tutorAdvId} />
       </CardContent>
       {unauthenticated && loginRequired}
     </Card>

@@ -1,8 +1,8 @@
-import type { ICourse } from 'src/types/course';
+import type { ITutorAdv } from 'src/types/tutor-adv';
 
 import { useForm } from 'react-hook-form';
-import { useMemo, useCallback } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMemo, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -19,7 +19,7 @@ import { sortStringByNumbers } from 'src/utils/helper';
 import { useGetGrades } from 'src/actions/grade';
 import { MAX_FILE_SIZE } from 'src/config-global';
 import { useGetSubjects } from 'src/actions/subject';
-import { createCourse, updateCourse } from 'src/actions/course';
+import { createTutorAdv, updateTutorAdv } from 'src/actions/tutor-adv';
 
 import { toast } from 'src/components/snackbar';
 import { Form, Field } from 'src/components/hook-form';
@@ -32,7 +32,7 @@ import { acceptOnlyNumber } from '../../../utils/input-strict';
 import type { CourseSchemaType } from './form/course-schema';
 
 type Props = {
-  editRecord?: ICourse;
+  editRecord?: ITutorAdv;
 };
 export default function MyCourseCreateEditForm({ editRecord }: Props) {
   const isEdit = !!editRecord;
@@ -46,14 +46,23 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
       title: editRecord?.title || '',
       description: editRecord?.description || '',
       daysPerMonth: editRecord?.daysPerMonth || '',
-      courseId: editRecord?.course || '',
-      gradeId: editRecord?.grade || '',
+      courseId:
+        editRecord?.course && subjects.length
+          ? subjects.find((subject) => subject.name === editRecord.course)?.id
+          : '',
+      gradeId:
+        editRecord?.grade && grades.length
+          ? grades.find((grade) => grade.name === editRecord.grade)?.id
+          : '',
       startDate: editRecord?.startDate || '',
       endDate: editRecord?.endDate || '',
       fee: editRecord?.fee || 0,
+      discount: editRecord?.discount || 0,
       thumbnail: editRecord?.thumbnail || null,
+      isStartDateDirty: !isEdit,
+      isEndDateDirty: !isEdit,
     }),
-    [editRecord]
+    [editRecord, grades, subjects, isEdit]
   );
   const gradeOptions = useMemo(() => {
     if (!grades.length) return [];
@@ -75,30 +84,44 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
     formState: { isSubmitting, dirtyFields },
   } = methods;
 
+  useEffect(() => {
+    if (dirtyFields.startDate) {
+      setValue('isStartDateDirty', true);
+    }
+    if (dirtyFields.endDate) {
+      setValue('isEndDateDirty', true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dirtyFields.startDate, dirtyFields.endDate]);
+
+  useEffect(() => {
+    reset(defaultValues);
+  }, [defaultValues, reset]);
+
   const onSubmit = handleSubmit(async (data) => {
     try {
       if (!isEdit) {
         const { thumbnail, ...rest } = data;
 
         const uploadRes = await uploadFile(thumbnail as File);
-        await createCourse({
+        await createTutorAdv({
           ...rest,
           thumbnail: uploadRes.fileUrl,
           tutorId: user!.tutorId!,
         });
-        toast.success('Tạo khóa học mới thành công!');
+        toast.success('Tạo bài đăng mới thành công!');
       } else {
         const { thumbnail, ...rest } = data;
         if (dirtyFields.thumbnail) {
           const uploadRes = await uploadFile(thumbnail as File);
-          await updateCourse(editRecord.id, {
+          await updateTutorAdv(editRecord.id, {
             ...rest,
             thumbnail: uploadRes.fileUrl,
           });
         } else {
-          await updateCourse(editRecord.id, rest);
+          await updateTutorAdv(editRecord.id, rest);
         }
-        toast.success('Cập nhật khóa học thành công!');
+        toast.success('Cập nhật bài đăng thành công!');
       }
       reset();
       router.push(paths.user.my_course.list);
@@ -148,7 +171,6 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
                 sx={{ width: 1 }}
                 maxSize={MAX_FILE_SIZE}
                 onDrop={handleDrop}
-                onRemove={() => setValue('thumbnail', null, { shouldValidate: true })}
               />
             </Box>
           </Stack>
@@ -170,15 +192,28 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
               gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
             >
               <Field.Text name="daysPerMonth" label="Số ngày học" placeholder="20 ngày/tháng.." />
-              <Field.Text
-                type="number"
-                name="fee"
-                label="Học phí"
-                onKeyDown={acceptOnlyNumber}
-                InputProps={{
-                  endAdornment: 'VNĐ',
-                }}
-              />
+              <Box>
+                <Field.Text
+                  type="number"
+                  name="fee"
+                  label="Học phí"
+                  onKeyDown={acceptOnlyNumber}
+                  InputProps={{
+                    endAdornment: 'VNĐ',
+                  }}
+                  sx={{ width: '48%' }}
+                />
+                <Field.Text
+                  type="number"
+                  name="discount"
+                  label="Giảm giá"
+                  onKeyDown={acceptOnlyNumber}
+                  InputProps={{
+                    endAdornment: '%',
+                  }}
+                  sx={{ width: '48%', ml: 1 }}
+                />
+              </Box>
               <Field.Select name="gradeId" label="Khối lớp">
                 {gradeOptions.map((grade) => (
                   <MenuItem key={grade.id} value={grade.id}>

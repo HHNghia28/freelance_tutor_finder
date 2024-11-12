@@ -1,4 +1,4 @@
-import type { ICourse } from 'src/types/course';
+import type { ITutorAdv } from 'src/types/tutor-adv';
 
 import Grid from '@mui/material/Unstable_Grid2';
 import { Box, Paper, Stack, Avatar, Divider, Container, Typography } from '@mui/material';
@@ -19,9 +19,9 @@ import BriefTutorAdv from 'src/sections/_partials/brief-tutor-adv';
 import FeedbackBox from 'src/sections/_user/feedback/view/feedback-box';
 
 type Props = {
-  course: ICourse;
+  tutorAdv: ITutorAdv;
 };
-export default function TutorAdvDetailsView({ course }: Props) {
+export default function TutorAdvDetailsView({ tutorAdv }: Props) {
   return (
     <Container sx={{ pb: 10 }}>
       <CustomBreadcrumbs
@@ -38,7 +38,7 @@ export default function TutorAdvDetailsView({ course }: Props) {
             href: paths.guest.tutor.list,
           },
           {
-            name: course.title,
+            name: tutorAdv.title,
           },
         ]}
       />
@@ -47,39 +47,39 @@ export default function TutorAdvDetailsView({ course }: Props) {
           <Paper sx={{ p: 2, borderRadius: 2 }} elevation={2}>
             <Stack direction="row" spacing={2}>
               <SimpleImage
-                src={course.thumbnail}
-                alt={course.title}
+                src={tutorAdv.thumbnail}
+                alt={tutorAdv.title}
                 sx={{ width: 1, maxWidth: 300, aspectRatio: '2/1' }}
               />
               <Box sx={{ py: 2 }}>
                 <Typography variant="h2" gutterBottom>
-                  {course.title}
+                  {tutorAdv.title}
                 </Typography>
                 <Typography variant="subtitle1" gutterBottom>
-                  Giáo viên: {course.fullname}
+                  Giáo viên: {tutorAdv.fullname}
                 </Typography>
                 <Box sx={{ my: 2 }}>
                   <BriefTutorAdv
-                    studentCount={course.numberOfStudent}
-                    feedbackCount={course.feedbacks?.length || 0}
+                    studentCount={tutorAdv.numberOfStudent}
+                    feedbackCount={tutorAdv.feedbacks?.length || 0}
                   />
                 </Box>
                 <Box>
-                  {course.discount ? (
+                  {tutorAdv.discount ? (
                     <Box sx={{ display: 'flex', alignItems: 'center', columnGap: 0.5 }}>
                       <Typography variant="h6" sx={{ color: 'error.main', fontWeight: 700 }}>
-                        {fCurrency(course.fee * ((100 - course.discount) / 100))}
+                        {fCurrency(tutorAdv.fee * ((100 - tutorAdv.discount) / 100))}
                       </Typography>
                       <Typography
                         variant="caption"
                         sx={{ textDecoration: 'line-through', color: 'text.secondary' }}
                       >
-                        {fCurrency(course.fee)}
+                        {fCurrency(tutorAdv.fee)}
                       </Typography>
                     </Box>
                   ) : (
                     <Typography variant="h6" sx={{ color: 'error.main', fontWeight: 700 }}>
-                      {fCurrency(course.fee)}
+                      {fCurrency(tutorAdv.fee)}
                     </Typography>
                   )}
                 </Box>
@@ -101,19 +101,19 @@ export default function TutorAdvDetailsView({ course }: Props) {
             >
               {[
                 {
-                  value: course.daysPerMonth,
+                  value: tutorAdv.daysPerMonth,
                   label: `Số ngày học:`,
                 },
                 {
-                  value: course.course,
+                  value: tutorAdv.course,
                   label: `Môn: `,
                 },
                 {
-                  value: course.grade,
+                  value: tutorAdv.grade,
                   label: `Khối lớp:`,
                 },
                 {
-                  value: `${fDate(course.startDate)} - ${fDate(course.endDate)}`,
+                  value: `${fDate(tutorAdv.startDate)} - ${fDate(tutorAdv.endDate)}`,
                   label: `Kỳ học`,
                 },
               ].map((item) => (
@@ -135,7 +135,7 @@ export default function TutorAdvDetailsView({ course }: Props) {
             <Typography variant="h5">Mô tả</Typography>
             <Divider sx={{ mb: 2 }} />
 
-            <Markdown children={course.description} />
+            <Markdown children={tutorAdv.description} />
           </Paper>
         </Grid>
         <Grid xs={12} md={4}>
@@ -146,8 +146,8 @@ export default function TutorAdvDetailsView({ course }: Props) {
 
             <Stack direction="row" alignItems="center">
               <Avatar
-                src={course.photo}
-                alt={course.fullname}
+                src={tutorAdv.photo}
+                alt={tutorAdv.fullname}
                 sx={{
                   width: 60,
                   height: 60,
@@ -156,7 +156,7 @@ export default function TutorAdvDetailsView({ course }: Props) {
                 }}
               />
               <Typography variant="subtitle1" sx={{ ml: 1 }}>
-                Giáo viên: {course.fullname}
+                Giáo viên: {tutorAdv.fullname}
               </Typography>
             </Stack>
 
@@ -170,14 +170,14 @@ export default function TutorAdvDetailsView({ course }: Props) {
         <Grid xs={12} md={8}>
           <Paper elevation={3} sx={{ p: 2, borderRadius: 2 }}>
             <Typography variant="h5" gutterBottom>
-              Đánh giá của học viên ({course.feedbacks?.length || 0})
+              Đánh giá của học viên ({tutorAdv.feedbacks?.length || 0})
             </Typography>
             <Box sx={{ mb: 2 }}>
-              <FeedbackBox courseId={course.id} />
+              <FeedbackBox tutorAdvId={tutorAdv.id} />
             </Box>
             <Stack>
-              {course.feedbacks?.length ? (
-                course.feedbacks.map((feedback) => (
+              {tutorAdv.feedbacks?.length ? (
+                tutorAdv.feedbacks.map((feedback) => (
                   <Box sx={{ mb: 2 }} key={feedback.id}>
                     <Stack direction="row" alignItems="center">
                       <Avatar
@@ -197,7 +197,7 @@ export default function TutorAdvDetailsView({ course }: Props) {
                             variant="inverted"
                             sx={{ width: 'fit-content', px: 3, py: 0, borderRadius: 999 }}
                           >
-                            {course.fullname}
+                            {tutorAdv.fullname}
                           </Label>
                           <Typography
                             variant="caption"

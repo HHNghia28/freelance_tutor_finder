@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 
-import MyEventCreateView from 'src/sections/_user/event/view/my-event-create-view';
+import MyFavouriteListView from 'src/sections/_user/my-favourite/view/my-favourite-list-view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Đăng tin mới` };
+const metadata = { title: `Bài đăng yêu thích` };
 
 export default function Page() {
   return (
@@ -12,7 +12,7 @@ export default function Page() {
       <Helmet>
         <title> {metadata.title}</title>
       </Helmet>
-      <MyEventCreateView />
+      <MyFavouriteListView />
     </>
   );
 }

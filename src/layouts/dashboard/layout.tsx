@@ -26,9 +26,9 @@ import { NavVertical } from './nav-vertical';
 import { NavHorizontal } from './nav-horizontal';
 import { _account } from '../config-nav-account';
 import { HeaderBase } from '../core/header-base';
-import { userNavData } from '../config-nav-user';
 import { guestNavData } from '../config-nav-guest';
 import { LayoutSection } from '../core/layout-section';
+import { tutorNavData, studentNavData } from '../config-nav-user';
 import { navData as dashboardNavData } from '../config-nav-dashboard';
 
 // ----------------------------------------------------------------------
@@ -55,8 +55,8 @@ export function DashboardLayout({ sx, children, isLanding }: DashboardLayoutProp
   // const navData = data?.nav ?? dashboardNavData;
   const navData = useMemo(() => {
     if (user?.role === 'Admin') return [...guestNavData, ...dashboardNavData];
-
-    return [...guestNavData, ...userNavData];
+    if (user?.role === 'Tutor') return [...guestNavData, ...tutorNavData];
+    return [...guestNavData, ...studentNavData];
   }, [user]);
   const isNavMini = settings.navLayout === 'mini';
 

@@ -75,7 +75,7 @@ export function EventListView() {
     try {
       isProcessing.onTrue();
       await deleteEvent(rowSelect!.id!);
-      toast.error('Xóa dữ liệu thành công!');
+      toast.success('Xóa dữ liệu thành công!');
       eventsMutate();
     } catch (error) {
       toast.error('Đã có lỗi xảy ra!');

@@ -51,13 +51,11 @@ export const paths = {
     root: ROOTS.USER,
     tutor_register: `${ROOTS.USER}dang-ky-lam-gia-su`,
     my_course: {
-      list: `${ROOTS.USER}khoa-hoc-cua-toi`,
-      create: `${ROOTS.USER}khoa-hoc-cua-toi/khoa-hoc-moi`,
+      list: `${ROOTS.USER}bai-dang-cua-toi`,
+      create: `${ROOTS.USER}bai-dang-cua-toi/bai-dang-moi`,
+      update: (id: string) => `${ROOTS.USER}bai-dang-cua-toi/${id}/cap-nhat`,
     },
-    my_event: {
-      list: `${ROOTS.USER}tin-tuc-cua-toi`,
-      create: `${ROOTS.USER}tin-tuc-cua-toi/dang-tin-moi`,
-    },
+    favorite: `${ROOTS.USER}yeu-thich`,
   },
   // DASHBOARD
   dashboard: {

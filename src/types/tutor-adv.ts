@@ -1,6 +1,8 @@
 import type { IFeedback } from './feedback';
 
-export type ICourse = {
+export type ITutorAdvStatus = 'WAITTING' | 'PAIDED' | 'CANCEL';
+
+export type ITutorAdv = {
   id: string;
   tutorId: string;
   fullname: string;
@@ -19,7 +21,7 @@ export type ICourse = {
   updateDate: string;
   startDate: string;
   endDate: string;
-  status: any;
+  status: ITutorAdvStatus;
   contractId: string;
   feedbacks: IFeedback[] | null;
 };

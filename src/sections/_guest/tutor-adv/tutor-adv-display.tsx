@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Unstable_Grid2';
 import { Paper, Typography } from '@mui/material';
 
-import CourseCard from 'src/sections/_partials/course-card';
+import TutorAdvCard from 'src/sections/_partials/tutor-adv-card';
 
 type Props = {
   title: string;
@@ -16,7 +16,7 @@ export default function TutorAdvDisplay({ title, data }: Props) {
       <Grid container spacing={3}>
         {data.map((course) => (
           <Grid xs={12} sm={6} md={4} key={course.id} sx={{}}>
-            <CourseCard course={course} />
+            <TutorAdvCard tutorAdv={course} />
           </Grid>
         ))}
       </Grid>

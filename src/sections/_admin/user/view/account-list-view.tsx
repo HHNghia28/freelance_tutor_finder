@@ -42,7 +42,7 @@ export function AccountListView() {
       isBlocking.onTrue();
       await blockAccount(userBlock!.id);
 
-      toast.error('Chặn tài khoản thành công!');
+      toast.success('Chặn tài khoản thành công!');
     } catch (error) {
       console.error(error);
       toast.error('Đã có lỗi xảy ra!');

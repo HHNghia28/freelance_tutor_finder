@@ -6,7 +6,7 @@ import { DashboardLayout } from 'src/layouts/dashboard';
 
 import { SplashScreen } from 'src/components/loading-screen';
 
-import { AuthGuard, RoleBasedGuard } from 'src/auth/guard';
+import { AuthGuard } from 'src/auth/guard';
 
 // ----------------------------------------------------------------------
 
@@ -23,10 +23,12 @@ const TutorAdvListPage = lazy(() => import('src/pages/guest/tutor-adv/list'));
 const TutorAdvDetailsPage = lazy(() => import('src/pages/guest/tutor-adv/details'));
 // USER
 const TutorRegisterPage = lazy(() => import('src/pages/user/tutor/tutor-register'));
+
 const MyCoursePage = lazy(() => import('src/pages/user/my-course/list'));
 const CreateCoursePage = lazy(() => import('src/pages/user/my-course/create'));
-const MyEventPage = lazy(() => import('src/pages/user/my-event/list'));
-const CreateEventPage = lazy(() => import('src/pages/user/my-event/create'));
+const UpdateCoursePage = lazy(() => import('src/pages/user/my-course/update'));
+
+const MyFavouritePage = lazy(() => import('src/pages/user/my-favourite/list'));
 
 // ----------------------------------------------------------------------
 
@@ -72,7 +74,7 @@ export const mainRoutes = [
             ),
           },
           {
-            path: 'khoa-hoc-cua-toi',
+            path: 'bai-dang-cua-toi',
             element: (
               <AuthGuard>
                 <Outlet />
@@ -80,22 +82,17 @@ export const mainRoutes = [
             ),
             children: [
               { element: <MyCoursePage />, index: true },
-              { path: 'khoa-hoc-moi', element: <CreateCoursePage /> },
+              { path: 'bai-dang-moi', element: <CreateCoursePage /> },
+              { path: ':id/cap-nhat', element: <UpdateCoursePage /> },
             ],
           },
           {
-            path: 'tin-tuc-cua-toi',
+            path: 'yeu-thich',
             element: (
               <AuthGuard>
-                <RoleBasedGuard hasContent currentRole="Tutor">
-                  <Outlet />
-                </RoleBasedGuard>
+                <MyFavouritePage />
               </AuthGuard>
             ),
-            children: [
-              { element: <MyEventPage />, index: true },
-              { path: 'dang-tin-moi', element: <CreateEventPage /> },
-            ],
           },
         ],
       },
