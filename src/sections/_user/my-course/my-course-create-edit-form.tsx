@@ -16,6 +16,7 @@ import { useRouter } from 'src/routes/hooks';
 
 import { sortStringByNumbers } from 'src/utils/helper';
 
+import { payment } from 'src/actions/payment';
 import { useGetGrades } from 'src/actions/grade';
 import { MAX_FILE_SIZE } from 'src/config-global';
 import { useGetSubjects } from 'src/actions/subject';
@@ -64,6 +65,7 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
     }),
     [editRecord, grades, subjects, isEdit]
   );
+
   const gradeOptions = useMemo(() => {
     if (!grades.length) return [];
     return sortStringByNumbers(grades, (a, b) => ({
@@ -71,6 +73,7 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
       b: b.name,
     }));
   }, [grades]);
+
   const methods = useForm<CourseSchemaType>({
     mode: 'onSubmit',
     resolver: zodResolver(CourseSchema),
@@ -104,12 +107,14 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
         const { thumbnail, ...rest } = data;
 
         const uploadRes = await uploadFile(thumbnail as File);
-        await createTutorAdv({
+        const tutorAdvId = await createTutorAdv({
           ...rest,
           thumbnail: uploadRes.fileUrl,
           tutorId: user!.tutorId!,
         });
         toast.success('Tạo bài đăng mới thành công!');
+        const href = await payment(tutorAdvId);
+        window.location.href = href;
       } else {
         const { thumbnail, ...rest } = data;
         if (dirtyFields.thumbnail) {
@@ -150,22 +155,22 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
     <Form methods={methods} onSubmit={onSubmit}>
       <Stack spacing={{ xs: 3, md: 5 }} sx={{ mx: 'auto', maxWidth: { xs: 720, xl: 880 } }}>
         <Card>
-          <CardHeader title="Thông tin" subheader="Thông tin về khóa học" sx={{ mb: 3 }} />
+          <CardHeader title="Thông tin" subheader="Thông tin về bài đăng" sx={{ mb: 3 }} />
 
           <Divider />
 
           <Stack spacing={3} sx={{ p: 3 }}>
-            <Field.Text name="title" label="Tên khóa học" placeholder="Tên khóa học.." />
+            <Field.Text name="title" label="Tên bài đăng" placeholder="Tên bài đăng.." />
             <Field.Text
               multiline
               minRows={5}
               maxRows={10}
               name="description"
-              label="Mô tả về khóa học"
-              placeholder="Mô tả về khóa học.."
+              label="Mô tả về bài đăng"
+              placeholder="Mô tả về bài đăng.."
             />
             <Box>
-              <Typography variant="subtitle2">Hình khóa học</Typography>
+              <Typography variant="subtitle2">Thumbnail</Typography>
               <Field.Upload
                 name="thumbnail"
                 sx={{ width: 1 }}
@@ -177,7 +182,7 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
         </Card>
         <Card>
           <CardHeader
-            title="Thiệt lập khóa học"
+            title="Thiệt lập bài đăng"
             subheader="Thiết lập học phí, kỳ học,.."
             sx={{ mb: 3 }}
           />

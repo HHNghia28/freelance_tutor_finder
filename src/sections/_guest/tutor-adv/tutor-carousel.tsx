@@ -2,9 +2,12 @@ import Autoplay from 'embla-carousel-autoplay';
 
 import { Box, Paper, Avatar, Typography } from '@mui/material';
 
+import { useGetTutors } from 'src/actions/tutor';
+
 import { Carousel, useCarousel, CarouselArrowFloatButtons } from 'src/components/carousel';
 
 export default function TutorCarousel() {
+  const { tutors } = useGetTutors();
   const carousel = useCarousel(
     {
       slidesToShow: {
@@ -22,14 +25,14 @@ export default function TutorCarousel() {
     <Paper>
       <Box sx={{ position: 'relative', mx: 2 }}>
         <Carousel carousel={carousel} sx={{ borderRadius: 2 }}>
-          {[...Array(10)].map((item, index) => (
+          {tutors.map((tutor, index) => (
             <Box
               key={index}
               sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column', py: 2 }}
             >
               <Avatar
-                src="aa"
-                alt="A"
+                src={tutor.photo}
+                alt={tutor.fullname}
                 sx={{
                   width: 80,
                   height: 80,
@@ -43,7 +46,7 @@ export default function TutorCarousel() {
               >
                 Giáo viên
               </Typography>
-              <Typography variant="subtitle1">[Tên gia sư]</Typography>
+              <Typography variant="subtitle1">{tutor.fullname}</Typography>
             </Box>
           ))}
         </Carousel>

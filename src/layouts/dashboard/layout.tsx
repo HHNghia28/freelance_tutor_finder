@@ -11,7 +11,6 @@ import { paths } from 'src/routes/paths';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import { allLangs } from 'src/locales';
 import { varAlpha, stylesMode } from 'src/theme/styles';
 
 import { bulletColor } from 'src/components/nav-section';
@@ -90,18 +89,12 @@ export function DashboardLayout({ sx, children, isLanding }: DashboardLayoutProp
             onOpenNav={mobileNavOpen.onTrue}
             data={{
               nav: navData,
-              langs: allLangs,
               account: accountData,
             }}
             slotsDisplay={{
               signIn: unauthenticated,
               account: authenticated,
-              purchase: false,
-              helpLink: false,
-              contacts: false,
-              localization: false,
-              notifications: false,
-              workspaces: false,
+
               searchbar: !isLanding,
             }}
             slots={{

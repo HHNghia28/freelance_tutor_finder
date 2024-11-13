@@ -135,6 +135,14 @@ export async function addToFavorite(data: { studentId: string; tutorAdvertisemen
   return response.data;
 }
 // ----------------------------------------------------------------------
+export async function removeFavorite(data: { studentId: string; tutorAdvertisementsId: string }) {
+  const url = ENDPOINT.remove_favorite;
+  const response = await axios.delete(url, {
+    data,
+  });
+  return response.data;
+}
+// ----------------------------------------------------------------------
 export async function deleteTutorAdv(id: string) {
   const url = id ? ENDPOINT.delete(id) : '';
   const response = await axios.delete(url);

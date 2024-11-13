@@ -16,7 +16,6 @@ import { useRouter } from 'src/routes/hooks';
 
 import { useGetTutors } from 'src/actions/tutor';
 import { MAX_FILE_SIZE } from 'src/config-global';
-import { updateTutorAdv } from 'src/actions/tutor-adv';
 import { createEvent, updateEvent } from 'src/actions/event';
 
 import { toast } from 'src/components/snackbar';
@@ -78,7 +77,7 @@ export default function EventCreateEditForm({ editRecord }: Props) {
             thumbnail: uploadRes.fileUrl,
           });
         } else {
-          await updateTutorAdv(editRecord.id, rest);
+          await updateEvent(editRecord.id, data as any);
         }
         toast.success('Cập nhật tin tức thành công!');
       }

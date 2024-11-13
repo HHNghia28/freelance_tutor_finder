@@ -1,11 +1,8 @@
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import { useBoolean } from 'src/hooks/use-boolean';
+import { useGetMyTutorAdv } from 'src/actions/tutor-adv';
 
-import { deleteTutorAdv, useGetMyTutorAdv } from 'src/actions/tutor-adv';
-
-import { toast } from 'src/components/snackbar';
 import { EmptyContent } from 'src/components/empty-content';
 
 import TutorAdvCard from 'src/sections/_partials/tutor-adv-card';
@@ -18,25 +15,11 @@ export default function MyFavouriteList() {
 
   const id = user?.studentId;
 
-  const { tutorAdvs, tutorAdvsLoading, tutorAdvsEmpty, tutorAdvsMutate } = useGetMyTutorAdv(id);
-  const deleting = useBoolean();
+  const { tutorAdvs, tutorAdvsLoading, tutorAdvsEmpty } = useGetMyTutorAdv(id);
 
   if (tutorAdvsLoading) return <LoadingIndicate />;
   if (tutorAdvsEmpty) return <EmptyContent title="Chưa có mục yêu thích nào" />;
-  const handleDelete = async (courseId: string) => {
-    try {
-      deleting.onTrue();
-      await deleteTutorAdv(courseId);
 
-      tutorAdvsMutate();
-      toast.success('Xóa khóa học thành công');
-    } catch (error) {
-      console.error(error);
-      toast.error('Đã có lỗi xảy ra');
-    } finally {
-      deleting.onFalse();
-    }
-  };
   return (
     <Grid container spacing={3}>
       {tutorAdvs.map((course) => (

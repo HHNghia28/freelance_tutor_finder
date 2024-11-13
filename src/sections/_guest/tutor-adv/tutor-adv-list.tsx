@@ -10,7 +10,7 @@ export default function TutorAdvList() {
   if (tutorAdvsLoading) return <LoadingIndicate />;
   return (
     <Grid container spacing={3}>
-      {tutorAdvs.map((course) => (
+      {tutorAdvs.slice(0, 9).map((course) => (
         <Grid xs={12} sm={6} md={4} key={course.id} sx={{}}>
           <TutorAdvCard tutorAdv={course} />
         </Grid>

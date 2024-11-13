@@ -11,7 +11,7 @@ export type CourseSchemaType = zod.infer<typeof CourseSchema>;
 
 export const CourseSchema = zod
   .object({
-    title: zod.string().min(1, { message: 'Tên khóa học là bắt buộc!' }),
+    title: zod.string().min(1, { message: 'Tên bài đăng là bắt buộc!' }),
     description: zod.string().min(1, { message: 'Mô tả là bắt buộc!' }),
     daysPerMonth: zod.string().min(1, { message: 'Số ngày học là bắt buộc!' }),
     courseId: zod.coerce.string().min(1, { message: 'Môn học là bắt buộc!' }),

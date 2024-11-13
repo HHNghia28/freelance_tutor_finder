@@ -18,6 +18,8 @@ import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
+import { fTimestamp } from 'src/utils/format-time';
+
 import { DashboardContent } from 'src/layouts/dashboard';
 import { deleteEvent, useGetEvents } from 'src/actions/event';
 
@@ -40,6 +42,13 @@ export function EventListView() {
 
   const isProcessing = useBoolean();
 
+  const recentEvents = useMemo(
+    () =>
+      events.toSorted(
+        (a, b) => (fTimestamp(b.updateDate) as any) - (fTimestamp(a.updateDate) as any)
+      ),
+    [events]
+  );
   const columns = useMemo(
     () => [
       ...baseColumns,
@@ -111,7 +120,7 @@ export function EventListView() {
             disableRowSelectionOnClick
             disableColumnFilter
             disableColumnMenu
-            rows={events as any}
+            rows={recentEvents as any}
             columns={columns as any}
             loading={eventsLoading}
             getRowHeight={() => 'auto'}

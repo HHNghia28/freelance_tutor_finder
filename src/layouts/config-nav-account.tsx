@@ -12,11 +12,6 @@ export const _account = [
   },
 
   {
-    label: 'Đổi mật khẩu',
-    href: '#',
-    icon: <Iconify icon="solar:shield-keyhole-bold-duotone" />,
-  },
-  {
     label: 'Đăng ký làm gia sư',
     href: paths.user.tutor_register,
     icon: <Iconify icon="zondicons:education" />,

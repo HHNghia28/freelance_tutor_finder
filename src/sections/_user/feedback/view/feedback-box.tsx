@@ -31,7 +31,11 @@ export default function FeedbackBox({ tutorAdvId }: Props) {
       <Typography gutterBottom variant="subtitle1">
         Bạn cần phải đăng nhập để để lại đánh giá
       </Typography>
-      <Button variant="contained" LinkComponent={RouterLink} href={paths.auth.jwt.signIn}>
+      <Button
+        variant="contained"
+        LinkComponent={RouterLink}
+        href={paths.auth.jwt.signInReturn(window.location.pathname)}
+      >
         Đăng nhập
       </Button>
     </Box>
@@ -39,15 +43,15 @@ export default function FeedbackBox({ tutorAdvId }: Props) {
   if (isTutor)
     return (
       <Card>
-        <CardHeader title="Ý kiến của bạn về khóa học này" />
+        <CardHeader title="Ý kiến của bạn về bài đăng này" />
         <CardContent>
-          <Typography>Bạn cần phải đăng kí khóa học này để đánh giá</Typography>
+          <Typography>Bạn cần phải là học sinh để thực hiện đánh giá!</Typography>
         </CardContent>
       </Card>
     );
   return (
     <Card sx={{ position: 'relative', borderRadius: 1 }}>
-      <CardHeader title="Ý kiến của bạn về khóa học này" />
+      <CardHeader title="Ý kiến của bạn về bài đăng này" />
       <CardContent>
         <FeedbackForm tutorAdvId={tutorAdvId} />
       </CardContent>

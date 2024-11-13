@@ -1,3 +1,7 @@
+import { useMemo } from 'react';
+
+import { fTimestamp } from 'src/utils/format-time';
+
 import { useGetTutorAdvs } from 'src/actions/tutor-adv';
 import { DashboardContent } from 'src/layouts/dashboard';
 
@@ -9,7 +13,13 @@ import TutorAdvDisplay from '../tutor-adv-display';
 
 export default function TutorAdvListView() {
   const { tutorAdvs } = useGetTutorAdvs();
-
+  const recentTutors = useMemo(
+    () =>
+      tutorAdvs.toSorted(
+        (a, b) => (fTimestamp(b.updateDate) as any) - (fTimestamp(a.updateDate) as any)
+      ),
+    [tutorAdvs]
+  );
   return (
     <>
       <TutorAdvSlides />
@@ -20,7 +30,7 @@ export default function TutorAdvListView() {
         <TutorAdvList />
         <TutorAdvBanner />
         <TutorCarousel />
-        <TutorAdvDisplay data={tutorAdvs} title="Bài đăng mới" />
+        <TutorAdvDisplay data={recentTutors} title="Bài đăng gần đây" />
       </DashboardContent>
     </>
   );

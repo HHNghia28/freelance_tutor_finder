@@ -1,10 +1,12 @@
+import { useMemo } from 'react';
+
 import Grid from '@mui/material/Unstable_Grid2';
 import { Box, Link, Paper, Stack, Avatar, Divider, Typography } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
-import { fDate } from 'src/utils/format-time';
+import { fDate, fTimestamp } from 'src/utils/format-time';
 
 import { useGetEvents } from 'src/actions/event';
 import { maxLine, varAlpha } from 'src/theme/styles';
@@ -16,11 +18,18 @@ import LoadingIndicate from 'src/sections/_partials/loading-indicate';
 
 export default function NewsList() {
   const { events, eventsLoading, eventsEmpty } = useGetEvents();
+  const recentEvents = useMemo(
+    () =>
+      events.toSorted(
+        (a, b) => (fTimestamp(b.updateDate) as any) - (fTimestamp(a.updateDate) as any)
+      ),
+    [events]
+  );
   if (eventsLoading) return <LoadingIndicate />;
   if (eventsEmpty) return <EmptyContent title="Tin tức đang được cập nhật" />;
   return (
     <Grid container spacing={2}>
-      {events.map((event) => (
+      {recentEvents.map((event) => (
         <Grid
           xs={12}
           sm={6}

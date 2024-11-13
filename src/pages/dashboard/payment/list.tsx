@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-import { OrderListView } from 'src/sections/order/view';
+import PaymentListView from 'src/sections/_admin/payment/view/payment-list-view';
 
 // ----------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <OrderListView />
+      <PaymentListView />
     </>
   );
 }

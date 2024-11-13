@@ -67,10 +67,11 @@ export default function FeedbackForm({ tutorAdvId }: Props) {
       <Stack spacing={2}>
         <Field.Text
           multiline
+          size="small"
           minRows={2}
           maxRows={4}
           name="message"
-          label="Đánh giá về khóa học này"
+          label="Đánh giá về bài đăng này"
           placeholder="Để lại đánh giá.."
         />
 

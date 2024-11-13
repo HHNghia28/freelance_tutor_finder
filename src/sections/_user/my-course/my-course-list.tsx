@@ -1,5 +1,7 @@
 import type { ITutorAdv } from 'src/types/tutor-adv';
 
+import { useMemo } from 'react';
+
 import { LoadingButton } from '@mui/lab';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Box, IconButton, ButtonGroup } from '@mui/material';
@@ -8,6 +10,8 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
 import { useBoolean } from 'src/hooks/use-boolean';
+
+import { fTimestamp } from 'src/utils/format-time';
 
 import { payment } from 'src/actions/payment';
 import { deleteTutorAdv, useGetMyTutorAdv } from 'src/actions/tutor-adv';
@@ -33,13 +37,21 @@ export default function MyCourseList() {
     isTutor
   );
 
+  const recentTutors = useMemo(
+    () =>
+      tutorAdvs.toSorted(
+        (a, b) => (fTimestamp(b.updateDate) as any) - (fTimestamp(a.updateDate) as any)
+      ),
+    [tutorAdvs]
+  );
+
   if (tutorAdvsLoading) return <LoadingIndicate />;
 
   if (tutorAdvsEmpty) return <EmptyContent title="Chưa có khóa học nào thuộc về bạn" />;
 
   return (
     <Grid container spacing={3}>
-      {tutorAdvs.map((course) => (
+      {recentTutors.map((course) => (
         <Grid xs={12} sm={6} md={4} key={course.id} sx={{}}>
           <TutorAdvItem
             isTutor={isTutor}
@@ -93,7 +105,7 @@ function TutorAdvItem({ router, tutorAdv, mutate, isTutor }: TutorAdvItemProps) 
   };
   return (
     <>
-      <Box sx={{ position: 'relative' }}>
+      <Box sx={{ position: 'relative', height: 1 }}>
         <TutorAdvCard tutorAdv={tutorAdv} />
         {isTutor && (
           <>
@@ -117,8 +129,8 @@ function TutorAdvItem({ router, tutorAdv, mutate, isTutor }: TutorAdvItemProps) 
             {(tutorAdv.status === 'CANCEL' || tutorAdv.status === 'WAITTING') && (
               <LoadingButton
                 variant="contained"
-                color="primary"
-                sx={{ position: 'absolute', bottom: '40%', left: 8 }}
+                color="error"
+                sx={{ position: 'absolute', bottom: '41%', left: 8 }}
                 onClick={handlePay}
                 loading={paying.value}
               >

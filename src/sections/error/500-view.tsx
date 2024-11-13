@@ -19,13 +19,13 @@ export function View500() {
       <Container component={MotionContainer}>
         <m.div variants={varBounce().in}>
           <Typography variant="h3" sx={{ mb: 2 }}>
-            500 Internal server error
+            500 Lỗi Server
           </Typography>
         </m.div>
 
         <m.div variants={varBounce().in}>
           <Typography sx={{ color: 'text.secondary' }}>
-            There was an error, please try again later.
+            Đã có lỗi xảy ra. Vui lòng thử lại sau
           </Typography>
         </m.div>
 
@@ -34,7 +34,7 @@ export function View500() {
         </m.div>
 
         <Button component={RouterLink} href="/" size="large" variant="contained">
-          Go to home
+          Quay lại trang chủ
         </Button>
       </Container>
     </SimpleLayout>

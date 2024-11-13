@@ -33,7 +33,7 @@ export function SignOutButton({ onClose, ...other }: Props) {
       await checkUserSession?.();
 
       onClose?.();
-      router.push(paths.guest.news.list);
+      router.push(paths.guest.tutor.list);
     } catch (error) {
       console.error(error);
       toast.error('Không thể đăng xuất!');

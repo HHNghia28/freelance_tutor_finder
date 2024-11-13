@@ -14,7 +14,7 @@ import { fDate } from 'src/utils/format-time';
 import { fCurrency } from 'src/utils/format-number';
 
 import { maxLine, varAlpha } from 'src/theme/styles';
-import { addToFavorite, useGetMyTutorAdv } from 'src/actions/tutor-adv';
+import { addToFavorite, removeFavorite, useGetMyTutorAdv } from 'src/actions/tutor-adv';
 
 import { Image } from 'src/components/image';
 import { toast } from 'src/components/snackbar';
@@ -30,7 +30,7 @@ type Props = {
 export default function TutorAdvCard({ tutorAdv }: Props) {
   const router = useRouter();
   const { user, unauthenticated } = useAuthContext();
-  const { tutorAdvs } = useGetMyTutorAdv(user?.studentId || '');
+  const { tutorAdvs, tutorAdvsMutate } = useGetMyTutorAdv(user?.studentId || '');
 
   const isShowFavoriteBtn = user?.role === 'Student' || unauthenticated;
 
@@ -47,15 +47,23 @@ export default function TutorAdvCard({ tutorAdv }: Props) {
       router.push(paths.auth.jwt.signIn);
       return;
     }
-    if (isFavorited) return;
+
     try {
       isAdding.onTrue();
-      await addToFavorite({
-        studentId: user!.studentId,
-        tutorAdvertisementsId: tutorAdv.id,
-      });
+      if (isFavorited) {
+        await removeFavorite({
+          studentId: user!.studentId,
+          tutorAdvertisementsId: tutorAdv.id,
+        });
+      } else {
+        await addToFavorite({
+          studentId: user!.studentId,
+          tutorAdvertisementsId: tutorAdv.id,
+        });
 
-      toast.success('Đã thêm vào yêu thích!');
+        toast.success('Đã thêm vào yêu thích!');
+      }
+      tutorAdvsMutate();
     } catch (error) {
       console.error(error);
       toast.error('Có lỗi xảy ra!');
