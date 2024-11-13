@@ -11,7 +11,7 @@ export function useCarouselAutoScroll(mainApi?: EmblaCarouselType): UseCarouselA
 
   const onClickAutoplay = useCallback(
     (callback: () => void) => {
-      const autoScroll = mainApi?.plugins()?.autoScroll;
+      const autoScroll = mainApi?.plugins()?.autoScroll as any;
       if (!autoScroll) return;
 
       const resetOrStop =
@@ -24,7 +24,7 @@ export function useCarouselAutoScroll(mainApi?: EmblaCarouselType): UseCarouselA
   );
 
   const onTogglePlay = useCallback(() => {
-    const autoScroll = mainApi?.plugins()?.autoScroll;
+    const autoScroll = mainApi?.plugins()?.autoScroll as any;
     if (!autoScroll) return;
 
     const playOrStop = autoScroll.isPlaying() ? autoScroll.stop : autoScroll.play;
@@ -32,11 +32,11 @@ export function useCarouselAutoScroll(mainApi?: EmblaCarouselType): UseCarouselA
   }, [mainApi]);
 
   useEffect(() => {
-    const autoScroll = mainApi?.plugins()?.autoScroll;
+    const autoScroll = mainApi?.plugins()?.autoScroll as any;
     if (!autoScroll) return;
 
     setIsPlaying(autoScroll.isPlaying());
-    mainApi
+    (mainApi as any)
       .on('autoScroll:play', () => setIsPlaying(true))
       .on('autoScroll:stop', () => setIsPlaying(false))
       .on('reInit', () => setIsPlaying(false));

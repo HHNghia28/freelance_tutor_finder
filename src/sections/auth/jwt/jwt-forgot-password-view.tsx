@@ -1,5 +1,5 @@
 import { z as zod } from 'zod';
-import { useEffect } from 'react';
+import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -22,9 +22,9 @@ import { Form, Field } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
-export type ResetPasswordSchemaType = zod.infer<typeof ResetPasswordSchema>;
+export type ForgotPasswordSchemaType = zod.infer<typeof ForgotPasswordSchema>;
 
-export const ResetPasswordSchema = zod.object({
+export const ForgotPasswordSchema = zod.object({
   email: zod
     .string()
     .min(1, { message: 'Email là bắt buộc!' })
@@ -34,18 +34,21 @@ export const ResetPasswordSchema = zod.object({
 // ----------------------------------------------------------------------
 
 export function JwtForgotPasswordView() {
-  const defaultValues = { email: '' };
+  const defaultValues = useMemo(
+    () => ({
+      email: '',
+    }),
+    []
+  );
   const isSended = useBoolean();
-  const methods = useForm<ResetPasswordSchemaType>({
-    resolver: zodResolver(ResetPasswordSchema),
+  const methods = useForm<ForgotPasswordSchemaType>({
+    resolver: zodResolver(ForgotPasswordSchema),
     defaultValues,
   });
 
   const {
     handleSubmit,
-    reset,
     getValues,
-
     formState: { isSubmitting },
   } = methods;
 
@@ -60,14 +63,6 @@ export function JwtForgotPasswordView() {
       isSended.onFalse();
     }
   });
-  useEffect(
-    () => () => {
-      reset(defaultValues);
-      isSended.onFalse();
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
 
   const renderHead = (
     <>
@@ -128,8 +123,10 @@ export function JwtForgotPasswordView() {
       <Stack spacing={3} sx={{ textAlign: 'center', whiteSpace: 'pre-line' }}>
         <Typography variant="h5">Gửi yêu cầu thành công!</Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Một email xác thực đã được gửi tới email <strong>{getValues('email')}</strong>. Hãy kiểm
-          tra hộp thư của bạn
+          Một email xác thực đã được gửi tới email <br />
+          <strong>{getValues('email')}</strong> <br />
+          <br />
+          Hãy kiểm tra hộp thư của bạn!
         </Typography>
         {returnBtn}
       </Stack>

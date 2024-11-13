@@ -1,4 +1,4 @@
-export type ITutorStatus = 'waitting' | 'reject' | 'approved';
+export type ITutorStatus = 0 | 1 | 2;
 
 export type ITutor = {
   id: string;

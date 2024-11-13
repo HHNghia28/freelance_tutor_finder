@@ -8,11 +8,12 @@ import EventCreateEditForm from '../event-create-edit-form';
 
 export default function EventCreateView() {
   return (
-    <DashboardContent>
+    <DashboardContent sx={{ maxWidth: 'md' }}>
       <CustomBreadcrumbs
         heading="Tin tức mới"
         separator="/"
         sx={{
+          mb: 2,
           '& .MuiBreadcrumbs-ol': {
             columnGap: 0.5,
           },

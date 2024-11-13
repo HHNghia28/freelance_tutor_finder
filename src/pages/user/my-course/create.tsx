@@ -4,7 +4,7 @@ import MyCourseCreateView from 'src/sections/_user/my-course/view/my-course-crea
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Khóa học mới` };
+const metadata = { title: `Bài đăng mới` };
 
 export default function Page() {
   return (

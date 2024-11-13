@@ -9,23 +9,22 @@ import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import { LoadingButton } from '@mui/lab';
 import Typography from '@mui/material/Typography';
-import { Divider, CardHeader } from '@mui/material';
+import { Divider, MenuItem, CardHeader } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
+import { useGetTutors } from 'src/actions/tutor';
 import { MAX_FILE_SIZE } from 'src/config-global';
-import { updateCourse } from 'src/actions/course';
 import { createEvent, updateEvent } from 'src/actions/event';
 
 import { toast } from 'src/components/snackbar';
 import { Form, Field } from 'src/components/hook-form';
 
-import { EventSchema, type EventSchemaType } from 'src/sections/_user/event/form/event-schema';
-
-import { useAuthContext } from 'src/auth/hooks';
-
+import { EventSchema } from './form/event-schema';
 import { uploadFile } from '../../../actions/upload';
+
+import type { EventSchemaType } from './form/event-schema';
 
 type Props = {
   editRecord?: event.IEvent;
@@ -33,16 +32,16 @@ type Props = {
 export default function EventCreateEditForm({ editRecord }: Props) {
   const isEdit = !!editRecord;
   const router = useRouter();
-  const { user } = useAuthContext();
-  const tutorId = user?.user?.id;
+  const { tutors } = useGetTutors();
+
   const defaultValues = useMemo(
     () => ({
       title: editRecord?.title || '',
       description: editRecord?.description || '',
-      createBy: editRecord?.createBy || tutorId || '',
+      createBy: editRecord?.createBy || '',
       thumbnail: editRecord?.thumbnail || null,
     }),
-    [editRecord, tutorId]
+    [editRecord]
   );
 
   const methods = useForm<EventSchemaType>({
@@ -78,7 +77,7 @@ export default function EventCreateEditForm({ editRecord }: Props) {
             thumbnail: uploadRes.fileUrl,
           });
         } else {
-          await updateCourse(editRecord.id, rest);
+          await updateEvent(editRecord.id, data as any);
         }
         toast.success('Cập nhật tin tức thành công!');
       }
@@ -119,6 +118,12 @@ export default function EventCreateEditForm({ editRecord }: Props) {
               <Typography>Nội dung</Typography>
               <Field.Editor name="description" placeholder="Nội dung.." />
             </Box>
+            <Field.Select name="createBy" label="Gia sư" placeholder="Gia sư..">
+              {tutors.map((tutor) => (
+                <MenuItem value={tutor.id}>{tutor.fullname}</MenuItem>
+              ))}
+            </Field.Select>
+
             <Box>
               <Typography variant="subtitle2">Thumbnail</Typography>
               <Field.Upload

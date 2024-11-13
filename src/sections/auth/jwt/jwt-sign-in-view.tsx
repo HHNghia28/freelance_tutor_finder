@@ -50,8 +50,8 @@ export function JwtSignInView() {
   const password = useBoolean();
 
   const defaultValues = {
-    email: 'g1food.fpt@gmail.com',
-    password: 'aA@123',
+    email: '',
+    password: '',
   };
 
   const methods = useForm<SignInSchemaType>({
@@ -72,7 +72,15 @@ export function JwtSignInView() {
       router.refresh();
     } catch (error) {
       console.error(error);
-      setErrorMsg(error instanceof Error ? error.message : error);
+      switch (error?.message) {
+        case 'User not found.':
+          setErrorMsg('Sai tài khoản');
+          break;
+
+        default:
+          setErrorMsg('Đã có lỗi xảy ra');
+          break;
+      }
     }
   });
 

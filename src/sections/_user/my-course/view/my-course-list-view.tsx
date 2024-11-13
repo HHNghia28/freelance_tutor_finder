@@ -16,11 +16,11 @@ export default function MyCourseListView() {
     <DashboardContent>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Typography variant="h3" sx={{ mb: 2 }}>
-          Khóa học của tôi
+          Bài đăng của tôi
         </Typography>
         {isTutor && (
           <Button LinkComponent={RouterLink} href={paths.user.my_course.create} variant="contained">
-            Tạo khóa học
+            Bài đăng mới
           </Button>
         )}
       </Stack>

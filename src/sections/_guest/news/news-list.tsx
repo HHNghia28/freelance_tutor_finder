@@ -1,10 +1,12 @@
+import { useMemo } from 'react';
+
 import Grid from '@mui/material/Unstable_Grid2';
 import { Box, Link, Paper, Stack, Avatar, Divider, Typography } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
-import { fDate } from 'src/utils/format-time';
+import { fDate, fTimestamp } from 'src/utils/format-time';
 
 import { useGetEvents } from 'src/actions/event';
 import { maxLine, varAlpha } from 'src/theme/styles';
@@ -16,11 +18,18 @@ import LoadingIndicate from 'src/sections/_partials/loading-indicate';
 
 export default function NewsList() {
   const { events, eventsLoading, eventsEmpty } = useGetEvents();
+  const recentEvents = useMemo(
+    () =>
+      events.toSorted(
+        (a, b) => (fTimestamp(b.updateDate) as any) - (fTimestamp(a.updateDate) as any)
+      ),
+    [events]
+  );
   if (eventsLoading) return <LoadingIndicate />;
   if (eventsEmpty) return <EmptyContent title="Tin tức đang được cập nhật" />;
   return (
     <Grid container spacing={2}>
-      {events.map((event) => (
+      {recentEvents.map((event) => (
         <Grid
           xs={12}
           sm={6}
@@ -36,7 +45,11 @@ export default function NewsList() {
           }
         >
           <Paper
+            component={RouterLink}
+            href={paths.guest.news.details(event.id)}
             sx={{
+              display: 'block',
+              textDecoration: 'none',
               borderRadius: 2,
               overflow: 'hidden',
               boxShadow: (theme) => theme.shadows[1],
@@ -68,9 +81,9 @@ export default function NewsList() {
               }}
             >
               <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography variant="subtitle2">{fDate(event.createDate, 'MMM')}</Typography>
+                <Typography variant="subtitle2">{fDate(event.updateDate, 'MMM')}</Typography>
                 <Divider flexItem sx={{ mt: 1, mb: 0.5 }} />
-                <Typography variant="h3">{fDate(event.createDate, 'DD')}</Typography>
+                <Typography variant="h3">{fDate(event.updateDate, 'DD')}</Typography>
               </Box>
               <Box>
                 <Link
@@ -81,7 +94,7 @@ export default function NewsList() {
                 >
                   {event.title}
                 </Link>
-                <Typography
+                {/* <Typography
                   variant="body2"
                   sx={{ color: 'text.secondary', ...maxLine({ line: 2 }), my: 1 }}
                 >
@@ -89,11 +102,26 @@ export default function NewsList() {
                   ex saepe hic id laboriosam officia. Odit nostrum qui illum saepe debitis ullam.
                   Laudantium beatae modi fugit ut. Dolores consequatur beatae nihil voluptates rem
                   maiores.
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }}>
-                  <Avatar src="avatar" alt={event.tutorName} />
-
-                  <Typography variant="body2">{event.tutorName}</Typography>
+                </Typography> */}
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 1,
+                    mt: 1,
+                  }}
+                >
+                  <Avatar src={event.photo} alt={event.tutorName} />
+                  <Box>
+                    <Typography variant="body2">{event.tutorName}</Typography>
+                    <Typography
+                      variant="caption"
+                      sx={{ color: 'text.secondary', ...maxLine({ line: 2 }) }}
+                    >
+                      {event.teachingAchievement}
+                    </Typography>
+                  </Box>
                 </Box>
               </Box>
             </Stack>

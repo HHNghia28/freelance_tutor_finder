@@ -18,20 +18,20 @@ import { FeedbackSchema } from './form/feedback-schema';
 import type { FeedbackSchemaType } from './form/feedback-schema';
 
 type Props = {
-  courseId: string;
+  tutorAdvId: string;
 };
-export default function FeedbackForm({ courseId }: Props) {
+export default function FeedbackForm({ tutorAdvId }: Props) {
   const router = useRouter();
 
   const { user } = useAuthContext();
 
   const defaultValues = useMemo(
     () => ({
-      tutorAdvertisementsId: courseId || '',
+      tutorAdvertisementsId: tutorAdvId || '',
       studentId: user?.studentId || '',
       message: '',
     }),
-    [user, courseId]
+    [user, tutorAdvId]
   );
 
   const methods = useForm<FeedbackSchemaType>({
@@ -67,10 +67,11 @@ export default function FeedbackForm({ courseId }: Props) {
       <Stack spacing={2}>
         <Field.Text
           multiline
+          size="small"
           minRows={2}
           maxRows={4}
           name="message"
-          label="Đánh giá về khóa học này"
+          label="Đánh giá về bài đăng này"
           placeholder="Để lại đánh giá.."
         />
 

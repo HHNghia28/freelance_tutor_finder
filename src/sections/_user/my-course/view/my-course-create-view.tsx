@@ -8,22 +8,23 @@ import MyCourseCreateEditForm from '../my-course-create-edit-form';
 
 export default function MyCourseCreateView() {
   return (
-    <DashboardContent>
+    <DashboardContent sx={{ maxWidth: 'md' }}>
       <CustomBreadcrumbs
-        heading="Khóa học mới"
+        heading="Bài đăng mới mới"
         separator="/"
         sx={{
           '& .MuiBreadcrumbs-ol': {
             columnGap: 0.5,
           },
+          mb: 2,
         }}
         links={[
           {
-            name: 'Khóa học của tôi',
+            name: 'Bài đăng của tôi',
             href: paths.user.my_course.list,
           },
           {
-            name: 'Khóa học mới',
+            name: 'Bài đăng mới',
           },
         ]}
       />

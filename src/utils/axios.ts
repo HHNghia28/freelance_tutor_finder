@@ -58,15 +58,20 @@ export const endpoints = {
     approved: (id: string) => `/api/Tutors/${id}/approved`,
     reject: (id: string) => `/api/Tutors/${id}/reject`,
   },
-  course: {
+  tutor_adv: {
     list: '/api/TutorAdvertisements',
     details: (id: string) => `/api/TutorAdvertisements/${id}`,
     update: (id: string) => `/api/TutorAdvertisements/${id}`,
     delete: (id: string) => `/api/TutorAdvertisements/${id}`,
     create: `/api/TutorAdvertisements`,
-    join: `/api/TutorAdvertisements/join`,
-    student_course: (id: string) => `/api/TutorAdvertisements/student/${id}`,
     tutor_course: (id: string) => `/api/TutorAdvertisements/tutor/${id}`,
+    my_favorite: (id: string) => `/api/TutorAdvertisements/student/${id}`,
+    add_to_favorite: `/api/TutorAdvertisements/Favourites`,
+    remove_favorite: `/api/TutorAdvertisements/RemoveFavorite`,
+  },
+  payment: {
+    pay: (tutorAdvId: any) => `/api/Payment?tutorAdvertisement=${tutorAdvId}`,
+    list: `/api/Payment/invoice`,
   },
   event: {
     list: '/api/Events',

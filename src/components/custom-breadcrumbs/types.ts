@@ -13,6 +13,7 @@ export type CustomBreadcrumbsProps = BreadcrumbsProps & {
   heading?: string;
   moreLink?: string[];
   activeLast?: boolean;
+  loading?: boolean;
   action?: React.ReactNode;
   links: BreadcrumbsLinkProps[];
   sx?: SxProps<Theme>;

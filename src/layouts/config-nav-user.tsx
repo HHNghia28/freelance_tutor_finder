@@ -2,6 +2,7 @@ import { paths } from 'src/routes/paths';
 
 import { CONFIG } from 'src/config-global';
 
+import { Iconify } from 'src/components/iconify';
 import { SvgColor } from 'src/components/svg-color';
 
 // ----------------------------------------------------------------------
@@ -11,42 +12,32 @@ const icon = (name: string) => (
 );
 
 const ICONS = {
-  job: icon('ic-job'),
-  blog: icon('ic-blog'),
-  chat: icon('ic-chat'),
-  mail: icon('ic-mail'),
-  user: icon('ic-user'),
   file: icon('ic-file'),
-  lock: icon('ic-lock'),
-  tour: icon('ic-tour'),
-  order: icon('ic-order'),
-  label: icon('ic-label'),
-  blank: icon('ic-blank'),
-  kanban: icon('ic-kanban'),
-  folder: icon('ic-folder'),
-  course: icon('ic-course'),
-  banking: icon('ic-banking'),
-  booking: icon('ic-booking'),
-  invoice: icon('ic-invoice'),
-  product: icon('ic-product'),
-  calendar: icon('ic-calendar'),
-  disabled: icon('ic-disabled'),
-  external: icon('ic-external'),
-  menuItem: icon('ic-menu-item'),
-  ecommerce: icon('ic-ecommerce'),
-  analytics: icon('ic-analytics'),
-  dashboard: icon('ic-dashboard'),
-  parameter: icon('ic-parameter'),
 };
 
 // ----------------------------------------------------------------------
 
-export const userNavData = [
+export const studentNavData = [
+  /**
+   * User
+   */
+  {
+    subheader: 'Tài khoản',
+    items: [
+      {
+        title: 'Yêu thích',
+        path: paths.user.favorite,
+        icon: <Iconify icon="solar:heart-bold" />,
+      },
+    ],
+  },
+];
+export const tutorNavData = [
   /**
    * Tutor
    */
   {
-    subheader: 'Tài khoản',
-    items: [{ title: 'Khóa học của tôi', path: paths.user.my_course.list, icon: ICONS.file }],
+    subheader: 'Gia sư',
+    items: [{ title: 'Bài viết của tôi', path: paths.user.my_course.list, icon: ICONS.file }],
   },
 ];

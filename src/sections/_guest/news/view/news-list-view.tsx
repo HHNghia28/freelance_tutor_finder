@@ -8,7 +8,7 @@ export default function NewsListView() {
   return (
     <DashboardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
       <Typography variant="h2" sx={{ mb: 2 }}>
-        Gia sư
+        Tin tức
       </Typography>
       <NewsList />
     </DashboardContent>

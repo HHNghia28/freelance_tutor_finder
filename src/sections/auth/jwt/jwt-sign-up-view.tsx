@@ -21,6 +21,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 import { register } from 'src/actions/auth';
 
+import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
 
@@ -93,8 +94,8 @@ export function JwtSignUpView() {
 
       router.push(paths.auth.jwt.signIn);
     } catch (error) {
-      console.error(error);
-      setErrorMsg(error instanceof Error ? error.message : error);
+      toast.error(error?.message || 'Đã có lỗi xảy ra!');
+      setErrorMsg(error?.message || 'Đã có lỗi xảy ra!');
     }
   });
   const handleDropPhoto = useCallback(

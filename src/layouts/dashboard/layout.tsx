@@ -1,5 +1,4 @@
 import type { SettingsState } from 'src/components/settings';
-import type { NavSectionProps } from 'src/components/nav-section';
 import type { Theme, SxProps, CSSObject, Breakpoint } from '@mui/material/styles';
 
 import { useMemo } from 'react';
@@ -12,7 +11,6 @@ import { paths } from 'src/routes/paths';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import { allLangs } from 'src/locales';
 import { varAlpha, stylesMode } from 'src/theme/styles';
 
 import { bulletColor } from 'src/components/nav-section';
@@ -27,9 +25,9 @@ import { NavVertical } from './nav-vertical';
 import { NavHorizontal } from './nav-horizontal';
 import { _account } from '../config-nav-account';
 import { HeaderBase } from '../core/header-base';
-import { userNavData } from '../config-nav-user';
 import { guestNavData } from '../config-nav-guest';
 import { LayoutSection } from '../core/layout-section';
+import { tutorNavData, studentNavData } from '../config-nav-user';
 import { navData as dashboardNavData } from '../config-nav-dashboard';
 
 // ----------------------------------------------------------------------
@@ -37,12 +35,10 @@ import { navData as dashboardNavData } from '../config-nav-dashboard';
 export type DashboardLayoutProps = {
   sx?: SxProps<Theme>;
   children: React.ReactNode;
-  data?: {
-    nav?: NavSectionProps['data'];
-  };
+  isLanding?: boolean;
 };
 
-export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
+export function DashboardLayout({ sx, children, isLanding }: DashboardLayoutProps) {
   const { unauthenticated, authenticated, user } = useAuthContext();
 
   const theme = useTheme();
@@ -58,9 +54,8 @@ export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
   // const navData = data?.nav ?? dashboardNavData;
   const navData = useMemo(() => {
     if (user?.role === 'Admin') return [...guestNavData, ...dashboardNavData];
-    if (user?.role === 'Tutor' || user?.role === 'Student')
-      return [...guestNavData, ...userNavData];
-    return guestNavData;
+    if (user?.role === 'Tutor') return [...guestNavData, ...tutorNavData];
+    return [...guestNavData, ...studentNavData];
   }, [user]);
   const isNavMini = settings.navLayout === 'mini';
 
@@ -69,7 +64,7 @@ export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
   const isNavVertical = isNavMini || settings.navLayout === 'vertical';
 
   const accountData = useMemo(() => {
-    if (user && user?.role === 'Admin')
+    if (user && user?.role !== 'Student')
       return _account.filter((acc) => acc.href !== paths.user.tutor_register);
     return _account;
   }, [user]);
@@ -94,18 +89,13 @@ export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
             onOpenNav={mobileNavOpen.onTrue}
             data={{
               nav: navData,
-              langs: allLangs,
               account: accountData,
             }}
             slotsDisplay={{
               signIn: unauthenticated,
               account: authenticated,
-              purchase: false,
-              helpLink: false,
-              contacts: false,
-              localization: false,
-              notifications: false,
-              workspaces: false,
+
+              searchbar: !isLanding,
             }}
             slots={{
               topArea: (
@@ -178,6 +168,19 @@ export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
                   settings.navLayout === 'vertical' ? 'mini' : 'vertical'
                 )
               }
+              sx={{
+                backgroundColor: theme.palette.primary.darker,
+                '& .mnl__nav__item': {
+                  color: theme.palette.primary.contrastText,
+                  '&.state--active': {
+                    backgroundColor: theme.palette.background.neutral,
+                    color: theme.palette.text.primary,
+                  },
+                  '& .mnl__nav__item__title': {
+                    whiteSpace: 'wrap',
+                  },
+                },
+              }}
             />
           )
         }
@@ -209,6 +212,7 @@ export function DashboardLayout({ sx, children, data }: DashboardLayoutProps) {
               pl: isNavMini ? 'var(--layout-nav-mini-width)' : 'var(--layout-nav-vertical-width)',
             },
           },
+          backgroundColor: theme.palette.background.neutral,
           ...sx,
         }}
       >

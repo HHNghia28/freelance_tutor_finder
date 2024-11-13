@@ -12,7 +12,6 @@ import { AuthGuard, RoleBasedGuard } from 'src/auth/guard';
 
 // Account
 const AccountListPage = lazy(() => import('src/pages/dashboard/account/list'));
-const AccountCreatePage = lazy(() => import('src/pages/dashboard/account/new'));
 // News
 const NewsListPage = lazy(() => import('src/pages/dashboard/news/list'));
 const NewsCreatePage = lazy(() => import('src/pages/dashboard/news/new'));
@@ -46,7 +45,6 @@ export const dashboardRoutes = [
         children: [
           { element: <AccountListPage />, index: true },
           { path: 'list', element: <AccountListPage /> },
-          { path: 'new', element: <AccountCreatePage /> },
           // { path: ':id/edit', element: <UserEditPage /> },
         ],
       },

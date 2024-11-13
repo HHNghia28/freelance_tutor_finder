@@ -21,7 +21,7 @@ export type LogoProps = BoxProps & {
 
 export const Logo = forwardRef<HTMLDivElement, LogoProps>(
   (
-    { animate, width = 80, height = 80, disableLink = false, className, href = '/', sx, ...other },
+    { animate, width = 70, height = 70, disableLink = false, className, href = '/', sx, ...other },
     ref
   ) => {
     const logo = (
@@ -29,7 +29,7 @@ export const Logo = forwardRef<HTMLDivElement, LogoProps>(
         alt="logo"
         component="img"
         src={`${CONFIG.site.basePath}/logo/logo.png`}
-        sx={{ borderRadius: 999 }}
+        sx={{ borderRadius: 999, backgroundColor: '#fff' }}
         width={width}
         height={height}
       />

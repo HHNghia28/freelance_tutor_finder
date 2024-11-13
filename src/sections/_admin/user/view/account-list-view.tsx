@@ -34,15 +34,16 @@ import { baseColumns } from '../table/columns';
 export function AccountListView() {
   const [userBlock, setUserBlock] = useState<IAccount | null>(null);
 
-  const { accounts, accountsLoading } = useGetAccounts();
+  const { accounts, accountsLoading, accountsMutate } = useGetAccounts();
+
   const isBlocking = useBoolean();
 
   const handleBlock = async () => {
     try {
       isBlocking.onTrue();
       await blockAccount(userBlock!.id);
-
-      toast.error('Chặn tài khoản thành công!');
+      accountsMutate();
+      toast.success('Chặn tài khoản thành công!');
     } catch (error) {
       console.error(error);
       toast.error('Đã có lỗi xảy ra!');

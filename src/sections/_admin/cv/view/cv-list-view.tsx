@@ -16,6 +16,7 @@ import { paths } from 'src/routes/paths';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
+import { TUTOR_STATUS } from 'src/contants/tutor';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { tutorReject, useGetTutors, tutorApproved } from 'src/actions/tutor';
 
@@ -33,7 +34,7 @@ import CVModalViewRow from '../cv-modal-view-row';
 // ----------------------------------------------------------------------
 
 export function CVListView() {
-  const { tutors, tutorsLoading, tutorsMutate } = useGetTutors('waitting');
+  const { tutors, tutorsLoading, tutorsMutate } = useGetTutors(TUTOR_STATUS.WAITTING);
   const [rowSelect, setRowSelect] = useState<{
     tutor: ITutor;
     action: 'view' | 'reject' | 'approved';

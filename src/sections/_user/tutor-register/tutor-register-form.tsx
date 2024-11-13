@@ -75,6 +75,8 @@ export function TutorRegisterForm() {
       toast.success('Đơn đăng kí đã được gửi!');
       router.push(paths.user.root);
     } catch (error) {
+      toast.error('Đã có lỗi xảy ra!');
+
       console.error(error);
     }
   });

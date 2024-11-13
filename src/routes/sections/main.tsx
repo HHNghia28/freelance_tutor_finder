@@ -1,16 +1,14 @@
 import { lazy, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { SimpleLayout } from 'src/layouts/simple';
 import { DashboardLayout } from 'src/layouts/dashboard';
 
 import { SplashScreen } from 'src/components/loading-screen';
 
-import { AuthGuard, RoleBasedGuard } from 'src/auth/guard';
+import { AuthGuard } from 'src/auth/guard';
 
 // ----------------------------------------------------------------------
 
-const MaintenancePage = lazy(() => import('src/pages/maintenance'));
 // Error
 const Page500 = lazy(() => import('src/pages/error/500'));
 const Page403 = lazy(() => import('src/pages/error/403'));
@@ -19,14 +17,16 @@ const Page404 = lazy(() => import('src/pages/error/404'));
 const TutorNewsListPage = lazy(() => import('src/pages/guest/news/list'));
 const TutorNewsDetailsPage = lazy(() => import('src/pages/guest/news/details'));
 // Tutor
-const TutorListPage = lazy(() => import('src/pages/guest/tutor/list'));
-const TutorDetailsPage = lazy(() => import('src/pages/guest/tutor/details'));
+const TutorAdvListPage = lazy(() => import('src/pages/guest/tutor-adv/list'));
+const TutorAdvDetailsPage = lazy(() => import('src/pages/guest/tutor-adv/details'));
 // USER
 const TutorRegisterPage = lazy(() => import('src/pages/user/tutor/tutor-register'));
+
 const MyCoursePage = lazy(() => import('src/pages/user/my-course/list'));
 const CreateCoursePage = lazy(() => import('src/pages/user/my-course/create'));
-const MyEventPage = lazy(() => import('src/pages/user/my-event/list'));
-const CreateEventPage = lazy(() => import('src/pages/user/my-event/create'));
+const UpdateCoursePage = lazy(() => import('src/pages/user/my-course/update'));
+
+const MyFavouritePage = lazy(() => import('src/pages/user/my-favourite/list'));
 
 // ----------------------------------------------------------------------
 
@@ -40,7 +40,7 @@ export const mainRoutes = [
     children: [
       {
         element: (
-          <DashboardLayout>
+          <DashboardLayout isLanding>
             <Suspense fallback={<SplashScreen />}>
               <Outlet />
             </Suspense>
@@ -58,8 +58,8 @@ export const mainRoutes = [
           {
             path: 'tim-gia-su',
             children: [
-              { element: <TutorListPage />, index: true },
-              { path: ':slug', element: <TutorDetailsPage /> },
+              { element: <TutorAdvListPage />, index: true },
+              { path: ':slug', element: <TutorAdvDetailsPage /> },
               // { path: ':id/edit', element: <UserEditPage /> },
             ],
           },
@@ -72,7 +72,7 @@ export const mainRoutes = [
             ),
           },
           {
-            path: 'khoa-hoc-cua-toi',
+            path: 'bai-dang-cua-toi',
             element: (
               <AuthGuard>
                 <Outlet />
@@ -80,34 +80,21 @@ export const mainRoutes = [
             ),
             children: [
               { element: <MyCoursePage />, index: true },
-              { path: 'khoa-hoc-moi', element: <CreateCoursePage /> },
+              { path: 'bai-dang-moi', element: <CreateCoursePage /> },
+              { path: ':id/cap-nhat', element: <UpdateCoursePage /> },
             ],
           },
           {
-            path: 'tin-tuc-cua-toi',
+            path: 'yeu-thich',
             element: (
               <AuthGuard>
-                <RoleBasedGuard hasContent currentRole="Tutor">
-                  <Outlet />
-                </RoleBasedGuard>
+                <MyFavouritePage />
               </AuthGuard>
             ),
-            children: [
-              { element: <MyEventPage />, index: true },
-              { path: 'dang-tin-moi', element: <CreateEventPage /> },
-            ],
           },
         ],
       },
 
-      {
-        path: 'maintenance',
-        element: (
-          <SimpleLayout content={{ compact: true }}>
-            <MaintenancePage />
-          </SimpleLayout>
-        ),
-      },
       {
         path: '500',
         element: <Page500 />,

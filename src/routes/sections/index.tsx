@@ -15,7 +15,7 @@ export function Router() {
        * Skip home page
        * element: <Navigate to={CONFIG.auth.redirectPath} replace />,
        */
-      element: <Navigate to={paths.guest.news.list} replace />,
+      element: <Navigate to={paths.guest.tutor.list} replace />,
     },
 
     // Auth
