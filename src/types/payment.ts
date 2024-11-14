@@ -6,5 +6,6 @@ export type IPayment = {
   timeCharge: string;
   note: string;
   tutorAdvertisementsId: string;
-  tutorAdvertisement: any;
+  tutorAdvertisementsTitle: string;
+  tutorName: string;
 };

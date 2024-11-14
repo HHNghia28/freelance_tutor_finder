@@ -159,13 +159,13 @@ export function CVListView() {
               toolbar: () => (
                 <Box
                   sx={{
-                    p: 0.5,
-                    pb: 0,
+                    p: 1,
+
                     mr: 0,
                     ml: 'auto',
                   }}
                 >
-                  <GridToolbarQuickFilter autoComplete="false" size="small" />
+                  <GridToolbarQuickFilter autoComplete="false" size="small" debounceMs={500} />
                 </Box>
               ),
             }}

@@ -7,4 +7,5 @@ export type IAccount = {
   photo: string;
   email: string;
   role: IRole;
+  isBlocked: boolean;
 };
