@@ -74,7 +74,8 @@ export function JwtSignInView() {
       console.error(error);
       switch (error?.message) {
         case 'User not found.':
-          setErrorMsg('Sai tài khoản');
+        case 'Invalid password.':
+          setErrorMsg('Sai tài khoản hoặc mật khẩu');
           break;
 
         default:
