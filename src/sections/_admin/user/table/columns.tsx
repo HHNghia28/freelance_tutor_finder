@@ -1,6 +1,8 @@
 import type { IAccount } from 'src/types/account';
 import type { GridColDef } from '@mui/x-data-grid';
 
+import { Label } from 'src/components/label';
+
 import SimpleImage from 'src/sections/_partials/simple-image';
 
 export const baseColumns: GridColDef<IAccount>[] = [
@@ -36,5 +38,16 @@ export const baseColumns: GridColDef<IAccount>[] = [
     headerName: 'Vai trò',
     flex: 1,
     minWidth: 150,
+  },
+  {
+    field: 'isBlocked',
+    headerName: 'Trạng thái',
+    flex: 1,
+    minWidth: 150,
+    renderCell: (params) => (
+      <Label color={!params.value ? 'info' : 'error'}>
+        {!params.value ? 'Hoạt động' : 'Bị chặn'}
+      </Label>
+    ),
   },
 ];

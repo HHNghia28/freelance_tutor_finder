@@ -37,6 +37,7 @@ export const endpoints = {
   account: {
     list: '/api/admin/users',
     block: (userId: any) => `/api/admin/users/${userId}/block`,
+    unblock: (userId: any) => `/api/admin/users/${userId}/unblock`,
   },
   auth: {
     me: '/api/auth/me',

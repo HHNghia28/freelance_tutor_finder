@@ -8,7 +8,7 @@ import axios, { fetcher, endpoints } from 'src/utils/axios';
 // ----------------------------------------------------------------------
 
 const swrOptions = {
-  revalidateIfStale: false,
+  revalidateIfStale: true,
   revalidateOnFocus: false,
   revalidateOnReconnect: false,
 };
@@ -46,6 +46,13 @@ export function useGetAccounts(search?: string) {
 
 export async function blockAccount(userId: any) {
   const url = ENDPOINT.block(userId);
+
+  await axios.put(url);
+}
+// ----------------------------------------------------------------------
+
+export async function unblockAccount(userId: any) {
+  const url = ENDPOINT.unblock(userId);
 
   await axios.put(url);
 }
