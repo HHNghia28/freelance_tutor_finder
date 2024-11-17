@@ -11,7 +11,7 @@ export type SignUpSchemaType = zod.infer<typeof SignUpSchema>;
 export const SignUpSchema = zod
   .object({
     userName: zod.string().min(1, { message: 'Username là bắt buộc!' }),
-    fullname: zod.string().min(1, { message: 'Họ v tên là bắt buộc!' }),
+    fullname: zod.string().min(1, { message: 'Họ và tên là bắt buộc!' }),
     email: zod
       .string()
       .min(1, { message: 'Email là bắt buộc!' })

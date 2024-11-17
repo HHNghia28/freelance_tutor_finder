@@ -18,7 +18,6 @@ import { sortStringByNumbers } from 'src/utils/helper';
 
 import { payment } from 'src/actions/payment';
 import { useGetGrades } from 'src/actions/grade';
-import { MAX_FILE_SIZE } from 'src/config-global';
 import { useGetSubjects } from 'src/actions/subject';
 import { createTutorAdv, updateTutorAdv } from 'src/actions/tutor-adv';
 
@@ -171,12 +170,7 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
             />
             <Box>
               <Typography variant="subtitle2">Thumbnail</Typography>
-              <Field.Upload
-                name="thumbnail"
-                sx={{ width: 1 }}
-                maxSize={MAX_FILE_SIZE}
-                onDrop={handleDrop}
-              />
+              <Field.Upload name="thumbnail" sx={{ width: 1 }} onDrop={handleDrop} />
             </Box>
           </Stack>
         </Card>

@@ -28,6 +28,8 @@ const UpdateCoursePage = lazy(() => import('src/pages/user/my-course/update'));
 
 const MyFavouritePage = lazy(() => import('src/pages/user/my-favourite/list'));
 
+const ProfilePage = lazy(() => import('src/pages/profile'));
+
 // ----------------------------------------------------------------------
 
 export const mainRoutes = [
@@ -68,6 +70,14 @@ export const mainRoutes = [
             element: (
               <AuthGuard>
                 <TutorRegisterPage />
+              </AuthGuard>
+            ),
+          },
+          {
+            path: 'ho-so',
+            element: (
+              <AuthGuard>
+                <ProfilePage />
               </AuthGuard>
             ),
           },

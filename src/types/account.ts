@@ -9,3 +9,22 @@ export type IAccount = {
   role: IRole;
   isBlocked: boolean;
 };
+
+export type IProfile = {
+  id: string;
+  fullname: string;
+  email: string;
+  phoneNumber: string;
+  gender: string;
+  dateOfBirth: string;
+  location: string;
+  photo: string;
+  registrationDate: string;
+  isEmailConfirmed: boolean;
+  academicSpecialty: string;
+  teachingAchievement: string;
+  citizenId: string;
+  cvUrl: string;
+  selfIntroduction: string;
+  role: IRole;
+};

@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
+import { useMemo, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Stack from '@mui/material/Stack';
@@ -45,6 +45,10 @@ export default function FeedbackForm({ tutorAdvId }: Props) {
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
+
+  useEffect(() => {
+    reset(defaultValues);
+  }, [defaultValues, reset]);
 
   const onSubmit = handleSubmit(async (data) => {
     try {
