@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import type { ITutorAdv } from 'src/types/tutor-adv';
 
 import { useForm } from 'react-hook-form';
@@ -18,7 +19,6 @@ import { sortStringByNumbers } from 'src/utils/helper';
 
 import { payment } from 'src/actions/payment';
 import { useGetGrades } from 'src/actions/grade';
-import { MAX_FILE_SIZE } from 'src/config-global';
 import { useGetSubjects } from 'src/actions/subject';
 import { createTutorAdv, updateTutorAdv } from 'src/actions/tutor-adv';
 
@@ -28,13 +28,29 @@ import { Form, Field } from 'src/components/hook-form';
 import { CourseSchema } from './form/course-schema';
 import { useAuthContext } from '../../../auth/hooks';
 import { uploadFile } from '../../../actions/upload';
+import { MultiFilePreview } from './form/preview-multi-file';
 import { acceptOnlyNumber } from '../../../utils/input-strict';
 
 import type { CourseSchemaType } from './form/course-schema';
-
+/* ------------------------------------------- */
+async function uploadVideos(freeCourses: any) {
+  const freeCoursesRes: any = [];
+  for (const course of freeCourses) {
+    if (typeof course === 'string') {
+      freeCoursesRes.push(course);
+    } else {
+      // eslint-disable-next-line no-await-in-loop
+      const res = await uploadFile(course as File);
+      freeCoursesRes.push(res.fileUrl);
+    }
+  }
+  return freeCoursesRes;
+}
+/* ------------------------------------------- */
 type Props = {
   editRecord?: ITutorAdv;
 };
+
 export default function MyCourseCreateEditForm({ editRecord }: Props) {
   const isEdit = !!editRecord;
   const router = useRouter();
@@ -60,6 +76,7 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
       fee: editRecord?.fee || 0,
       discount: editRecord?.discount || 0,
       thumbnail: editRecord?.thumbnail || null,
+      freeCourses: (editRecord?.freeCourses as any) || [],
       isStartDateDirty: !isEdit,
       isEndDateDirty: !isEdit,
     }),
@@ -83,9 +100,12 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
   const {
     reset,
     setValue,
+    getValues,
+    watch,
     handleSubmit,
     formState: { isSubmitting, dirtyFields },
   } = methods;
+  const freeCoursesForm = watch('freeCourses');
 
   useEffect(() => {
     if (dirtyFields.startDate) {
@@ -104,32 +124,57 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
   const onSubmit = handleSubmit(async (data) => {
     try {
       if (!isEdit) {
-        const { thumbnail, ...rest } = data;
+        const { thumbnail, freeCourses, ...rest } = data;
 
+        const freeCoursesRes = await Promise.all(
+          freeCourses.map((course) => uploadFile(course as File))
+        );
         const uploadRes = await uploadFile(thumbnail as File);
         const tutorAdvId = await createTutorAdv({
           ...rest,
           thumbnail: uploadRes.fileUrl,
+          freeCourses: freeCoursesRes.map((free) => free.fileUrl),
           tutorId: user!.tutorId!,
         });
         toast.success('Tạo bài đăng mới thành công!');
         const href = await payment(tutorAdvId);
         window.location.href = href;
       } else {
-        const { thumbnail, ...rest } = data;
-        if (dirtyFields.thumbnail) {
+        const { thumbnail, freeCourses, ...rest } = data as any;
+        if (dirtyFields.thumbnail && dirtyFields.freeCourses) {
+          const freeCoursesRes = await uploadVideos(freeCourses);
+          const uploadRes =
+            typeof thumbnail === 'string'
+              ? { fileUrl: thumbnail }
+              : await uploadFile(thumbnail as File);
+          await updateTutorAdv(editRecord.id, {
+            ...rest,
+            thumbnail: uploadRes.fileUrl,
+            freeCourses: freeCoursesRes,
+          });
+        } else if (dirtyFields.thumbnail) {
           const uploadRes = await uploadFile(thumbnail as File);
           await updateTutorAdv(editRecord.id, {
             ...rest,
             thumbnail: uploadRes.fileUrl,
           });
+        } else if (dirtyFields.freeCourses) {
+          const freeCoursesRes = await uploadVideos(freeCourses);
+
+          await updateTutorAdv(editRecord.id, {
+            ...rest,
+            thumbnail,
+            freeCourses: freeCoursesRes,
+          });
         } else {
-          await updateTutorAdv(editRecord.id, rest);
+          await updateTutorAdv(editRecord.id, data as any);
         }
         toast.success('Cập nhật bài đăng thành công!');
       }
       reset();
-      router.push(paths.user.my_course.list);
+      if (isEdit) {
+        router.push(paths.user.my_course.list);
+      }
     } catch (error) {
       console.error(error);
       toast.error('Đã có lỗi xảy ra!');
@@ -151,6 +196,39 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
     [setValue]
   );
 
+  const handleDropVideos = useCallback(
+    (acceptedFiles: File[]) => {
+      const files = acceptedFiles;
+      const filesOutput: File[] = [];
+      files.forEach((file) => {
+        const newFile = Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        });
+
+        if (newFile) {
+          filesOutput.push(newFile);
+        }
+      });
+
+      setValue('freeCourses', filesOutput, { shouldValidate: true, shouldDirty: true });
+    },
+    [setValue]
+  );
+  const handleRemoveFile = useCallback(
+    (file: any) => {
+      const files: any = getValues('freeCourses');
+
+      if (Array.isArray(files)) {
+        const newFiles = files.filter((f) => f.path !== file.path || f !== file);
+
+        setValue('freeCourses', newFiles, {
+          shouldValidate: true,
+          shouldDirty: true,
+        });
+      }
+    },
+    [setValue, getValues]
+  );
   return (
     <Form methods={methods} onSubmit={onSubmit}>
       <Stack spacing={{ xs: 3, md: 5 }} sx={{ mx: 'auto', maxWidth: { xs: 720, xl: 880 } }}>
@@ -171,18 +249,13 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
             />
             <Box>
               <Typography variant="subtitle2">Thumbnail</Typography>
-              <Field.Upload
-                name="thumbnail"
-                sx={{ width: 1 }}
-                maxSize={MAX_FILE_SIZE}
-                onDrop={handleDrop}
-              />
+              <Field.Upload name="thumbnail" sx={{ width: 1 }} onDrop={handleDrop} />
             </Box>
           </Stack>
         </Card>
         <Card>
           <CardHeader
-            title="Thiệt lập bài đăng"
+            title="Thiết lập bài đăng"
             subheader="Thiết lập học phí, kỳ học,.."
             sx={{ mb: 3 }}
           />
@@ -240,6 +313,37 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
                 reduceAnimations
               />
               <Field.DatePicker name="endDate" label="Ngày kết thúc" disablePast reduceAnimations />
+            </Box>
+          </Stack>
+        </Card>
+        <Card>
+          <CardHeader
+            title="Video bài giảng"
+            subheader="Video giới thiệu về bài giảng"
+            sx={{ mb: 3 }}
+          />
+
+          <Divider />
+
+          <Stack spacing={3} sx={{ p: 3 }}>
+            <Box>
+              <Typography variant="subtitle2">Video</Typography>
+              <Field.Upload
+                name="freeCourses"
+                multiple
+                accept={{
+                  'video/*': [],
+                }}
+                onDrop={handleDropVideos}
+                disabledPreview
+              />
+              <MultiFilePreview
+                files={freeCoursesForm}
+                onRemove={(event: any): void => {
+                  console.log(event);
+                  handleRemoveFile(event);
+                }}
+              />
             </Box>
           </Stack>
         </Card>

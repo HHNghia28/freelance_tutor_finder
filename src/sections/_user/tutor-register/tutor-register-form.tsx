@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
-import { useMemo, useCallback } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMemo, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -13,8 +13,6 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
-
-import { MAX_FILE_SIZE } from 'src/config-global';
 
 import { toast } from 'src/components/snackbar';
 import { Form, Field } from 'src/components/hook-form';
@@ -59,6 +57,10 @@ export function TutorRegisterForm() {
     handleSubmit,
     formState: { isSubmitting, errors },
   } = methods;
+
+  useEffect(() => {
+    reset(defaultValues);
+  }, [defaultValues, reset]);
 
   const values = watch();
 
@@ -117,7 +119,6 @@ export function TutorRegisterForm() {
                   'application/pdf': ['.pdf'], // Accept only PDF files
                 }}
                 sx={{ width: 1 }}
-                maxSize={MAX_FILE_SIZE}
                 onDrop={handleDropCV}
                 onRemove={() => setValue('cvUrl', null)}
               />

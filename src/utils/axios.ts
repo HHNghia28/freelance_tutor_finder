@@ -38,6 +38,8 @@ export const endpoints = {
     list: '/api/admin/users',
     block: (userId: any) => `/api/admin/users/${userId}/block`,
     unblock: (userId: any) => `/api/admin/users/${userId}/unblock`,
+    profile: (userId: any) => `/api/Account/profile?id=${userId}`,
+    edit_profile: (userId: any) => `/api/Account/profile?id=${userId}`,
   },
   auth: {
     me: '/api/auth/me',
@@ -73,6 +75,7 @@ export const endpoints = {
   payment: {
     pay: (tutorAdvId: any) => `/api/Payment?tutorAdvertisement=${tutorAdvId}`,
     list: `/api/Payment/invoice`,
+    statistic: `/api/Payment/statistic`,
   },
   event: {
     list: '/api/Events',

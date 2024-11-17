@@ -10,7 +10,11 @@ export const _account = [
     href: '/',
     icon: <Iconify icon="solar:home-angle-bold-duotone" />,
   },
-
+  {
+    label: 'Hồ sơ',
+    href: paths.user.profile,
+    icon: <Iconify icon="healthicons:ui-user-profile" />,
+  },
   {
     label: 'Đăng ký làm gia sư',
     href: paths.user.tutor_register,

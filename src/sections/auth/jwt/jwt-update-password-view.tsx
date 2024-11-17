@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { z as zod } from 'zod';
-import { useMemo } from 'react';
 import { Navigate } from 'react-router';
 import { useForm } from 'react-hook-form';
+import { useMemo, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Link from '@mui/material/Link';
@@ -69,8 +69,13 @@ export function JwtUpdatePasswordView() {
   });
   const {
     handleSubmit,
+    reset,
     formState: { isSubmitting },
   } = methods;
+
+  useEffect(() => {
+    reset(defaultValues);
+  }, [defaultValues, reset]);
 
   const onSubmit = handleSubmit(async (data) => {
     try {

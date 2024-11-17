@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 
-import MyCourseListView from 'src/sections/_user/my-course/view/my-course-list-view';
+import ProfileFormView from 'src/sections/profile/view/profile-form-view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Bài đăng của tôi` };
+const metadata = { title: `Hồ sơ của bạn` };
 
 export default function Page() {
   return (
@@ -12,7 +12,7 @@ export default function Page() {
       <Helmet>
         <title> {metadata.title}</title>
       </Helmet>
-      <MyCourseListView />
+      <ProfileFormView />
     </>
   );
 }

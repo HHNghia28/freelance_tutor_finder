@@ -15,6 +15,7 @@ import { EmptyContent } from 'src/components/empty-content';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import { baseColumns } from '../table/columns';
+import PaymentStatistic from '../payment-statistic';
 
 // ----------------------------------------------------------------------
 
@@ -45,6 +46,7 @@ export default function PaymentListView() {
         ]}
         sx={{ mb: { xs: 3, md: 5 } }}
       />
+      <PaymentStatistic />
       <Card
         sx={{
           width: 1,

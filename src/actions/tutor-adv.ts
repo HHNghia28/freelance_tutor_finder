@@ -98,6 +98,7 @@ type CreatePayload = {
   title: string;
   description: string;
   thumbnail: string;
+  freeCourses: string[];
   daysPerMonth: string;
   courseId: string;
   gradeId: string;
@@ -116,6 +117,7 @@ type UpdatePayload = {
   title?: string;
   description?: string;
   thumbnail?: string;
+  freeCourses?: string[];
   daysPerMonth?: string;
   courseId?: string;
   gradeId?: string;

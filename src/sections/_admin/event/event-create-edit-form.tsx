@@ -1,8 +1,8 @@
 import type * as event from 'src/types/event';
 
 import { useForm } from 'react-hook-form';
-import { useMemo, useCallback } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMemo, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -15,7 +15,6 @@ import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
 import { useGetTutors } from 'src/actions/tutor';
-import { MAX_FILE_SIZE } from 'src/config-global';
 import { createEvent, updateEvent } from 'src/actions/event';
 
 import { toast } from 'src/components/snackbar';
@@ -56,6 +55,10 @@ export default function EventCreateEditForm({ editRecord }: Props) {
     handleSubmit,
     formState: { isSubmitting, dirtyFields },
   } = methods;
+
+  useEffect(() => {
+    reset(defaultValues);
+  }, [defaultValues, reset]);
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -129,7 +132,6 @@ export default function EventCreateEditForm({ editRecord }: Props) {
               <Field.Upload
                 name="thumbnail"
                 sx={{ width: 1 }}
-                maxSize={MAX_FILE_SIZE}
                 onDrop={handleDrop}
                 onRemove={() => setValue('thumbnail', null, { shouldValidate: true })}
               />

@@ -32,7 +32,14 @@ export const CourseSchema = zod
       .max(100, 'Phần trăm giảm tối đa 100%!'),
     thumbnail: schemaHelper
       .file({ message: { required_error: 'Bạn chưa chọn hình khóa học!' } })
-      .refine((file: any) => file?.size <= MAX_FILE_SIZE, 'File tối đa 10MB'),
+      .refine(
+        (file: any) => (typeof file === 'string' ? true : file?.size <= MAX_FILE_SIZE),
+        'File tối đa 10MB'
+      ),
+    freeCourses: schemaHelper.files({
+      message: { required_error: 'Bạn chưa chọn video!' },
+      minFiles: 1,
+    }),
     isStartDateDirty: zod.boolean(),
     isEndDateDirty: zod.boolean(),
   })

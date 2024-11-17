@@ -29,6 +29,7 @@ export function Upload({
   helperText,
   onRemoveAll,
   multiple = false,
+  disabledPreview,
   ...other
 }: UploadProps) {
   const { getRootProps, getInputProps, isDragActive, isDragReject, fileRejections } = useDropzone({
@@ -45,7 +46,7 @@ export function Upload({
 
   const hasError = isDragReject || !!error;
 
-  const renderMultiPreview = hasFiles && (
+  const renderMultiPreview = !disabledPreview && hasFiles && (
     <>
       <MultiFilePreview files={value} thumbnail={thumbnail} onRemove={onRemove} sx={{ my: 3 }} />
 
