@@ -36,6 +36,10 @@ export const CourseSchema = zod
         (file: any) => (typeof file === 'string' ? true : file?.size <= MAX_FILE_SIZE),
         'File tối đa 10MB'
       ),
+    freeCourses: schemaHelper.files({
+      message: { required_error: 'Bạn chưa chọn video!' },
+      minFiles: 1,
+    }),
     isStartDateDirty: zod.boolean(),
     isEndDateDirty: zod.boolean(),
   })

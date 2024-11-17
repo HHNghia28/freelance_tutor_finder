@@ -4,7 +4,7 @@ import MyCourseListView from 'src/sections/_user/my-course/view/my-course-list-v
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Khóa học của tôi` };
+const metadata = { title: `Bài đăng của tôi` };
 
 export default function Page() {
   return (
