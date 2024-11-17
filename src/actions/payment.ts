@@ -38,7 +38,33 @@ export function useGetInvoices(search?: string) {
 
   return memoizedValue;
 }
+// ----------------------------------------------------------------------
 
+export function useGetPaymentStatistic(
+  startDate: string,
+  endDate: string,
+  groupBy: 'day' | 'month' | 'year'
+) {
+  const url = [ENDPOINT.statistic, { params: { startDate, endDate, groupBy } }];
+
+  const { data, isLoading, error, isValidating, mutate } = useSWR<
+    { group: string; totalAmount: number }[]
+  >(url, fetcher, swrOptions);
+
+  const memoizedValue = useMemo(
+    () => ({
+      statistics: data || [],
+      statisticsLoading: isLoading,
+      statisticsError: error,
+      statisticsValidating: isValidating,
+      statisticsMutate: mutate,
+      statisticsEmpty: !isLoading && !data?.length,
+    }),
+    [data, error, isLoading, isValidating, mutate]
+  );
+
+  return memoizedValue;
+}
 // ----------------------------------------------------------------------
 
 export async function payment(tutorAdvertisement: string) {
