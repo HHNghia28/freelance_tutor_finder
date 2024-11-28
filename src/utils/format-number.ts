@@ -47,7 +47,7 @@ export function fCurrency(inputValue: InputNumberValue, options?: Options) {
     style: 'currency',
     currency: locale.currency,
     minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 0,
     ...options,
   }).format(number);
 
