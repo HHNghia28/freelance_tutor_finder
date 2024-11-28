@@ -5,7 +5,7 @@ import { DashboardLayout } from 'src/layouts/dashboard';
 
 import { SplashScreen } from 'src/components/loading-screen';
 
-import { AuthGuard } from 'src/auth/guard';
+import { AuthGuard, RoleBasedGuard } from 'src/auth/guard';
 
 // ----------------------------------------------------------------------
 
@@ -85,7 +85,9 @@ export const mainRoutes = [
             path: 'bai-dang-cua-toi',
             element: (
               <AuthGuard>
-                <Outlet />
+                <RoleBasedGuard hasContent currentRole="Tutor">
+                  <Outlet />
+                </RoleBasedGuard>
               </AuthGuard>
             ),
             children: [
@@ -98,7 +100,9 @@ export const mainRoutes = [
             path: 'yeu-thich',
             element: (
               <AuthGuard>
-                <MyFavouritePage />
+                <RoleBasedGuard hasContent currentRole="Student">
+                  <MyFavouritePage />
+                </RoleBasedGuard>
               </AuthGuard>
             ),
           },
