@@ -6,6 +6,8 @@ import { Box, Typography } from '@mui/material';
 import { fDateTime } from 'src/utils/format-time';
 import { fPercent, fCurrency } from 'src/utils/format-number';
 
+import { maxLine } from 'src/theme/styles';
+
 export const baseColumns: GridColDef<IPayment>[] = [
   {
     field: 'tutorAdvertisementsTitle',
@@ -13,8 +15,26 @@ export const baseColumns: GridColDef<IPayment>[] = [
     headerName: 'Bài đăng',
     renderCell: (params) => (
       <Box sx={{ width: 1 }}>
-        <Typography>{params.value}</Typography>
-        <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+        <Typography
+          sx={{
+            ...maxLine({
+              line: 2,
+            }),
+          }}
+          title={params.value}
+        >
+          {params.value}
+        </Typography>
+
+        <Typography
+          variant="caption"
+          sx={{
+            color: 'text.secondary',
+            ...maxLine({
+              line: 1,
+            }),
+          }}
+        >
           {params.row.tutorName}
         </Typography>
       </Box>

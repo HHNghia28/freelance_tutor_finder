@@ -1,7 +1,9 @@
 import type { ITutor } from 'src/types/tutor';
 import type { GridColDef } from '@mui/x-data-grid';
 
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
+
+import { maxLine } from 'src/theme/styles';
 
 import SimpleImage from 'src/sections/_partials/simple-image';
 
@@ -19,6 +21,18 @@ export const baseColumns: GridColDef<ITutor>[] = [
     headerName: 'Họ và tên',
     width: 120,
     flex: 1,
+    renderCell: (params) => (
+      <Typography
+        sx={{
+          ...maxLine({
+            line: 2,
+          }),
+        }}
+        title={params.value}
+      >
+        {params.value}
+      </Typography>
+    ),
   },
 
   {
