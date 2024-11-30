@@ -1,7 +1,11 @@
 import type { IEvent } from 'src/types/event';
 import type { GridColDef } from '@mui/x-data-grid';
 
+import { Typography } from '@mui/material';
+
 import { fDateTime } from 'src/utils/format-time';
+
+import { maxLine } from 'src/theme/styles';
 
 import SimpleImage from 'src/sections/_partials/simple-image';
 
@@ -19,6 +23,18 @@ export const baseColumns: GridColDef<IEvent>[] = [
     headerName: 'Tiêu đề',
     width: 120,
     flex: 1,
+    renderCell: (params) => (
+      <Typography
+        sx={{
+          ...maxLine({
+            line: 2,
+          }),
+        }}
+        title={params.value}
+      >
+        {params.value}
+      </Typography>
+    ),
   },
 
   {
@@ -26,6 +42,18 @@ export const baseColumns: GridColDef<IEvent>[] = [
     headerName: 'Tác giả',
     flex: 1,
     minWidth: 150,
+    renderCell: (params) => (
+      <Typography
+        sx={{
+          ...maxLine({
+            line: 1,
+          }),
+        }}
+        title={params.value}
+      >
+        {params.value}
+      </Typography>
+    ),
   },
   {
     field: 'createDate',

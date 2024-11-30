@@ -85,24 +85,17 @@ export default function NewsList() {
                 <Divider flexItem sx={{ mt: 1, mb: 0.5 }} />
                 <Typography variant="h3">{fDate(event.updateDate, 'DD')}</Typography>
               </Box>
-              <Box>
+              <Box sx={{ minWidth: 0 }}>
                 <Link
                   component={RouterLink}
                   href={paths.guest.news.details(event.id)}
                   variant="h6"
                   sx={{ color: 'text.primary', ...maxLine({ line: 2 }) }}
+                  title={event.title}
                 >
                   {event.title}
                 </Link>
-                {/* <Typography
-                  variant="body2"
-                  sx={{ color: 'text.secondary', ...maxLine({ line: 2 }), my: 1 }}
-                >
-                  Atque eaque ducimus minima distinctio velit. Laborum et veniam officiis. Delectus
-                  ex saepe hic id laboriosam officia. Odit nostrum qui illum saepe debitis ullam.
-                  Laudantium beatae modi fugit ut. Dolores consequatur beatae nihil voluptates rem
-                  maiores.
-                </Typography> */}
+
                 <Box
                   sx={{
                     display: 'flex',
@@ -114,7 +107,9 @@ export default function NewsList() {
                 >
                   <Avatar src={event.photo} alt={event.tutorName} />
                   <Box>
-                    <Typography variant="body2">{event.tutorName}</Typography>
+                    <Typography variant="body2" sx={{ ...maxLine({ line: 1 }) }}>
+                      {event.tutorName}
+                    </Typography>
                     <Typography
                       variant="caption"
                       sx={{ color: 'text.secondary', ...maxLine({ line: 2 }) }}

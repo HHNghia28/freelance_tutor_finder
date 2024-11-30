@@ -1,6 +1,10 @@
 import type { IAccount } from 'src/types/account';
 import type { GridColDef } from '@mui/x-data-grid';
 
+import { Typography } from '@mui/material';
+
+import { maxLine } from 'src/theme/styles';
+
 import { Label } from 'src/components/label';
 
 import SimpleImage from 'src/sections/_partials/simple-image';
@@ -19,6 +23,18 @@ export const baseColumns: GridColDef<IAccount>[] = [
     headerName: 'Họ và tên',
     width: 120,
     flex: 1,
+    renderCell: (params) => (
+      <Typography
+        sx={{
+          ...maxLine({
+            line: 2,
+          }),
+        }}
+        title={params.value}
+      >
+        {params.value}
+      </Typography>
+    ),
   },
 
   {
@@ -32,6 +48,18 @@ export const baseColumns: GridColDef<IAccount>[] = [
     headerName: 'Email',
     flex: 1,
     minWidth: 150,
+    renderCell: (params) => (
+      <Typography
+        sx={{
+          ...maxLine({
+            line: 1,
+          }),
+        }}
+        title={params.value}
+      >
+        {params.value}
+      </Typography>
+    ),
   },
   {
     field: 'role',
