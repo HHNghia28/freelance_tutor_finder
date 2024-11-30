@@ -156,6 +156,7 @@ export default function MyCourseCreateEditForm({ editRecord }: Props) {
           const uploadRes = await uploadFile(thumbnail as File);
           await updateTutorAdv(editRecord.id, {
             ...rest,
+            freeCourses,
             thumbnail: uploadRes.fileUrl,
           });
         } else if (dirtyFields.freeCourses) {
