@@ -18,13 +18,20 @@ import SimpleImage from 'src/sections/_partials/simple-image';
 import BriefTutorAdv from 'src/sections/_partials/brief-tutor-adv';
 import FeedbackBox from 'src/sections/_user/feedback/view/feedback-box';
 
+import { useAuthContext } from 'src/auth/hooks';
+
 import FreeCoursesList from '../free-course-list';
 import StudentRegisterBtn from '../student-register-btn';
+import StudentRegisterList from '../student-register-list';
 
 type Props = {
   tutorAdv: ITutorAdv;
 };
 export default function TutorAdvDetailsView({ tutorAdv }: Props) {
+  const { user } = useAuthContext();
+
+  const isOwner = tutorAdv.tutorId === user?.tutorId;
+
   return (
     <Container sx={{ pb: 10 }}>
       <CustomBreadcrumbs
@@ -233,6 +240,11 @@ export default function TutorAdvDetailsView({ tutorAdv }: Props) {
             </Stack>
           </Paper>
         </Grid>
+        {isOwner && (
+          <Grid xs={12}>
+            <StudentRegisterList students={tutorAdv.students} />
+          </Grid>
+        )}
         <Grid xs={12}>
           <FreeCoursesList data={tutorAdv.freeCourses} />
         </Grid>
