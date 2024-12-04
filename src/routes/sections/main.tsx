@@ -28,6 +28,8 @@ const UpdateCoursePage = lazy(() => import('src/pages/user/my-course/update'));
 
 const MyFavouritePage = lazy(() => import('src/pages/user/my-favourite/list'));
 
+const CourseRegisterPage = lazy(() => import('src/pages/user/course-register/list'));
+
 const ProfilePage = lazy(() => import('src/pages/profile'));
 
 // ----------------------------------------------------------------------
@@ -102,6 +104,16 @@ export const mainRoutes = [
               <AuthGuard>
                 <RoleBasedGuard hasContent currentRole="Student">
                   <MyFavouritePage />
+                </RoleBasedGuard>
+              </AuthGuard>
+            ),
+          },
+          {
+            path: 'da-dang-ky',
+            element: (
+              <AuthGuard>
+                <RoleBasedGuard hasContent currentRole="Student">
+                  <CourseRegisterPage />
                 </RoleBasedGuard>
               </AuthGuard>
             ),

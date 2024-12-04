@@ -48,6 +48,7 @@ export const paths = {
       update: (id: string) => `${ROOTS.USER}bai-dang-cua-toi/${id}/cap-nhat`,
     },
     favorite: `${ROOTS.USER}yeu-thich`,
+    register: `${ROOTS.USER}da-dang-ky`,
     profile: `${ROOTS.USER}ho-so`,
   },
   // DASHBOARD

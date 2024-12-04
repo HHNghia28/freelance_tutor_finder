@@ -29,6 +29,11 @@ export const studentNavData = [
         path: paths.user.favorite,
         icon: <Iconify icon="solar:heart-bold" />,
       },
+      {
+        title: 'Đã đăng ký',
+        path: paths.user.register,
+        icon: <Iconify icon="basil:book-solid" />,
+      },
     ],
   },
 ];

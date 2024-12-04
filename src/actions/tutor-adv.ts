@@ -66,7 +66,31 @@ export function useGetMyTutorAdv(id: string | any, isTutor?: boolean) {
 
   return memoizedValue;
 }
+// ----------------------------------------------------------------------
 
+export function useGetTutorAdvRegister(id: string | any) {
+  const url = ENDPOINT.register(id);
+
+  const { data, isLoading, error, isValidating, mutate } = useSWR<ITutorAdv[]>(
+    url,
+    fetcher,
+    swrOptions
+  );
+
+  const memoizedValue = useMemo(
+    () => ({
+      tutorAdvs: data?.length ? data : [],
+      tutorAdvsLoading: isLoading,
+      tutorAdvsMutate: mutate,
+      tutorAdvsError: error,
+      tutorAdvsValidating: isValidating,
+      tutorAdvsEmpty: !isLoading && !data?.length,
+    }),
+    [data, error, isLoading, isValidating, mutate]
+  );
+
+  return memoizedValue;
+}
 // ----------------------------------------------------------------------
 
 export function useGetTutorAdv(id: string) {

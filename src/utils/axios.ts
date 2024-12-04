@@ -69,6 +69,7 @@ export const endpoints = {
     create: `/api/TutorAdvertisements`,
     tutor_course: (id: string) => `/api/TutorAdvertisements/tutor/${id}`,
     my_favorite: (id: string) => `/api/TutorAdvertisements/student/${id}`,
+    register: (id: string) => `/api/TutorAdvertisements/register/${id}`,
     add_to_favorite: `/api/TutorAdvertisements/Favourites`,
     remove_favorite: `/api/TutorAdvertisements/RemoveFavorite`,
   },
