@@ -19,6 +19,7 @@ import BriefTutorAdv from 'src/sections/_partials/brief-tutor-adv';
 import FeedbackBox from 'src/sections/_user/feedback/view/feedback-box';
 
 import FreeCoursesList from '../free-course-list';
+import StudentRegisterBtn from '../student-register-btn';
 
 type Props = {
   tutorAdv: ITutorAdv;
@@ -85,6 +86,11 @@ export default function TutorAdvDetailsView({ tutorAdv }: Props) {
                     </Typography>
                   )}
                 </Box>
+                <StudentRegisterBtn
+                  tutorAdvId={tutorAdv.id}
+                  students={tutorAdv.students || []}
+                  startDate={tutorAdv.startDate}
+                />
               </Box>
             </Stack>
           </Paper>

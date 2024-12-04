@@ -72,3 +72,11 @@ export async function payment(tutorAdvertisement: string) {
   const response = await axios.get(url);
   return response.data;
 }
+
+// ----------------------------------------------------------------------
+
+export async function studentPayment(tutorAdvertisement: string, studentId: string) {
+  const url = ENDPOINT.student_pay(tutorAdvertisement, studentId);
+  const response = await axios.get(url);
+  return response.data;
+}
