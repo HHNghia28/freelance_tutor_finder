@@ -2,6 +2,15 @@ import type { IFeedback } from './feedback';
 
 export type ITutorAdvStatus = 'WAITTING' | 'PAIDED' | 'CANCEL';
 
+export type IStudentInCourse = {
+  fullname: string;
+  gender: string;
+  phoneNumber: string;
+  location: string;
+  photo: string;
+  email: string;
+};
+
 export type ITutorAdv = {
   id: string;
   tutorId: string;
@@ -25,4 +34,5 @@ export type ITutorAdv = {
   status: ITutorAdvStatus;
   contractId: string;
   feedbacks: IFeedback[] | null;
+  students: IStudentInCourse[];
 };
