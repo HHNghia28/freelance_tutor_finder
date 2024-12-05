@@ -48,6 +48,7 @@ export const paths = {
       update: (id: string) => `${ROOTS.USER}bai-dang-cua-toi/${id}/cap-nhat`,
     },
     favorite: `${ROOTS.USER}yeu-thich`,
+    register: `${ROOTS.USER}da-dang-ky`,
     profile: `${ROOTS.USER}ho-so`,
   },
   // DASHBOARD
@@ -64,6 +65,7 @@ export const paths = {
       edit: (id: any) => `${ROOTS.DASHBOARD}/news/${id}/edit`,
     },
     payment: `${ROOTS.DASHBOARD}/payment`,
+    disbursal: `${ROOTS.DASHBOARD}/disbursal`,
     cv: `${ROOTS.DASHBOARD}/cv`,
     user: {
       root: `${ROOTS.DASHBOARD}/user`,

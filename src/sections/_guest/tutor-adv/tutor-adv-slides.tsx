@@ -15,7 +15,7 @@ export default function TutorAdvSlides() {
           '/assets/images/home/slides/slide_3.jpg',
         ].map((item, index) => (
           <Box key={index} sx={{ height: '50%' }}>
-            <Box component="img" src={item} alt={item} />
+            <Box component="img" src={item} alt={item} sx={{ width: 1 }} />
           </Box>
         ))}
       </Carousel>

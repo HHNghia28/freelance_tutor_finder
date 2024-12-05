@@ -20,6 +20,8 @@ const NewsEditPage = lazy(() => import('src/pages/dashboard/news/edit'));
 const PaymentListPage = lazy(() => import('src/pages/dashboard/payment/list'));
 // Cv
 const CvListPage = lazy(() => import('src/pages/dashboard/cv/list'));
+// Disbursal
+const DisbursalListPage = lazy(() => import('src/pages/dashboard/disbursal/list'));
 
 // ----------------------------------------------------------------------
 
@@ -61,6 +63,10 @@ export const dashboardRoutes = [
       {
         path: 'payment',
         element: <PaymentListPage />,
+      },
+      {
+        path: 'disbursal',
+        element: <DisbursalListPage />,
       },
       {
         path: 'cv',
