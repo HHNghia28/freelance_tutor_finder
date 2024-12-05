@@ -33,6 +33,7 @@ export type ITutorAdv = {
   endDate: string;
   status: ITutorAdvStatus;
   contractId: string;
+  totalPayment: number;
   feedbacks: IFeedback[] | null;
   students: IStudentInCourse[];
 };

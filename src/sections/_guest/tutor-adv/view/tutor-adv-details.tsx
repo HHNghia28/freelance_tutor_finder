@@ -129,7 +129,7 @@ export default function TutorAdvDetailsView({ tutorAdv }: Props) {
                 },
                 {
                   value: `${fDate(tutorAdv.startDate)} - ${fDate(tutorAdv.endDate)}`,
-                  label: `Kỳ học`,
+                  label: `Kỳ học:`,
                 },
               ].map((item) => (
                 <Stack
@@ -143,6 +143,28 @@ export default function TutorAdvDetailsView({ tutorAdv }: Props) {
                   {item.value}
                 </Stack>
               ))}
+              {isOwner && (
+                <>
+                  <Stack
+                    spacing={1}
+                    direction="row"
+                    alignItems="center"
+                    sx={{ typography: 'body1' }}
+                  >
+                    <strong>Học viên đã đăng ký:</strong>
+                    {tutorAdv.students.length} học viên
+                  </Stack>
+                  <Stack
+                    spacing={1}
+                    direction="row"
+                    alignItems="center"
+                    sx={{ typography: 'body1' }}
+                  >
+                    <strong>Tổng thu:</strong>
+                    {fCurrency(tutorAdv.totalPayment)}
+                  </Stack>
+                </>
+              )}
             </Stack>
           </Paper>
 

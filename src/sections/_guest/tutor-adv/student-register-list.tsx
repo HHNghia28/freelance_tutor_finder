@@ -27,7 +27,7 @@ export default function StudentRegisterList({ students }: Props) {
 
   return (
     <Paper elevation={2} sx={{ p: 2, borderRadius: 2 }}>
-      <Typography variant="h5">Học viên đăng ký</Typography>
+      <Typography variant="h5">Học viên đăng ký ({students.length})</Typography>
 
       <Divider sx={{ mb: 2 }} />
       <Box sx={{ position: 'relative' }}>
