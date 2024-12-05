@@ -56,6 +56,14 @@ export const navData = [
         // ],
       },
       {
+        title: 'Giải ngân',
+        path: paths.dashboard.disbursal,
+        icon: ICONS.invoice,
+        // children: [
+        //   { title: 'List', path: paths.dashboard.order.root },
+        // ],
+      },
+      {
         title: 'Duyệt CV',
         path: paths.dashboard.cv,
         icon: ICONS.job,

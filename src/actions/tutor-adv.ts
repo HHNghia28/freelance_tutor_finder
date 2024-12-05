@@ -93,6 +93,31 @@ export function useGetTutorAdvRegister(id: string | any) {
 }
 // ----------------------------------------------------------------------
 
+export function useGetTutorAdvDisbursals() {
+  const url = ENDPOINT.disbursal_list;
+
+  const { data, isLoading, error, isValidating, mutate } = useSWR<ITutorAdv[]>(
+    url,
+    fetcher,
+    swrOptions
+  );
+
+  const memoizedValue = useMemo(
+    () => ({
+      tutorAdvs: data?.length ? data : [],
+      tutorAdvsLoading: isLoading,
+      tutorAdvsMutate: mutate,
+      tutorAdvsError: error,
+      tutorAdvsValidating: isValidating,
+      tutorAdvsEmpty: !isLoading && !data?.length,
+    }),
+    [data, error, isLoading, isValidating, mutate]
+  );
+
+  return memoizedValue;
+}
+// ----------------------------------------------------------------------
+
 export function useGetTutorAdv(id: string) {
   const url = id ? ENDPOINT.details(id) : null;
 
@@ -172,5 +197,11 @@ export async function removeFavorite(data: { studentId: string; tutorAdvertiseme
 export async function deleteTutorAdv(id: string) {
   const url = id ? ENDPOINT.delete(id) : '';
   const response = await axios.delete(url);
+  return response.data;
+}
+// ----------------------------------------------------------------------
+export async function disbursalTutorAdv(tutorAdvertisementsId: string) {
+  const url = ENDPOINT.disbursal(tutorAdvertisementsId);
+  const response = await axios.put(url);
   return response.data;
 }

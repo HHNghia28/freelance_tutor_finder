@@ -63,6 +63,7 @@ export const endpoints = {
   },
   tutor_adv: {
     list: '/api/TutorAdvertisements',
+    disbursal_list: '/api/TutorAdvertisements/NeedToPay',
     details: (id: string) => `/api/TutorAdvertisements/${id}`,
     update: (id: string) => `/api/TutorAdvertisements/${id}`,
     delete: (id: string) => `/api/TutorAdvertisements/${id}`,
@@ -72,6 +73,7 @@ export const endpoints = {
     register: (id: string) => `/api/TutorAdvertisements/register/${id}`,
     add_to_favorite: `/api/TutorAdvertisements/Favourites`,
     remove_favorite: `/api/TutorAdvertisements/RemoveFavorite`,
+    disbursal: (id: string) => `/api/TutorAdvertisements/done/${id}`,
   },
   payment: {
     pay: (tutorAdvId: any) => `/api/Payment?tutorAdvertisement=${tutorAdvId}`,
