@@ -78,7 +78,7 @@ export const endpoints = {
   payment: {
     pay: (tutorAdvId: any) => `/api/Payment?tutorAdvertisement=${tutorAdvId}`,
     student_pay: (tutorAdvId: any, studentId: any) =>
-      `/api/Payment?tutorAdvertisement=${tutorAdvId}&studentId=${studentId}`,
+      `/api/Payment/student?tutorAdvertisement=${tutorAdvId}&studentId=${studentId}`,
     list: `/api/Payment/invoice`,
     statistic: `/api/Payment/statistic`,
   },
