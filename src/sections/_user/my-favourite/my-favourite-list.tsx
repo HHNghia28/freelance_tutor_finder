@@ -24,22 +24,8 @@ export default function MyFavouriteList() {
     <Grid container spacing={3}>
       {tutorAdvs.map((course) => (
         <Grid xs={12} sm={6} md={4} key={course.id} sx={{}}>
-          <Box sx={{ position: 'relative' }}>
+          <Box sx={{ position: 'relative', height: 1 }}>
             <TutorAdvCard tutorAdv={course} />
-            {/* {isTutor && (
-              <IconButton
-                sx={{ position: 'absolute', top: 4, right: 4 }}
-                size="small"
-                onClick={() => {
-                  handleDelete(course.id);
-                }}
-              >
-                <Iconify
-                  icon={deleting.value ? 'line-md:loading-loop' : 'clarity:remove-solid'}
-                  color="error.main"
-                />
-              </IconButton>
-            )} */}
           </Box>
         </Grid>
       ))}

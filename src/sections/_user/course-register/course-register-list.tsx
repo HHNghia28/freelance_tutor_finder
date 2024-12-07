@@ -24,7 +24,7 @@ export default function CourseRegisterList() {
     <Grid container spacing={3}>
       {tutorAdvs.map((course) => (
         <Grid xs={12} sm={6} md={4} key={course.id} sx={{}}>
-          <Box sx={{ position: 'relative' }}>
+          <Box sx={{ position: 'relative', height: 1 }}>
             <TutorAdvCard tutorAdv={course} />
           </Box>
         </Grid>
