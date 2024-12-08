@@ -70,7 +70,7 @@ export default function TutorAdvDetailsView({ tutorAdv }: Props) {
                 </Typography>
                 <Box sx={{ my: 2 }}>
                   <BriefTutorAdv
-                    studentCount={tutorAdv.numberOfStudent}
+                    studentCount={tutorAdv.students?.length || 0}
                     feedbackCount={tutorAdv.feedbacks?.length || 0}
                   />
                 </Box>
