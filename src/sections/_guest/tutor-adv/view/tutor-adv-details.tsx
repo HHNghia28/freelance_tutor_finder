@@ -4,6 +4,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { Box, Paper, Stack, Avatar, Divider, Container, Typography } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
+import { RouterLink } from 'src/routes/components';
 
 import { fDate } from 'src/utils/format-time';
 import { fCurrency } from 'src/utils/format-number';
@@ -31,7 +32,9 @@ export default function TutorAdvDetailsView({ tutorAdv }: Props) {
   const { user } = useAuthContext();
 
   const isOwner = tutorAdv.tutorId === user?.tutorId;
-
+  const isRegister =
+    user?.role === 'Student' &&
+    tutorAdv.students.some((student) => student.email === user.user.email);
   return (
     <Container sx={{ pb: 10 }}>
       <CustomBreadcrumbs
@@ -74,25 +77,27 @@ export default function TutorAdvDetailsView({ tutorAdv }: Props) {
                     feedbackCount={tutorAdv.feedbacks?.length || 0}
                   />
                 </Box>
-                <Box>
-                  {tutorAdv.discount ? (
-                    <Box sx={{ display: 'flex', alignItems: 'center', columnGap: 0.5 }}>
+                {!isRegister && (
+                  <Box>
+                    {tutorAdv.discount ? (
+                      <Box sx={{ display: 'flex', alignItems: 'center', columnGap: 0.5 }}>
+                        <Typography variant="h6" sx={{ color: 'error.main', fontWeight: 700 }}>
+                          {fCurrency(tutorAdv.fee * ((100 - tutorAdv.discount) / 100))}
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          sx={{ textDecoration: 'line-through', color: 'text.secondary' }}
+                        >
+                          {fCurrency(tutorAdv.fee)}
+                        </Typography>
+                      </Box>
+                    ) : (
                       <Typography variant="h6" sx={{ color: 'error.main', fontWeight: 700 }}>
-                        {fCurrency(tutorAdv.fee * ((100 - tutorAdv.discount) / 100))}
-                      </Typography>
-                      <Typography
-                        variant="caption"
-                        sx={{ textDecoration: 'line-through', color: 'text.secondary' }}
-                      >
                         {fCurrency(tutorAdv.fee)}
                       </Typography>
-                    </Box>
-                  ) : (
-                    <Typography variant="h6" sx={{ color: 'error.main', fontWeight: 700 }}>
-                      {fCurrency(tutorAdv.fee)}
-                    </Typography>
-                  )}
-                </Box>
+                    )}
+                  </Box>
+                )}
                 <StudentRegisterBtn
                   tutorAdvId={tutorAdv.id}
                   students={tutorAdv.students || []}
@@ -190,17 +195,26 @@ export default function TutorAdvDetailsView({ tutorAdv }: Props) {
                   height: 60,
                   border: (theme) =>
                     `2px solid ${varAlpha(theme.palette.background.neutralChannel, 0.8)}`,
+                  textDecoration: 'none',
+                  color: 'inherit',
                 }}
+                component={RouterLink}
+                href={paths.guest.tutor_profile(tutorAdv.tutorId)}
               />
-              <Typography variant="subtitle1" sx={{ ml: 1 }}>
-                Giáo viên: {tutorAdv.fullname}
-              </Typography>
+              <Box sx={{ ml: 1 }}>
+                <Typography
+                  variant="subtitle1"
+                  sx={{ color: 'inherit', textDecoration: 'none' }}
+                  component={RouterLink}
+                  href={paths.guest.tutor_profile(tutorAdv.tutorId)}
+                >
+                  Giáo viên: {tutorAdv.fullname}
+                </Typography>
+              </Box>
             </Stack>
 
             <Typography variant="body2" sx={{ whiteSpace: 'pre-line', mt: 1 }}>
-              {
-                'Tiến sĩ Sinh học - Phó hiệu trưởng THPT chuyên Hà Tĩnh.\n- Hơn 20 năm kinh nghiệm trong nghiên cứu và giảng dạy môn Sinh.\n- Tác giả của 77 đầu sách và tài liệu tham khảo môn Sinh học.\n- Giáo viên bồi dưỡng HSG và có nhiều học sinh đạt HSG Quốc gia môn Sinh, là thủ khoa, á khoa khối B.'
-              }
+              {tutorAdv?.selfIntroduction}
             </Typography>
           </Paper>
         </Grid>

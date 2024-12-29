@@ -19,6 +19,9 @@ const TutorNewsDetailsPage = lazy(() => import('src/pages/guest/news/details'));
 // Tutor
 const TutorAdvListPage = lazy(() => import('src/pages/guest/tutor-adv/list'));
 const TutorAdvDetailsPage = lazy(() => import('src/pages/guest/tutor-adv/details'));
+// Tutor profile
+const TutorAdvProfilePage = lazy(() => import('src/pages/guest/tutor-profile'));
+
 // USER
 const TutorRegisterPage = lazy(() => import('src/pages/user/tutor/tutor-register'));
 
@@ -66,6 +69,10 @@ export const mainRoutes = [
               { path: ':slug', element: <TutorAdvDetailsPage /> },
               // { path: ':id/edit', element: <UserEditPage /> },
             ],
+          },
+          {
+            path: 'gia-su/:slug',
+            element: <TutorAdvProfilePage />,
           },
           {
             path: 'dang-ky-lam-gia-su',

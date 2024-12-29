@@ -22,6 +22,7 @@ export type ITutorAdv = {
   thumbnail: string;
   freeCourses: string[];
   daysPerMonth: string;
+  selfIntroduction: string;
   course: string;
   grade: string;
   fee: number;
