@@ -1,22 +1,22 @@
 import type { ITutorAdv } from 'src/types/tutor-adv';
 
-import { Avatar, Box, Container, Divider, Paper, Stack, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
+import { Box, Paper, Stack, Avatar, Divider, Container, Typography } from '@mui/material';
 
-import { RouterLink } from 'src/routes/components';
 import { paths } from 'src/routes/paths';
+import { RouterLink } from 'src/routes/components';
 
-import { fCurrency } from 'src/utils/format-number';
 import { fDate } from 'src/utils/format-time';
+import { fCurrency } from 'src/utils/format-number';
 
 import { varAlpha } from 'src/theme/styles';
 
-import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 import { Label } from 'src/components/label';
 import { Markdown } from 'src/components/markdown';
+import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
-import BriefTutorAdv from 'src/sections/_partials/brief-tutor-adv';
 import SimpleImage from 'src/sections/_partials/simple-image';
+import BriefTutorAdv from 'src/sections/_partials/brief-tutor-adv';
 import FeedbackBox from 'src/sections/_user/feedback/view/feedback-box';
 
 import { useAuthContext } from 'src/auth/hooks';
@@ -32,7 +32,11 @@ export default function TutorAdvDetailsView({ tutorAdv }: Props) {
   const { user } = useAuthContext();
 
   const isOwner = tutorAdv.tutorId === user?.tutorId;
-  const isRegister = tutorAdv.students.some((student) => student.email === user?.user.email);
+
+  const isRegister =
+    user?.role === 'Student' &&
+    tutorAdv.students.some((student) => student.email === user?.user.email);
+
   return (
     <Container sx={{ pb: 10 }}>
       <CustomBreadcrumbs
