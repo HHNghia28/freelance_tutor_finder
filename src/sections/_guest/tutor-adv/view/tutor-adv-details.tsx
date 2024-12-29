@@ -32,6 +32,8 @@ export default function TutorAdvDetailsView({ tutorAdv }: Props) {
 
   const isOwner = tutorAdv.tutorId === user?.tutorId;
 
+  const isRegister = tutorAdv.students.some((student) => student.email === user?.user.email);
+
   return (
     <Container sx={{ pb: 10 }}>
       <CustomBreadcrumbs
@@ -65,34 +67,47 @@ export default function TutorAdvDetailsView({ tutorAdv }: Props) {
                 <Typography variant="h2" gutterBottom>
                   {tutorAdv.title}
                 </Typography>
-                <Typography variant="subtitle1" gutterBottom>
-                  Giáo viên: {tutorAdv.fullname}
+                <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: 400 }}>
+                  Giáo viên: <strong> {tutorAdv.fullname}</strong>
                 </Typography>
+                {isRegister && (
+                  <Box>
+                    <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: 400 }}>
+                      Email: <strong>{tutorAdv.email}</strong>
+                    </Typography>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 400 }}>
+                      Số điện thoại: <strong>{tutorAdv.phoneNumber}</strong>
+                    </Typography>
+                  </Box>
+                )}
                 <Box sx={{ my: 2 }}>
                   <BriefTutorAdv
                     studentCount={tutorAdv.students?.length || 0}
                     feedbackCount={tutorAdv.feedbacks?.length || 0}
                   />
                 </Box>
-                <Box>
-                  {tutorAdv.discount ? (
-                    <Box sx={{ display: 'flex', alignItems: 'center', columnGap: 0.5 }}>
+                {!isRegister && (
+                  <Box>
+                    {tutorAdv.discount ? (
+                      <Box sx={{ display: 'flex', alignItems: 'center', columnGap: 0.5 }}>
+                        <Typography variant="h6" sx={{ color: 'error.main', fontWeight: 700 }}>
+                          {fCurrency(tutorAdv.fee * ((100 - tutorAdv.discount) / 100))}
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          sx={{ textDecoration: 'line-through', color: 'text.secondary' }}
+                        >
+                          {fCurrency(tutorAdv.fee)}
+                        </Typography>
+                      </Box>
+                    ) : (
                       <Typography variant="h6" sx={{ color: 'error.main', fontWeight: 700 }}>
-                        {fCurrency(tutorAdv.fee * ((100 - tutorAdv.discount) / 100))}
-                      </Typography>
-                      <Typography
-                        variant="caption"
-                        sx={{ textDecoration: 'line-through', color: 'text.secondary' }}
-                      >
                         {fCurrency(tutorAdv.fee)}
                       </Typography>
-                    </Box>
-                  ) : (
-                    <Typography variant="h6" sx={{ color: 'error.main', fontWeight: 700 }}>
-                      {fCurrency(tutorAdv.fee)}
-                    </Typography>
-                  )}
-                </Box>
+                    )}
+                  </Box>
+                )}
+
                 <StudentRegisterBtn
                   tutorAdvId={tutorAdv.id}
                   students={tutorAdv.students || []}
