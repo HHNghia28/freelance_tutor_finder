@@ -47,7 +47,7 @@ export function useGetMyTutorAdv(id: string | any, isTutor?: boolean) {
   const url = isTutor ? ENDPOINT.tutor_course(id) : ENDPOINT.my_favorite(id);
 
   const { data, isLoading, error, isValidating, mutate } = useSWR<ITutorAdv[]>(
-    url,
+    id ? url : null,
     fetcher,
     swrOptions
   );

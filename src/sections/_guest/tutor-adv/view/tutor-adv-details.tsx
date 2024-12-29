@@ -1,21 +1,22 @@
 import type { ITutorAdv } from 'src/types/tutor-adv';
 
+import { Avatar, Box, Container, Divider, Paper, Stack, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Box, Paper, Stack, Avatar, Divider, Container, Typography } from '@mui/material';
 
+import { RouterLink } from 'src/routes/components';
 import { paths } from 'src/routes/paths';
 
-import { fDate } from 'src/utils/format-time';
 import { fCurrency } from 'src/utils/format-number';
+import { fDate } from 'src/utils/format-time';
 
 import { varAlpha } from 'src/theme/styles';
 
+import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 import { Label } from 'src/components/label';
 import { Markdown } from 'src/components/markdown';
-import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
-import SimpleImage from 'src/sections/_partials/simple-image';
 import BriefTutorAdv from 'src/sections/_partials/brief-tutor-adv';
+import SimpleImage from 'src/sections/_partials/simple-image';
 import FeedbackBox from 'src/sections/_user/feedback/view/feedback-box';
 
 import { useAuthContext } from 'src/auth/hooks';
@@ -31,9 +32,7 @@ export default function TutorAdvDetailsView({ tutorAdv }: Props) {
   const { user } = useAuthContext();
 
   const isOwner = tutorAdv.tutorId === user?.tutorId;
-
   const isRegister = tutorAdv.students.some((student) => student.email === user?.user.email);
-
   return (
     <Container sx={{ pb: 10 }}>
       <CustomBreadcrumbs
@@ -107,7 +106,6 @@ export default function TutorAdvDetailsView({ tutorAdv }: Props) {
                     )}
                   </Box>
                 )}
-
                 <StudentRegisterBtn
                   tutorAdvId={tutorAdv.id}
                   students={tutorAdv.students || []}
@@ -205,17 +203,26 @@ export default function TutorAdvDetailsView({ tutorAdv }: Props) {
                   height: 60,
                   border: (theme) =>
                     `2px solid ${varAlpha(theme.palette.background.neutralChannel, 0.8)}`,
+                  textDecoration: 'none',
+                  color: 'inherit',
                 }}
+                component={RouterLink}
+                href={paths.guest.tutor_profile(tutorAdv.tutorId)}
               />
-              <Typography variant="subtitle1" sx={{ ml: 1 }}>
-                Giáo viên: {tutorAdv.fullname}
-              </Typography>
+              <Box sx={{ ml: 1 }}>
+                <Typography
+                  variant="subtitle1"
+                  sx={{ color: 'inherit', textDecoration: 'none' }}
+                  component={RouterLink}
+                  href={paths.guest.tutor_profile(tutorAdv.tutorId)}
+                >
+                  Giáo viên: {tutorAdv.fullname}
+                </Typography>
+              </Box>
             </Stack>
 
             <Typography variant="body2" sx={{ whiteSpace: 'pre-line', mt: 1 }}>
-              {
-                'Tiến sĩ Sinh học - Phó hiệu trưởng THPT chuyên Hà Tĩnh.\n- Hơn 20 năm kinh nghiệm trong nghiên cứu và giảng dạy môn Sinh.\n- Tác giả của 77 đầu sách và tài liệu tham khảo môn Sinh học.\n- Giáo viên bồi dưỡng HSG và có nhiều học sinh đạt HSG Quốc gia môn Sinh, là thủ khoa, á khoa khối B.'
-              }
+              {tutorAdv?.selfIntroduction}
             </Typography>
           </Paper>
         </Grid>

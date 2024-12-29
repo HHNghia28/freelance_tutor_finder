@@ -37,6 +37,7 @@ export const paths = {
       list: `/tim-gia-su`,
       details: (slug: any) => `/tim-gia-su/${slug}`,
     },
+    tutor_profile: (slug: any) => `/gia-su/${slug}`,
   },
   // USER
   user: {

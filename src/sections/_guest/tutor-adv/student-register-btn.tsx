@@ -1,5 +1,6 @@
 import type { IStudentInCourse } from 'src/types/tutor-adv';
 
+import { Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
 import { paths } from 'src/routes/paths';
@@ -31,7 +32,22 @@ export default function StudentRegisterBtn({ tutorAdvId, startDate, students }: 
   const isLoading = useBoolean();
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  if (authenticated && isRegister) return <></>;
+  if (authenticated && isRegister)
+    return (
+      <Button
+        variant="contained"
+        color="info"
+        size="large"
+        sx={{
+          mt: 2,
+          ...(isLate && {
+            pointerEvents: 'none',
+          }),
+        }}
+      >
+        Bạn đã ĐK khóa học này
+      </Button>
+    );
 
   const handleRegister = async () => {
     if (unauthenticated) {
