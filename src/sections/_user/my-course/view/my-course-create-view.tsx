@@ -10,7 +10,7 @@ export default function MyCourseCreateView() {
   return (
     <DashboardContent sx={{ maxWidth: 'md' }}>
       <CustomBreadcrumbs
-        heading="Bài đăng mới mới"
+        heading="Bài đăng mới"
         separator="/"
         sx={{
           '& .MuiBreadcrumbs-ol': {
